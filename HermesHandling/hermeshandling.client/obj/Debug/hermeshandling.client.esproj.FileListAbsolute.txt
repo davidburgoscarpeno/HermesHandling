@@ -1,0 +1,2 @@
+C:\Users\David\Desktop\HermesHandling TFG\HermesHandling\hermeshandling.client\obj\Debug\hermeshandling.client.esproj.CoreCompileInputs.cache
+C:\Users\David\Desktop\HermesHandling\HermesHandling\hermeshandling.client\obj\Debug\hermeshandling.client.esproj.CoreCompileInputs.cache

@@ -1,0 +1,14 @@
+@HermesHandling.Server_HostAddress = http://localhost:5271
+
+GET {{HermesHandling.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+### Login
+POST {{HermesHandling.Server_HostAddress}}/api/Account/login
+Content-Type: application/json
+
+{
+  "email": "ana.salazar@hermesapp.com",
+  "password": "hashedpwd1"
+}
