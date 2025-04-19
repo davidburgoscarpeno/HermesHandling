@@ -1,44 +1,65 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import logo from '../assets/images/logo.png'; // Asegúrate que la ruta sea correcta
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    useEffect(() => {
-        axios.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
-    }, []);
-
     const handleLogin = async (e) => {
         e.preventDefault();
-        const user = { email, password };
+
+        const user = {
+            email: email.trim(),
+            password: password.trim()
+        };
+
         try {
-            const response = await axios.post("http://localhost:5271/api/auth/login", user);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/account/login`, user);
 
-            const { idUsuario, nombreUsuario, email, tipoUsuario } = response.data;
 
-            // Guardar los datos en localStorage
-            localStorage.setItem("usuario", JSON.stringify({ idUsuario, nombreUsuario, email, tipoUsuario }));
+            console.log("Respuesta del backend:", response.data);
 
-            if (tipoUsuario === 0) {
-                window.location.href = "/admin-app"; // Vista de AdminApp
-            } else if (tipoUsuario === 1) {
-                window.location.href = "/admin-company"; // Vista de AdminCompania
-            } else {
-                window.location.href = "/usuario"; // Vista para usuario normal
+            // Validamos que la respuesta tenga lo que necesitamos
+            const data = response.data;
+
+            if (typeof data !== 'object' || data === null) {
+                setError("Respuesta no válida del servidor");
+                return;
             }
+
+            // Si los campos esperados vienen dentro de una propiedad como "usuario", ajusta aquí
+            const { idUsuario, nombreUsuario, email, tipoUsuario } = data;
+
+            // Guardar en localStorage
+            localStorage.setItem("usuario", JSON.stringify({
+                idUsuario,
+                nombreUsuario,
+                email,
+                tipoUsuario
+            }));
+
+            // Redirección según tipo de usuario
+            if (tipoUsuario === 0) {
+                window.location.href = "/admin-app";
+            } else if (tipoUsuario === 1) {
+                window.location.href = "/admin-company";
+            } else {
+                window.location.href = "/usuario";
+            }
+
         } catch (error) {
-            setError("Credenciales incorrectas o error en el servidor");
+            console.error("Error en login:", error.response?.data || error.message);
+            setError(
+                error.response?.data?.message || "Credenciales incorrectas o error en el servidor"
+            );
         }
     };
 
     return (
         <div className="container-fluid d-flex flex-column justify-content-center align-items-center min-vh-100">
-            {/* Card con formulario */}
-            <div className="col-12 col-sm-10 col-md-8 col-lg-12"> {/* Cambié col-lg-4 a col-lg-6 para mayor ancho */}
+            <div className="col-12 col-sm-10 col-md-8 col-lg-12">
                 <div className="card shadow border-0">
                     <div className="card-body p-4">
                         <h3 className="text-center mb-4">Iniciar sesión</h3>

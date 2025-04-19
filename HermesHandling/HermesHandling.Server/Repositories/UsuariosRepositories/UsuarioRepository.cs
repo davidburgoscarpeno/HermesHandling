@@ -31,29 +31,20 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
 
             try
             {
-                // Validar que la contraseña almacenada sea válida en Base64
-                if (!IsBase64String(usuario.Contraseña))
-                {
-                    Console.WriteLine("La contraseña almacenada no es válida en formato Base64.");
-                    return null;
-                }
+                // Validar la contraseña proporcionada contra la almacenada
+                bool isPasswordValid = Cifrado.VerifyPassword(loginModel.Password, usuario.Salt, usuario.Contraseña);
 
-                // Convertir la contraseña almacenada
-                byte[] storedPassword = Convert.FromBase64String(usuario.Contraseña);
-
-                // Continuar con la lógica de comparación
-                byte[] encryptedPassword = Cifrado.EncryptPassword(loginModel.Password, usuario.Salt);
-
-                if (!Cifrado.CompareArrays(storedPassword, encryptedPassword))
+                if (!isPasswordValid)
                 {
                     return null; // Las contraseñas no coinciden
                 }
 
+                // Si la contraseña es válida, devolver el usuario
                 return usuario;
             }
-            catch (FormatException ex)
+            catch (Exception ex)
             {
-                Console.WriteLine($"Error de formato en la contraseña almacenada: {ex.Message}");
+                Console.WriteLine($"Error durante la autenticación: {ex.Message}");
                 return null;
             }
         }
