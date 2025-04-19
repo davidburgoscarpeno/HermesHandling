@@ -4,6 +4,8 @@ import AdminApp from './views/AdminApp';
 import AdminCompany from './views/AdminCompany';
 import Usuario from './views/Usuario';
 import Login from './views/LoginView';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 const App = () => {
     return (

@@ -1,0 +1,81 @@
+/* Sidebar general */
+.sidebar-container {
+    width: 15%; /* Ancho fijo del sidebar */
+    height: 100vh; /* Asegura que el sidebar ocupe toda la altura de la pantalla */
+    background-color: #343a40; /* Color de fondo */
+    color: white; /* Color del texto */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinea los elementos al inicio */
+    position: fixed; /* Sidebar fijo */
+    left: 0; /* Alineación a la izquierda */
+    top: 0; /* Alineación a la parte superior */
+    transition: all 0.3s ease; /* Transición suave */
+    z-index: 1000; /* Asegura que el sidebar esté por encima del contenido */
+}
+
+/* Header del Sidebar */
+.sidebar-header {
+    padding: 20px;
+    background-color: #212529;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para los enlaces */
+.nav-item .nav-link {
+    color: white !important;
+    padding: 20px    ;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+    .nav-item .nav-link:hover {
+        background-color: #495057;
+        color: #f8f9fa !important;
+    }
+
+
+
+/* Estilos para el botón de toggle */
+.btn-toggle {
+    background: none;
+    border: none;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-toggle:hover {
+        background-color: #495057;
+    }
+
+/* Submenú */
+.submenu {
+    padding-left: 15px;
+    padding-top: 5px;
+    max-height: 0; /* Inicia oculto */
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+    /* Animación para los submenús cuando se expanden */
+    .submenu.expanded {
+        max-height: 500px; /* Ajusta la altura máxima cuando se expanda */
+    }
+
+    /* Estilos para los enlaces dentro del submenú */
+    .submenu .nav-item .nav-link {
+        font-size: 14px;
+        color: #d3d3d3 !important;
+    }
+
+        .submenu .nav-item .nav-link:hover {
+            background-color: #6c757d;
+            color: #f8f9fa !important;
+        }
