@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using HermesHandling.Server.Models; // Si tienes un modelo para el usuario
-using System.Linq;
+﻿// AccountController.cs
+using Microsoft.AspNetCore.Mvc;
+using HermesHandling.Server.Repositories;
+using HermesHandling.Server.Models.Login;
+using HermesHandling.Server.Repositories.UsuariosRepositories;
 
 namespace HermesHandling.Server.Controllers
 {
@@ -8,33 +10,29 @@ namespace HermesHandling.Server.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly HermesDbContext _context;
+        private readonly IUsuario _usuarioRepo;
 
-        public AccountController(HermesDbContext context)
+        public AccountController(IUsuario usuarioRepo)
         {
-            _context = context;
+            _usuarioRepo = usuarioRepo;
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest model)
+        public IActionResult Login([FromBody] LoginModel model)
         {
-            // Verificar si el usuario existe en la base de datos
-            var user = _context.Usuarios
-                               .FirstOrDefault(u => u.Email == model.Email && u.Contraseña == model.Password);
+            var usuario = _usuarioRepo.Authenticate(model);
 
-            if (user == null)
-            {
+            if (usuario == null)
                 return Unauthorized("Usuario o contraseña incorrectos");
-            }
 
-            // Aquí podrías generar un token JWT si lo necesitas
-            return Ok(new { message = "Login exitoso" });
+            return Ok(new
+            {
+                message = "Login exitoso",
+                idUsuario = usuario.Id,
+                nombreUsuario = usuario.Nombre,
+                email = usuario.Email,
+                tipoUsuario = usuario.TipoUsuario
+            });
         }
-    }
-
-    public class LoginRequest
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

@@ -17,7 +17,19 @@ function Login() {
         const user = { email, password };
         try {
             const response = await axios.post("http://localhost:5271/api/auth/login", user);
-            console.log(response.data);
+
+            const { idUsuario, nombreUsuario, email, tipoUsuario } = response.data;
+
+            // Guardar los datos en localStorage
+            localStorage.setItem("usuario", JSON.stringify({ idUsuario, nombreUsuario, email, tipoUsuario }));
+
+            if (tipoUsuario === 0) {
+                window.location.href = "/admin-app"; // Vista de AdminApp
+            } else if (tipoUsuario === 1) {
+                window.location.href = "/admin-company"; // Vista de AdminCompania
+            } else {
+                window.location.href = "/usuario"; // Vista para usuario normal
+            }
         } catch (error) {
             setError("Credenciales incorrectas o error en el servidor");
         }
@@ -25,10 +37,8 @@ function Login() {
 
     return (
         <div className="container-fluid d-flex flex-column justify-content-center align-items-center min-vh-100">
-
-          
             {/* Card con formulario */}
-            <div className="col-12 col-sm-10 col-md-6 col-lg-4">
+            <div className="col-12 col-sm-10 col-md-8 col-lg-12"> {/* Cambié col-lg-4 a col-lg-6 para mayor ancho */}
                 <div className="card shadow border-0">
                     <div className="card-body p-4">
                         <h3 className="text-center mb-4">Iniciar sesión</h3>

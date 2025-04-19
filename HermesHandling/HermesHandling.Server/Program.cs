@@ -1,71 +1,33 @@
-using HermesHandling.Server.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
+using HermesHandling.Server.Models;
+using HermesHandling.Server.Repositories.UsuariosRepositories;
+using HermesHandling.Server.Repositories.MantenimientoRepositories; // Asegúrate de que el namespace del contexto sea correcto
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Agregar servicios al contenedor
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
-    });
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-// Configurar codificación web para UTF-8 y caracteres especiales
-builder.Services.AddWebEncoders(options =>
-{
-    options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All);
-});
-
-// Configurar localización
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-builder.Services.Configure<RequestLocalizationOptions>(options =>
-{
-    var supportedCultures = new[] { new System.Globalization.CultureInfo("es-ES") };
-    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("es-ES");
-    options.SupportedCultures = supportedCultures;
-    options.SupportedUICultures = supportedCultures;
-});
-
-// Configurar CORS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowReactApp", policy =>
-    {
-        policy.WithOrigins("http://localhost:3000")  // URL donde se ejecuta tu app React
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
-});
-
-// Configurar DbContext con SQL Server
+// Agregar el contexto de la base de datos
 builder.Services.AddDbContext<HermesDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
+// Add services to the container.
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+//Inyecto los repositorios
+builder.Services.AddScoped<IUsuario, UsuarioRepository>(); // Asegúrate de que UsuarioRepository implemente IUsuario
+
+
+
+
 var app = builder.Build();
-
-// Configurar middleware para UTF-8 en respuestas
-app.Use(async (context, next) =>
-{
-    context.Response.Headers.Add("Content-Type", "text/html; charset=utf-8");
-    await next();
-});
-
-// Usar CORS
-app.UseCors("AllowReactApp");
-
-// Aplicar configuración de localización
-app.UseRequestLocalization();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-// Configurar la tubería de solicitudes HTTP
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -73,8 +35,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseAuthorization();
+
 app.MapControllers();
+
 app.MapFallbackToFile("/index.html");
 
 app.Run();

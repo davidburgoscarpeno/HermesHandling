@@ -17,9 +17,7 @@ public partial class Usuario
 
     public string Salt { get; set; } = null!;
 
-    public int TipoUsuario { get; set; }
-
-    public int? CompaniaId { get; set; }
+    public tipoUsuario TipoUsuario { get; set; }
 
     public bool? Activo { get; set; }
 
@@ -29,8 +27,6 @@ public partial class Usuario
 
     public DateTime? UltimaSesion { get; set; }
 
-    public virtual Compania? Compania { get; set; }
-
     public virtual ICollection<HistorialIncidencia> HistorialIncidencia { get; set; } = new List<HistorialIncidencia>();
 
     public virtual ICollection<Incidencia> IncidenciaAlta { get; set; } = new List<Incidencia>();
@@ -38,4 +34,11 @@ public partial class Usuario
     public virtual ICollection<Incidencia> IncidenciaModificacions { get; set; } = new List<Incidencia>();
 
     public virtual ICollection<Mantenimiento> Mantenimientos { get; set; } = new List<Mantenimiento>();
+
+    public enum tipoUsuario
+    {
+        AdminApp = 0,
+        AdminCompañia = 1,
+        Usuario = 2
+    }
 }
