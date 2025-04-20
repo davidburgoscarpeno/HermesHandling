@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"; // Asegúrate de tener react-router-dom 
 import 'bootstrap/dist/css/bootstrap.min.css'; // Si aún no lo tienes, necesitarás instalar Bootstrap
 import "../assets/css/AdminApp/SideBarAdmin.css"; // Ruta del archivo CSS
 
-const Sidebar = () => {
+const SidebarAdminCompany = () => {
     const [openMenu, setOpenMenu] = useState({
         dashboard: false,
         usuarios: false,
@@ -113,4 +113,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default SidebarAdminCompany;

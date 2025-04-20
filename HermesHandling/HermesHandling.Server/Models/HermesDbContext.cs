@@ -216,10 +216,10 @@ public partial class HermesDbContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("apellido");
-            entity.Property(e => e.Contraseña)
+            entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .IsUnicode(false)
-                .HasColumnName("contraseña");
+                .HasColumnName("password");
             entity.Property(e => e.Email)
                 .HasMaxLength(150)
                 .IsUnicode(false)

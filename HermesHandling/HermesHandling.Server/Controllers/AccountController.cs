@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using HermesHandling.Server.Repositories;
 using HermesHandling.Server.Models.Login;
 using HermesHandling.Server.Repositories.UsuariosRepositories;
+using HermesHandling.Server.Models.Usuarios;
 
 namespace HermesHandling.Server.Controllers
 {
@@ -34,5 +35,9 @@ namespace HermesHandling.Server.Controllers
                 tipoUsuario = usuario.TipoUsuario
             });
         }
+
+            
+        
+
     }
 }

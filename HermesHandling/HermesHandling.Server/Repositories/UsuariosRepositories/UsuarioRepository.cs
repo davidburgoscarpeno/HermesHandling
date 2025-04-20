@@ -1,6 +1,7 @@
 ﻿using EjemploCifrado.Helper;
 using HermesHandling.Server.Models;
 using HermesHandling.Server.Models.Login;
+using HermesHandling.Server.Models.Usuarios;
 using System.Security.Cryptography;
 
 namespace HermesHandling.Server.Repositories.UsuariosRepositories
@@ -19,27 +20,24 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
         //Metodo para buscar usuario y autentificar
         public Usuario Authenticate(LoginModel loginModel)
         {
-            // Buscar usuario por Email en la base de datos
             var usuario = _hermesDbContext.Usuarios
                                           .FirstOrDefault(u => u.Email == loginModel.Email);
 
-            // Validar si el usuario y los datos requeridos existen
-            if (usuario == null || string.IsNullOrEmpty(usuario.Salt) || string.IsNullOrEmpty(usuario.Contraseña))
+            if (usuario == null || string.IsNullOrEmpty(usuario.Salt) || string.IsNullOrEmpty(usuario.Password))
             {
                 return null;
             }
 
             try
             {
-                // Validar la contraseña proporcionada contra la almacenada
-                bool isPasswordValid = Cifrado.VerifyPassword(loginModel.Password, usuario.Salt, usuario.Contraseña);
+                bool isPasswordValid = Cifrado.VerifyPassword(loginModel.Password, usuario.Salt, usuario.Password);
 
                 if (!isPasswordValid)
                 {
-                    return null; // Las contraseñas no coinciden
+                    return null; 
                 }
 
-                // Si la contraseña es válida, devolver el usuario
+               
                 return usuario;
             }
             catch (Exception ex)
@@ -49,14 +47,103 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
             }
         }
 
+        public List<Usuario> GetAdminsCompany()
+        {
+            var adminisApp =     _hermesDbContext.Usuarios.Where(u => (int)u.TipoUsuario == 1).ToList();
+            if(adminisApp == null)
+            {
+                return null;
+            } else
+            {
+                return adminisApp;
+            }
+        }
+
+        public bool DeleteUser(int id)
+        {
+            var user = _hermesDbContext.Usuarios.FirstOrDefault(u => u.Id == id);
+            try
+            {
+                _hermesDbContext.Usuarios.Remove(user);
+                _hermesDbContext.SaveChanges();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+           
+        }
+
+        public Boolean CreateUser(CreateUserModel model)
+        {
+            if (model != null)
+            {
+
+                if (UserExist(model.Email, model.Nombre))
+                {
+                    return false;
+                }
+
+                String salt = Cifrado.GenerateSalt();
+                String passwordEncrypted = Cifrado.HashPassword(model.Password, salt);
+
+                Usuario usu = new Usuario()
+                {
+                    Nombre = model.Nombre,
+                    Apellido = model.Apellido,
+                    Email = model.Email,
+                    Password = passwordEncrypted,
+                    Salt = salt,
+                    TipoUsuario = Usuario.tipoUsuario.Usuario
+                };
+
+                try
+                {
+                    _hermesDbContext.Usuarios.Add(usu);
+                    _hermesDbContext.SaveChanges();
+                    return true;
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+
+
+
+            }
+
+            return false;
+
+        }
+
         #endregion
 
         #region Metodos Privados
 
-        private bool IsBase64String(string base64)
+        public bool IsBase64String(string base64)
         {
             Span<byte> buffer = new Span<byte>(new byte[base64.Length]);
             return Convert.TryFromBase64String(base64, buffer, out _);
+        }
+
+        public bool UserExist(string email, string nombre)
+        {
+            try
+            {
+                var user = _hermesDbContext.Usuarios.FirstOrDefault(u => u.Email == email && u.Nombre == nombre);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return false;
         }
 
         #endregion
