@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\assets\\css\\adminapp\\sidebaradmin.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\assets\\css\\adminapp\\sidebaradmin.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\components\\sidebaradmin.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\components\\sidebaradmin.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +18,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SideBarAdmin.css",
+              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\assets\\css\\AdminApp\\SideBarAdmin.css",
+              "RelativeDocumentMoniker": "hermeshandling.client\\src\\assets\\css\\AdminApp\\SideBarAdmin.css",
+              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\assets\\css\\AdminApp\\SideBarAdmin.css",
+              "RelativeToolTip": "hermeshandling.client\\src\\assets\\css\\AdminApp\\SideBarAdmin.css",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-04-20T02:13:37.341Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SideBarAdmin.jsx",
+              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\components\\SideBarAdmin.jsx",
+              "RelativeDocumentMoniker": "hermeshandling.client\\src\\components\\SideBarAdmin.jsx",
+              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\components\\SideBarAdmin.jsx",
+              "RelativeToolTip": "hermeshandling.client\\src\\components\\SideBarAdmin.jsx",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACEAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-04-20T02:12:53.728Z",
+              "EditorCaption": ""
             }
           ]
         }

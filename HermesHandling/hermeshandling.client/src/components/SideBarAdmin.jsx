@@ -31,7 +31,7 @@ const Sidebar = () => {
                     {/* Dashboard */}
                     <li className="nav-item">
                         <Link to="/admin-app" className="nav-link text-white">
-                            Dashboard
+                           Dashboard
                         </Link>
                     </li>
 

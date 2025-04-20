@@ -14,6 +14,10 @@
     z-index: 1000; /* Asegura que el sidebar esté por encima del contenido */
 }
 
+.sidebar-menu{
+    text-align:left;
+}
+
 /* Header del Sidebar */
 .sidebar-header {
     padding: 20px;
