@@ -7,7 +7,7 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
     public interface IUsuario
     {
         Usuario Authenticate(LoginModel loginModel);
-        public List<Usuario> GetAdminsCompany();
+        public List<Usuario> GetUsers();
 
 
         Boolean CreateUser(CreateUserModel model);

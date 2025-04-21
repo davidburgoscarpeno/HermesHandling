@@ -3,6 +3,7 @@ using HermesHandling.Server.Models;
 using HermesHandling.Server.Models.Login;
 using HermesHandling.Server.Models.Usuarios;
 using System.Security.Cryptography;
+using static HermesHandling.Server.Models.Usuario;
 
 namespace HermesHandling.Server.Repositories.UsuariosRepositories
 {
@@ -47,15 +48,15 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
             }
         }
 
-        public List<Usuario> GetAdminsCompany()
+        public List<Usuario> GetUsers()
         {
-            var adminisApp =     _hermesDbContext.Usuarios.Where(u => (int)u.TipoUsuario == 1).ToList();
-            if(adminisApp == null)
+            var users = _hermesDbContext.Usuarios.ToList();
+            if(users == null)
             {
                 return null;
             } else
             {
-                return adminisApp;
+                return users;
             }
         }
 
@@ -90,14 +91,15 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
                 String salt = Cifrado.GenerateSalt();
                 String passwordEncrypted = Cifrado.HashPassword(model.Password, salt);
 
+
                 Usuario usu = new Usuario()
                 {
                     Nombre = model.Nombre,
                     Apellido = model.Apellido,
                     Email = model.Email,
-                    Password = passwordEncrypted,
+                    Password = passwordEncrypted, 
                     Salt = salt,
-                    TipoUsuario = Usuario.tipoUsuario.Usuario
+                    TipoUsuario = (tipoUsuario)model.TipoUsuario
                 };
 
                 try
@@ -136,7 +138,11 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
             try
             {
                 var user = _hermesDbContext.Usuarios.FirstOrDefault(u => u.Email == email && u.Nombre == nombre);
-                return true;
+
+                if (user != null)
+                {
+                    return true;
+                }
             }
             catch (Exception ex)
             {

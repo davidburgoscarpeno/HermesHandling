@@ -47,14 +47,10 @@ const SidebarAdminApp = () => {
                             <ul className="nav flex-column ms-3">
                                 <li className="nav-item">
                                     <Link to="/admin-app/usuarios/listar" className="nav-link text-white">
-                                        Listar Usuarios
+                                        Gesti&oacute;n Usuarios
                                     </Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link to="/admin-app/usuarios/crear" className="nav-link text-white">
-                                        Crear Usuario
-                                    </Link>
-                                </li>
+                                
                             </ul>
                         </div>
                     </li>

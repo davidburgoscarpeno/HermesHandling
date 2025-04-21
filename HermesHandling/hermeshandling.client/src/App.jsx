@@ -8,6 +8,8 @@ import ListarUsuarios from './views/AdminApp/Usuarios/ListarUsuarios'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 import CrearUsuario from './views/AdminApp/Usuarios/CrearUsuario';
+import Dashboard from './views/AdminApp/Dashboard';
+import EditarUsuario from './views/AdminApp/Usuarios/EditarUsuario';
 
 const App = () => {
     const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -44,9 +46,12 @@ const App = () => {
                     <Route path="/login" element={<Login />} />
 
                     {/* AdminApp */}
-                    <Route path="/admin-app" element={<AdminApp />} />
+                    <Route path="/admin-app" element={<Dashboard />} />
                     <Route path="/admin-app/usuarios/listar" element={<ListarUsuarios />} />
                     <Route path="/admin-app/usuarios/crear" element={<CrearUsuario />} />
+                    <Route path="/admin-app/usuarios/editar" element={<EditarUsuario />} />
+
+
 
                     {/* AdminCompany */}
                     <Route path="/admin-company" element={<AdminCompany />} />

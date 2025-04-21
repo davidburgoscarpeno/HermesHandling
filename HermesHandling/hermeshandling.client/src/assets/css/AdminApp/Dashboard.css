@@ -1,0 +1,135 @@
+/* Estilos generales */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-left: 24%; /* Este margen se ajustará para pantallas pequeñas */
+}
+
+/* Estilo de las tarjetas */
+.card {
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.card-body {
+    padding: 2rem; /* Más espacio dentro de las tarjetas */
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.card-text {
+    font-size: 1.1rem;
+}
+
+.card.shadow-lg {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.card-body p {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+h5 {
+    font-size: 1.5rem;
+}
+
+/* Gráfico */
+.LineChart {
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Colores para bordes de las tarjetas */
+.border-primary {
+    border-left: 5px solid #007bff;
+}
+
+.border-success {
+    border-left: 5px solid #28a745;
+}
+
+.border-info {
+    border-left: 5px solid #17a2b8;
+}
+
+.border-dark {
+    border-left: 5px solid #343a40;
+}
+
+/* Agregar espacio entre tarjetas */
+.mb-4 {
+    margin-bottom: 2rem;
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+    .container {
+        margin-left: 0; /* Eliminar margen izquierdo en pantallas pequeñas */
+    }
+
+    /* Títulos más pequeños en móviles */
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h5 {
+        font-size: 1.25rem;
+    }
+
+    .card-body {
+        padding: 1rem; /* Menos espacio en tarjetas para pantallas pequeñas */
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
+    .LineChart {
+        padding: 1rem; /* Menos espacio en gráfico para pantallas pequeñas */
+    }
+
+    /* Tarjetas en columna (de 4 a 1 columna) en móviles */
+    .row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .col-md-3 {
+        margin-bottom: 1rem;
+        width: 100%; /* Las tarjetas ocupan todo el ancho */
+    }
+}
+
+@media (max-width: 576px) {
+    /* Ajustar aún más para dispositivos muy pequeños */
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .card-body p {
+        font-size: 1rem; /* Reducir el tamaño del texto en las tarjetas */
+    }
+
+    .LineChart {
+        height: 250px; /* Hacer el gráfico más pequeño en pantallas muy pequeñas */
+    }
+}
