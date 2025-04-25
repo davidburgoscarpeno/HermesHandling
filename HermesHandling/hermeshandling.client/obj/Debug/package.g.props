@@ -9,8 +9,13 @@
     <PackageJsonScriptsBuild Condition="$(PackageJsonScriptsBuild) == ''">vite build</PackageJsonScriptsBuild>
     <PackageJsonScriptsLint Condition="$(PackageJsonScriptsLint) == ''">eslint .</PackageJsonScriptsLint>
     <PackageJsonScriptsPreview Condition="$(PackageJsonScriptsPreview) == ''">vite preview</PackageJsonScriptsPreview>
+    <PackageJsonDependenciesFortawesomeFontawesomeFree Condition="$(PackageJsonDependenciesFortawesomeFontawesomeFree) == ''">^6.7.2</PackageJsonDependenciesFortawesomeFontawesomeFree>
+    <PackageJsonDependenciesFortawesomeFontawesomeSvgCore Condition="$(PackageJsonDependenciesFortawesomeFontawesomeSvgCore) == ''">^6.7.2</PackageJsonDependenciesFortawesomeFontawesomeSvgCore>
+    <PackageJsonDependenciesFortawesomeFreeSolidSvgIcons Condition="$(PackageJsonDependenciesFortawesomeFreeSolidSvgIcons) == ''">^6.7.2</PackageJsonDependenciesFortawesomeFreeSolidSvgIcons>
+    <PackageJsonDependenciesFortawesomeReactFontawesome Condition="$(PackageJsonDependenciesFortawesomeReactFontawesome) == ''">^0.2.2</PackageJsonDependenciesFortawesomeReactFontawesome>
     <PackageJsonDependenciesAxios Condition="$(PackageJsonDependenciesAxios) == ''">^1.8.4</PackageJsonDependenciesAxios>
     <PackageJsonDependenciesBootstrap Condition="$(PackageJsonDependenciesBootstrap) == ''">^5.3.5</PackageJsonDependenciesBootstrap>
+    <PackageJsonDependenciesBootstrapIcons Condition="$(PackageJsonDependenciesBootstrapIcons) == ''">^1.11.3</PackageJsonDependenciesBootstrapIcons>
     <PackageJsonDependenciesReact Condition="$(PackageJsonDependenciesReact) == ''">^19.0.0</PackageJsonDependenciesReact>
     <PackageJsonDependenciesReactDom Condition="$(PackageJsonDependenciesReactDom) == ''">^19.0.0</PackageJsonDependenciesReactDom>
     <PackageJsonDependenciesReactRouterDom Condition="$(PackageJsonDependenciesReactRouterDom) == ''">^7.5.1</PackageJsonDependenciesReactRouterDom>

@@ -4,12 +4,13 @@ import AdminApp from './views/AdminApp/AdminApp';
 import AdminCompany from './views/AdminCompany/AdminCompany';
 import Usuario from './views/Usuario/Usuario';
 import Login from './views/LoginView';
-import ListarUsuarios from './views/AdminApp/Usuarios/ListarUsuarios'
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import './App.css';
+import ListarUsuarios from './views/AdminApp/Usuarios/ListarUsuarios';
 import CrearUsuario from './views/AdminApp/Usuarios/CrearUsuario';
 import Dashboard from './views/AdminApp/Dashboard';
 import EditarUsuario from './views/AdminApp/Usuarios/EditarUsuario';
+import Comunicaciones from './views/AdminApp/Comunicaciones/ListarComunicaciones';
+import Layout from './components/Layout'; // Importar el Layout
+import './App.css';
 
 const App = () => {
     const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -34,29 +35,25 @@ const App = () => {
     };
 
     return (
-        <Router> {/* Router aquí, no dentro de AdminApp */}
-            <div>
+        <Router>
+            <div className="app-container">
                 <button onClick={toggleDarkMode} className="dark-mode-toggle-btn">
                     <i className={`bi ${isDarkMode ? 'bi-sun' : 'bi-moon-stars'}`}></i>
                 </button>
 
                 <Routes>
-                    {/* Rutas generales */}
                     <Route path="/" element={<Navigate to="/login" />} />
                     <Route path="/login" element={<Login />} />
 
-                    {/* AdminApp */}
-                    <Route path="/admin-app" element={<Dashboard />} />
-                    <Route path="/admin-app/usuarios/listar" element={<ListarUsuarios />} />
-                    <Route path="/admin-app/usuarios/crear" element={<CrearUsuario />} />
-                    <Route path="/admin-app/usuarios/editar" element={<EditarUsuario />} />
+                    <Route path="/admin-app" element={<Layout />}>
+                        <Route path="dashboard" element={<Dashboard />} />
+                        <Route path="usuarios/listar" element={<ListarUsuarios />} />
+                        <Route path="usuarios/crear" element={<CrearUsuario />} />
+                        <Route path="usuarios/editar" element={<EditarUsuario />} />
+                        <Route path="usuarios/comunicaciones" element={<Comunicaciones />} />
+                    </Route>
 
-
-
-                    {/* AdminCompany */}
                     <Route path="/admin-company" element={<AdminCompany />} />
-
-                    {/* Usuario */}
                     <Route path="/usuario" element={<Usuario />} />
                 </Routes>
             </div>

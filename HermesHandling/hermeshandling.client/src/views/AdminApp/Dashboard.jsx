@@ -36,7 +36,6 @@ function Dashboard() {
 
     return (
         <div className="container mt-5">
-            <SidebarAdminApp />
             <h2 className="text-center mb-4">Dashboard</h2>
 
             <div className="row">
@@ -80,7 +79,7 @@ function Dashboard() {
                     <ResponsiveContainer width="100%" height={350}>
                         <LineChart data={graficoData}>
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="dia" />
+                            <XAxis className="dia" dataKey="dia" />
                             <YAxis />
                             <Tooltip />
                             <Line type="monotone" dataKey="cantidad" stroke="#007bff" strokeWidth={3} />

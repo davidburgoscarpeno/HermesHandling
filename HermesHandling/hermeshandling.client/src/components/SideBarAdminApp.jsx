@@ -30,7 +30,7 @@ const SidebarAdminApp = () => {
                 <ul className="nav flex-column">
                     {/* Dashboard */}
                     <li className="nav-item">
-                        <Link to="/admin-app" className="nav-link text-white">
+                        <Link to="/admin-app/dashboard" className="nav-link text-white">
                            Dashboard
                         </Link>
                     </li>
@@ -41,7 +41,7 @@ const SidebarAdminApp = () => {
                             className="nav-link text-white w-100 text-start btn-toggle"
                             onClick={() => toggleMenu("usuarios")}
                         >
-                            Usuarios <i className={`bi bi-chevron-${openMenu.usuarios ? "down" : "right"}`}></i>
+                            Gesti&oacute;n <i className={`bi bi-chevron-${openMenu.usuarios ? "down" : "right"}`}></i>
                         </button>
                         <div className={`submenu ${openMenu.usuarios ? "expanded" : ""}`}>
                             <ul className="nav flex-column ms-3">
@@ -50,7 +50,16 @@ const SidebarAdminApp = () => {
                                         Gesti&oacute;n Usuarios
                                     </Link>
                                 </li>
-                                
+                                <li className="nav-item">
+                                    <Link to="/admin-app/usuarios/listar" className="nav-link text-white">
+                                        Documentacion Interna
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/admin-app/usuarios/comunicaciones" className="nav-link text-white">
+                                        Comunicaciones
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                     </li>

@@ -9,6 +9,8 @@
         public string Password { get; set; }
         public int TipoUsuario { get; set; }
 
+        public int? Activo { get; set; }
+
     }
 
    

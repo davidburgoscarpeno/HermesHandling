@@ -1,6 +1,6 @@
 /* Sidebar general */
 .sidebar-container {
-    width: 240px;
+    width: 20%; /* Ahora ocupa el 20% del ancho */
     height: 100vh;
     background: linear-gradient(180deg, #2c3e50, #34495e);
     color: white;
@@ -106,10 +106,19 @@
             color: white !important;
         }
 
+/* Para contenido principal */
+.main-content {
+    margin-left: 20%; /* El contenido comienza después del 20% del sidebar */
+    width: 80%; /* El contenido ocupa el 80% del ancho restante */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto; /* Permite hacer scroll si el contenido es muy largo */
+}
+
 /* Responsive para pantallas pequeñas */
 @media (max-width: 768px) {
     .sidebar-container {
-        width: 100%;
+        width: 100%; /* En pantallas pequeñas, el sidebar ocupa el 100% */
         height: auto;
         position: relative;
         box-shadow: none;
@@ -121,5 +130,10 @@
 
     .nav-item .nav-link {
         padding: 10px;
+    }
+
+    .main-content {
+        margin-left: 0; /* El contenido se ajusta al 100% */
+        width: 100%;
     }
 }

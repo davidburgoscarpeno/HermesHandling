@@ -1,53 +1,58 @@
-﻿
-
-#root {
-    min-height: 100vh; 
-    min-width:100%;
-    position: relative;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-}
-
-
-body {
+﻿/* Reset y base */
+html, body {
+    width: 100%;
     margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+}
+
+/* Contenedor principal de App */
+#root, .app-container {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+    flex-direction: column;
 }
 
-
+/* Botón de modo oscuro */
 .dark-mode-toggle-btn {
-    position: absolute; 
-    top: 10px; 
-    right: 10px; 
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 1.3rem;
 }
 
-body.dark-mode .dark-mode-toggle-btn {
-    background-color: #333;
-    color: #fff;
-}
+    .dark-mode-toggle-btn:hover {
+        background-color: #f0f0f0;
+    }
 
+/* Modo oscuro */
 body.dark-mode {
-    --bg-color: #121212; 
-    --text-color: #ffffff; 
+    background-color: #1e272e;
+    color: #ecf0f1;
 }
 
-.dark-mode-toggle-btn:hover {
-    background-color: var(--text-color);
-    color: var(--bg-color);
+    body.dark-mode .dark-mode-toggle-btn {
+        background-color: #34495e;
+        color: #ecf0f1;
+    }
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .dark-mode-toggle-btn {
+        top: 15px;
+        right: 15px;
+        padding: 8px;
+    }
 }

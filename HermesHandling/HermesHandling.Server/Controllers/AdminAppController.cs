@@ -56,6 +56,20 @@ namespace HermesHandling.Server.Controllers
             return BadRequest("No se pudo borrar el usuario");
         }
 
+        [HttpPost("edit-user")]
+        public IActionResult EditUser([FromForm] CreateUserModel model)
+        {
+            if (_usuarioRepo.EditUser(model))
+            {
+                return Ok(new
+                {
+                    message = "Usuario editado con éxito"
+                });
+            }
+
+            return BadRequest("No se pudo editar el usuario");
+        }
+
         // ---------------------- DASHBOARD ----------------------
 
         // Datos resumen del dashboard

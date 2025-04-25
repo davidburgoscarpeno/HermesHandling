@@ -40,7 +40,7 @@ const LoginView = () => {
 
             // Redirección según tipo de usuario
             if (tipoUsuario === 0) {
-                window.location.href = "/admin-app";
+                window.location.href = "/admin-app/dashboard";
             } else if (tipoUsuario === 1) {
                 window.location.href = "/admin-company";
             } else {

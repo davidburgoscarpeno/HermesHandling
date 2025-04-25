@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import SidebarAdminApp from "../../../components/SideBarAdminApp";
-
+import "../../../assets/css/AdminApp/CrearUsuario.css"
 function CrearUsuario() {
     const [formData, setFormData] = useState({
         nombre: "",
@@ -43,90 +42,79 @@ function CrearUsuario() {
     };
 
     return (
-        <div className="d-flex">
-            <SidebarAdminApp />
-            <div className="container mt-4">
-                <div className="row justify-content-center">
-                    <div className="col-md-8">
-                        <div className="card p-4">
-                            <h3 className="mb-4 text-center">Crear Nuevo Usuario</h3>
-                            <form onSubmit={handleSubmit}>
-                                <div className="mb-3">
-                                    <label className="form-label">Nombre</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        name="nombre"
-                                        value={formData.nombre}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-
-                                <div className="mb-3">
-                                    <label className="form-label">Apellido</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        name="apellido"
-                                        value={formData.apellido}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-
-                                <div className="mb-3">
-                                    <label className="form-label">Email</label>
-                                    <input
-                                        type="email"
-                                        className="form-control"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-
-                                <div className="mb-3">
-                                    <label className="form-label">Contrase&ntilde;a</label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-
-
-
-                                <div className="mb-4">
-                                    <label className="form-label">Tipo de Usuario</label>
-                                    <select
-                                        className="form-select"
-                                        name="tipoUsuario"
-                                        value={formData.tipoUsuario}
-                                        onChange={handleChange}
-                                    >
-                                        <option value={0}>Administrador App</option>
-                                        <option value={1}>Administrador Compa&ntilde;ia</option>
-                                        <option value={2}>Usuario</option>
-                                    </select>
-                                </div>
-
-                                <div className="d-grid">
-                                    <button type="submit" className="btn btn-primary">
-                                        Crear Usuario
-                                    </button>
-                                </div>
-                            </form>
-
-                            {success && <div className="alert alert-success mt-3">{success}</div>}
-                            {error && <div className="alert alert-danger mt-3">{error}</div>}
-                        </div>
+        <div className="crear-usuario-form-container">
+            <div className="crear-usuario-form-card">
+                <h3>Crear Nuevo Usuario</h3>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label>Nombre</label>
+                        <input
+                            type="text"
+                            className="crear-usuario-form-input"
+                            name="nombre"
+                            value={formData.nombre}
+                            onChange={handleChange}
+                            required
+                        />
                     </div>
-                </div>
+
+                    <div>
+                        <label>Apellido</label>
+                        <input
+                            type="text"
+                            className="crear-usuario-form-input"
+                            name="apellido"
+                            value={formData.apellido}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            className="crear-usuario-form-input"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label>Contraseña</label>
+                        <input
+                            type="password"
+                            className="crear-usuario-form-input"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label>Tipo de Usuario</label>
+                        <select
+                            className="crear-usuario-form-select"
+                            name="tipoUsuario"
+                            value={formData.tipoUsuario}
+                            onChange={handleChange}
+                        >
+                            <option value={0}>Administrador App</option>
+                            <option value={1}>Administrador Compañía</option>
+                            <option value={2}>Usuario</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" className="crear-usuario-btn-submit">
+                        Crear Usuario
+                    </button>
+                </form>
+
+                {success && <div className="crear-usuario-alert-message crear-usuario-alert-success">{success}</div>}
+                {error && <div className="crear-usuario-alert-message crear-usuario-alert-error">{error}</div>}
             </div>
         </div>
     );

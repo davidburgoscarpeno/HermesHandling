@@ -5,7 +5,6 @@ import SideBarAdminApp from "../../components/SideBarAdminApp";
 function AdminApp() {
     return (
         <div className="d-flex">
-            <SideBarAdminApp />
             <div>
                 
             </div>

@@ -1,59 +1,145 @@
-/* login.css */
-
-/* Centra todo el contenido en la página */
 .login-container {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
-    background-color: #f4f4f9; /* Fondo suave para la página */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+    background-color: #f4f6f9;
 }
 
-/* El formulario de login */
-.card {
+.login-card {
     width: 100%;
-    max-width: 400px; /* Limita el tamaño máximo del formulario */
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave para el formulario */
-    border-radius: 8px; /* Bordes redondeados */
-    background-color: #fff; /* Fondo blanco para el formulario */
+    max-width: 420px;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-/* Estilos para el cuerpo del formulario */
-.card-body {
-    padding: 20px;
-    width:25vw;
+    .login-card h3 {
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+        color: #333;
+    }
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-/* Estilo de las etiquetas del formulario */
-.form-label {
-    font-weight: bold;
-    width:100vw;
+.form-group {
+    text-align: left;
 }
 
-/* Estilo para los inputs */
-.form-control {
-    background-color: #fff; 
-    padding: 10px;
-    width: 80%;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-bottom: 15px;
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #444;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+    }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+.login-button {
+    padding: 10px 0;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-/* Estilo del botón */
-.btn {
-    width:84%;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
-}
+    .login-button:hover {
+        background-color: #0056b3;
+    }
 
-/* Estilo de los mensajes de error */
-.alert-danger {
+.login-error {
     background-color: #f8d7da;
     color: #721c24;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
 }
 
+.login-footer {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+    .login-footer a {
+        color: #6c757d;
+        text-decoration: none;
+    }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+/* ==========================
+   Responsive Styles
+========================== */
+@media (max-width: 768px) {
+    .login-card {
+        padding: 1.5rem;
+        border-radius: 10px;
+    }
+
+        .login-card h3 {
+            font-size: 1.6rem;
+        }
+
+    .form-group input {
+        font-size: 0.95rem;
+        padding: 8px 10px;
+    }
+
+    .login-button {
+        font-size: 0.95rem;
+        padding: 8px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 1rem;
+    }
+
+        .login-card h3 {
+            font-size: 1.4rem;
+        }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .form-group input {
+        font-size: 0.9rem;
+    }
+
+    .login-button {
+        font-size: 0.9rem;
+    }
+
+    .login-footer {
+        font-size: 0.8rem;
+    }
+}

@@ -29,8 +29,7 @@ function ListarUsuarios() {
     }, []);
 
     const handleEditar = (usuario) => {
-        // Redirigir a la página de editar, pasando todo el objeto usuario en el estado
-        console.log("Usuario a editar:", usuario); // Verifica que el usuario completo se pasa correctamente
+        console.log("Usuario a editar:", usuario);
         navigate("/admin-app/usuarios/editar", { state: { usuario } });
     };
 
@@ -64,24 +63,20 @@ function ListarUsuarios() {
     });
 
     return (
-        <div className="d-flex">
-            <SideBarAdminApp />
-            <div className="container ml-1 mt-4">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h2 className="mb-0">Lista de Usuarios</h2>
-                    <button
-                        className="btn btn-success btn-sm"
-                        onClick={handleCrear}
-                    >
-                        Nuevo Usuario
+        <div className="layout-container">
+            <div className="content-container">
+                <div className="header">
+                    <h2>Lista de Usuarios</h2>
+                    <button className="btn-create" onClick={handleCrear}>
+                        <i className="fa-solid fa-user-plus"></i> Nuevo Usuario
                     </button>
                 </div>
                 {loading ? (
                     <p>Cargando usuarios...</p>
                 ) : (
                     <div className="table-responsive">
-                        <table className="table table-bordered modern-table">
-                            <thead className="table-color">
+                        <table className="user-table">
+                            <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Nombre</th>
@@ -96,7 +91,7 @@ function ListarUsuarios() {
                                     <td>
                                         <input
                                             type="text"
-                                            className="form-control form-control-sm"
+                                            className="filter-input"
                                             placeholder="Nombre"
                                             value={filtroNombre}
                                             onChange={(e) => setFiltroNombre(e.target.value)}
@@ -105,7 +100,7 @@ function ListarUsuarios() {
                                     <td>
                                         <input
                                             type="text"
-                                            className="form-control form-control-sm"
+                                            className="filter-input"
                                             placeholder="Apellido"
                                             value={filtroApellido}
                                             onChange={(e) => setFiltroApellido(e.target.value)}
@@ -114,7 +109,7 @@ function ListarUsuarios() {
                                     <td></td>
                                     <td>
                                         <select
-                                            className="form-select form-select-sm"
+                                            className="filter-select"
                                             value={filtroActivo}
                                             onChange={(e) => setFiltroActivo(e.target.value)}
                                         >
@@ -125,7 +120,7 @@ function ListarUsuarios() {
                                     </td>
                                     <td>
                                         <select
-                                            className="form-select form-select-sm"
+                                            className="filter-select"
                                             value={filtroTipo}
                                             onChange={(e) => setFiltroTipo(e.target.value)}
                                         >
@@ -155,18 +150,20 @@ function ListarUsuarios() {
                                                         : "Usuario"}
                                             </td>
                                             <td>
-                                                <button
-                                                    className="btn btn-warning btn-sm me-2"
-                                                    onClick={() => handleEditar(usuario)} // Pasa el objeto completo usuario
-                                                >
-                                                    Editar
-                                                </button>
-                                                <button
-                                                    className="btn btn-danger btn-sm"
-                                                    onClick={() => handleEliminar(usuario.id)}
-                                                >
-                                                    Eliminar
-                                                </button>
+                                                <div className="action-buttons">
+                                                    <button
+                                                        className="btn-edit"
+                                                        onClick={() => handleEditar(usuario)}
+                                                    >
+                                                        <i className="fa-solid fa-pen-to-square"></i> Editar
+                                                    </button>
+                                                    <button
+                                                        className="btn-delete"
+                                                        onClick={() => handleEliminar(usuario.id)}
+                                                    >
+                                                        <i className="fa-solid fa-trash-can"></i> Eliminar
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
                                     ))
