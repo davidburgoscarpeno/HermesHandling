@@ -32,7 +32,7 @@ namespace HermesHandling.Server.Controllers
                 idUsuario = usuario.Id,
                 nombreUsuario = usuario.Nombre,
                 email = usuario.Email,
-                tipoUsuario = usuario.TipoUsuario
+                tipoUsuario = usuario.Tipo_usuario
             });
         }
 

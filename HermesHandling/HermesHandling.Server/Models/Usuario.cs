@@ -1,44 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace HermesHandling.Server.Models;
 
+[Index("Email", Name = "UQ_usuarios_email", IsUnique = true)]
 public partial class Usuario
 {
+    [Key]
     public int Id { get; set; }
 
+    [StringLength(100)]
     public string? Nombre { get; set; }
 
+    [StringLength(100)]
     public string? Apellido { get; set; }
 
-    public string Email { get; set; } = null!;
+    [StringLength(150)]
+    public string? Email { get; set; }
 
-    public string Password { get; set; } = null!;
+    [StringLength(512)]
+    public string? Password { get; set; }
 
-    public string Salt { get; set; } = null!;
+    [StringLength(100)]
+    public string? Salt { get; set; }
 
-    public tipoUsuario TipoUsuario { get; set; }
+    public tipoUsuario Tipo_usuario { get; set; }
 
     public bool? Activo { get; set; }
 
-    public DateTime? FechaCreacion { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? Fecha_creacion { get; set; }
 
-    public DateTime? FechaModificacion { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? Fecha_modificacion { get; set; }
 
-    public DateTime? UltimaSesion { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? Ultima_sesion { get; set; }
 
-    public virtual ICollection<HistorialIncidencia> HistorialIncidencia { get; set; } = new List<HistorialIncidencia>();
+    public virtual ICollection<Comunicaciones> Comunicacioneid_usuario_altaNavigations { get; set; } = new List<Comunicaciones>();
 
-    public virtual ICollection<Incidencia> IncidenciaAlta { get; set; } = new List<Incidencia>();
+    public virtual ICollection<Comunicaciones> Comunicacioneid_usuario_modificacionNavigations { get; set; } = new List<Comunicaciones>();
 
-    public virtual ICollection<Incidencia> IncidenciaModificacions { get; set; } = new List<Incidencia>();
+    public virtual ICollection<Documentacion_Interna> Documentacion_internaid_usuario_altaNavigations { get; set; } = new List<Documentacion_Interna>();
+
+    public virtual ICollection<Documentacion_Interna> Documentacion_internaid_usuario_modificacionNavigations { get; set; } = new List<Documentacion_Interna>();
+
+    public virtual ICollection<Historial_Incidencia> Historial_incidencia { get; set; } = new List<Historial_Incidencia>();
+
+    public virtual ICollection<Incidencia> Incidenciaalta { get; set; } = new List<Incidencia>();
+
+    public virtual ICollection<Incidencia> Incidenciamodificacions { get; set; } = new List<Incidencia>();
 
     public virtual ICollection<Mantenimiento> Mantenimientos { get; set; } = new List<Mantenimiento>();
 
-    public enum tipoUsuario
-    {
-        AdminApp = 0,
-        AdminCompañia = 1,
-        Usuario = 2
-    }
+    public virtual ICollection<Reporte> Reportes { get; set; } = new List<Reporte>();
+
+    public virtual ICollection<Reportes_Documento> Reportes_documentos { get; set; } = new List<Reportes_Documento>();
+}
+
+public enum tipoUsuario
+{
+    AdminApp = 0,
+    AdminCompany = 1,
+    Usuario = 2
 }

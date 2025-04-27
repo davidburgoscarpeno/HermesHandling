@@ -1,5 +1,6 @@
 ﻿using EjemploCifrado.Helper;
 using HermesHandling.Server.Models;
+using HermesHandling.Server.Models.Context;
 using HermesHandling.Server.Models.Login;
 using HermesHandling.Server.Models.Usuarios;
 using System.Security.Cryptography;
@@ -40,7 +41,7 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
 
                 using(HermesDbContext context = new HermesDbContext())
                 {
-                    usuario.UltimaSesion = DateTime.Now;
+                    usuario.Ultima_sesion = DateTime.Now;
                     context.Usuarios.Update(usuario);
                     context.SaveChanges();
                 }
@@ -105,8 +106,8 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
                     Email = model.Email,
                     Password = passwordEncrypted,
                     Salt = salt,
-                    TipoUsuario = (tipoUsuario)model.TipoUsuario,
-                    FechaCreacion = DateTime.Now
+                    Tipo_usuario = (tipoUsuario)model.TipoUsuario,
+                    Fecha_creacion = DateTime.Now
                 };
 
                 try
@@ -149,10 +150,10 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
                     user.Email = model.Email;
                     user.Nombre = model.Nombre;
                     user.Apellido = model.Apellido;
-                    user.TipoUsuario =(tipoUsuario)model.TipoUsuario;
+                    user.Tipo_usuario =(tipoUsuario)model.TipoUsuario;
                     // model.Activo es bool
                     user.Activo = Convert.ToBoolean(model.Activo);
-                    user.FechaModificacion = DateTime.Now;
+                    user.Fecha_modificacion = DateTime.Now;
 
                
 
