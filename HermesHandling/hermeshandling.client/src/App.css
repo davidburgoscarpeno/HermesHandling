@@ -1,11 +1,58 @@
-﻿#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
+﻿/* Reset y base */
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
 }
 
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+/* Contenedor principal de App */
+#root, .app-container {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Botón de modo oscuro */
+.dark-mode-toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 1.3rem;
+}
+
+    .dark-mode-toggle-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+/* Modo oscuro */
+body.dark-mode {
+    background-color: #1e272e;
+    color: #ecf0f1;
+}
+
+    body.dark-mode .dark-mode-toggle-btn {
+        background-color: #34495e;
+        color: #ecf0f1;
+    }
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .dark-mode-toggle-btn {
+        top: 15px;
+        right: 15px;
+        padding: 8px;
+    }
 }

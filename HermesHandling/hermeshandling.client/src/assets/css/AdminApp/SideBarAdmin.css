@@ -1,0 +1,139 @@
+/* Sidebar general */
+.sidebar-container {
+    width: 20%; /* Ahora ocupa el 20% del ancho */
+    height: 100vh;
+    background: linear-gradient(180deg, #2c3e50, #34495e);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    transition: width 0.3s ease;
+}
+
+/* Header del Sidebar */
+.sidebar-header {
+    padding: 24px 16px;
+    background-color: #1c2833;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Menú principal */
+.sidebar-menu {
+    padding: 16px;
+}
+
+.nav-item {
+    margin-bottom: 8px;
+}
+
+    /* Enlaces */
+    .nav-item .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #ecf0f1 !important;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: background 0.2s, color 0.2s;
+    }
+
+        .nav-item .nav-link:hover {
+            background-color: #1abc9c;
+            color: white !important;
+        }
+
+/* Iconos opcionales si usas react-icons o similares */
+.nav-link i {
+    font-size: 1.1rem;
+}
+
+/* Botón toggle para submenús */
+.btn-toggle {
+    background: none;
+    border: none;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #ecf0f1;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+    .btn-toggle:hover {
+        background-color: #1abc9c;
+        color: white;
+    }
+
+/* Submenú */
+.submenu {
+    padding-left: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    background-color: #2c3e50;
+    border-left: 2px solid #1abc9c;
+    margin-top: 4px;
+    border-radius: 4px;
+}
+
+    .submenu.expanded {
+        max-height: 500px;
+    }
+
+    .submenu .nav-link {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        color: #bdc3c7 !important;
+        border-radius: 6px;
+    }
+
+        .submenu .nav-link:hover {
+            background-color: #16a085;
+            color: white !important;
+        }
+
+/* Para contenido principal */
+.main-content {
+    margin-left: 20%; /* El contenido comienza después del 20% del sidebar */
+    width: 80%; /* El contenido ocupa el 80% del ancho restante */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto; /* Permite hacer scroll si el contenido es muy largo */
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .sidebar-container {
+        width: 100%; /* En pantallas pequeñas, el sidebar ocupa el 100% */
+        height: auto;
+        position: relative;
+        box-shadow: none;
+    }
+
+    .sidebar-header {
+        text-align: left;
+    }
+
+    .nav-item .nav-link {
+        padding: 10px;
+    }
+
+    .main-content {
+        margin-left: 0; /* El contenido se ajusta al 100% */
+        width: 100%;
+    }
+}
