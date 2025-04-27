@@ -1,4 +1,4 @@
-﻿using HermesHandling.Server.Models;
+﻿using HermesHandling.Server.Models.Context;
 
 namespace HermesHandling.Server.Repositories.ConfigurationKeysRepositories
 {

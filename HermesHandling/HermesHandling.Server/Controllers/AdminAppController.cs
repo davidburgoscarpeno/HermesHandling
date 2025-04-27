@@ -1,4 +1,5 @@
 ﻿using HermesHandling.Server.Models;
+using HermesHandling.Server.Models.Context;
 using HermesHandling.Server.Models.Usuarios;
 using HermesHandling.Server.Repositories.UsuariosRepositories;
 using Microsoft.AspNetCore.Mvc;
@@ -86,11 +87,11 @@ namespace HermesHandling.Server.Controllers
             using (HermesDbContext context = new HermesDbContext())
             {
                 resumen.totalUsuarios = context.Usuarios.Count();
-                resumen.nuevosSemana = context.Usuarios.Where(u => u.FechaCreacion >= haceUnaSemana).Count();
-                resumen.admins = context.Usuarios.Where(u => u.TipoUsuario == 0).Count();
+                resumen.nuevosSemana = context.Usuarios.Where(u => u.Fecha_creacion >= haceUnaSemana).Count();
+                resumen.admins = context.Usuarios.Where(u => u.Tipo_usuario == 0).Count();
 
                 resumen.usuariosActivos = context.Usuarios
-                    .Where(u => u.UltimaSesion.HasValue && u.UltimaSesion.Value.Date == hoy)
+                    .Where(u => u.Ultima_sesion.HasValue && u.Ultima_sesion.Value.Date == hoy)
                     .Count();
             }
 
@@ -118,8 +119,8 @@ namespace HermesHandling.Server.Controllers
                 return Ok(datos);
 
             }
-
-
         }
+
+
     }
 }

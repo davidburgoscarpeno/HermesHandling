@@ -6,32 +6,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HermesHandling.Server.Models;
 
-[Index("Clave", Name = "UQ__Configur__71DCA3DB6D1DCDDA", IsUnique = true)]
-public partial class ConfigurationKey
+public partial class Categorias_Equipo
 {
     [Key]
     public int Id { get; set; }
 
     [StringLength(100)]
     [Unicode(false)]
-    public string Clave { get; set; } = null!;
-
-    [Column(TypeName = "text")]
-    public string Valor { get; set; } = null!;
+    public string Nombre { get; set; } = null!;
 
     [StringLength(255)]
     [Unicode(false)]
     public string? Descripcion { get; set; }
-
-    [StringLength(50)]
-    [Unicode(false)]
-    public string? Tipo { get; set; }
-
-    public bool? Activa { get; set; }
 
     [Column(TypeName = "datetime")]
     public DateTime? Fecha_creacion { get; set; }
 
     [Column(TypeName = "datetime")]
     public DateTime? Fecha_modificacion { get; set; }
+
+    [InverseProperty("categoria_equipo")]
+    public virtual ICollection<Tipos_Equipo> Tipos_equipos { get; set; } = new List<Tipos_Equipo>();
 }
