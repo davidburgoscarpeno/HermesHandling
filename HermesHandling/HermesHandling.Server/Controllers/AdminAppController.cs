@@ -121,6 +121,18 @@ namespace HermesHandling.Server.Controllers
             }
         }
 
+        //Reportes
+        // Ruta para listar los administradores de la empresa
+        [HttpGet("listar-reportes")]
+        public IActionResult ListarReportesApp()
+        {
+            using(HermesDbContext context = new HermesDbContext())
+            {
+                var reportes = context.Reportes.ToList();
+                return Ok(reportes);
+            }
+        }
+
 
     }
 }

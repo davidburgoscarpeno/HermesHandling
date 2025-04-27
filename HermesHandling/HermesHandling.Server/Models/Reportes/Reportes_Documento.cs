@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HermesHandling.Server.Models.Usuarios;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HermesHandling.Server.Models
+namespace HermesHandling.Server.Models.Reportes
 {
     public partial class Reportes_Documento
     {

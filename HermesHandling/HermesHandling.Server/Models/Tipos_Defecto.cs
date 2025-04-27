@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HermesHandling.Server.Models.Reportes;
 using Microsoft.EntityFrameworkCore;
 
 namespace HermesHandling.Server.Models;

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HermesHandling.Server.Models.Incidencias;
+using HermesHandling.Server.Models.Usuarios;
 using Microsoft.EntityFrameworkCore;
 
-namespace HermesHandling.Server.Models;
+namespace HermesHandling.Server.Models.Incidencias;
 
 public partial class Historial_Incidencia
 {

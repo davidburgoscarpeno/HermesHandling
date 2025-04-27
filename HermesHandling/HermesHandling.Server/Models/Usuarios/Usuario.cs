@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HermesHandling.Server.Models.Incidencias;
+using HermesHandling.Server.Models.Reportes;
 using Microsoft.EntityFrameworkCore;
 
-namespace HermesHandling.Server.Models;
+namespace HermesHandling.Server.Models.Usuarios;
 
 [Index("Email", Name = "UQ_usuarios_email", IsUnique = true)]
 public partial class Usuario

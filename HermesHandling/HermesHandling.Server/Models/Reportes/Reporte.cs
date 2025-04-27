@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HermesHandling.Server.Models.Usuarios;
 using Microsoft.EntityFrameworkCore;
 
-namespace HermesHandling.Server.Models;
+namespace HermesHandling.Server.Models.Reportes;
 
 public partial class Reporte
 {

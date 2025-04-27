@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using HermesHandling.Server.Models.Equipos;
+using HermesHandling.Server.Models.Incidencias;
+using HermesHandling.Server.Models.Reportes;
+using HermesHandling.Server.Models.Usuarios;
 using Microsoft.EntityFrameworkCore;
 
 namespace HermesHandling.Server.Models.Context;
@@ -88,7 +92,7 @@ public partial class HermesDbContext : DbContext
 
         modelBuilder.Entity<Equipo>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK__equipos__3213E83F93FB54E8");
+            entity.HasKey(e => e.Id).HasName("PK__equipos__3213E83F93FB54E8");
             entity.Property(e => e.Fecha_creacion).HasDefaultValueSql("(getdate())");
             entity.HasOne(d => d.Tipo_equipo).WithMany(p => p.Equipos).HasConstraintName("FK__equipos__tipo_eq__1332DBDC");
         });

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HermesHandling.Server.Models.Equipos;
+using HermesHandling.Server.Models.Reportes;
 using Microsoft.EntityFrameworkCore;
 
 namespace HermesHandling.Server.Models;
@@ -9,7 +11,7 @@ namespace HermesHandling.Server.Models;
 public partial class Equipo
 {
     [Key]
-    public int id { get; set; }
+    public int Id { get; set; }
 
     [StringLength(100)]
     [Unicode(false)]

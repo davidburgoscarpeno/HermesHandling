@@ -1,5 +1,4 @@
 ﻿using HermesHandling.Server.Models.Login;
-using HermesHandling.Server.Models;
 using HermesHandling.Server.Models.Usuarios;
 
 namespace HermesHandling.Server.Repositories.UsuariosRepositories
