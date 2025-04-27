@@ -51,7 +51,7 @@ function Dashboard() {
                     <div className="card shadow-lg border-success">
                         <div className="card-body">
                             <h5 className="card-title text-success">Activos Hoy</h5>
-                            <p className="card-text">{resumen.usuariosActivosHoy}</p>
+                            <p className="card-text">{resumen.usuariosActivos}</p>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@ function Dashboard() {
                     <div className="card shadow-lg border-info">
                         <div className="card-body">
                             <h5 className="card-title text-info">Nuevos esta semana</h5>
-                            <p className="card-text">{resumen.nuevosRegistrosSemana}</p>
+                            <p className="card-text">{resumen.nuevosSemana}</p>
                         </div>
                     </div>
                 </div>

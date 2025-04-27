@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HermesHandling.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55d6b4bc5be123d2aca41ee0b7a7c3a00e41f87b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+737a4b42b4c513c82b7e7414978e709651d33bbc")]
 [assembly: System.Reflection.AssemblyProductAttribute("HermesHandling.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HermesHandling.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

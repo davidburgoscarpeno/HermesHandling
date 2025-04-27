@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../../../assets/css/AdminApp/EditarUsuario.css"
+import "../../../assets/css/AdminApp/EditarUsuario.css";
+
 function EditarUsuario() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -25,6 +26,7 @@ function EditarUsuario() {
         }
     }, [usuario]);
 
+    // Función para manejar el cambio de los inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -33,6 +35,7 @@ function EditarUsuario() {
         }));
     };
 
+    // Función para manejar el envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
@@ -58,19 +61,32 @@ function EditarUsuario() {
             );
 
             setSuccess("Usuario actualizado exitosamente.");
-            setTimeout(() => navigate("/admin-app/usuarios/listar"), 2000);
+            setTimeout(() => {
+                setSuccess(""); // Borrar el mensaje de éxito después de un tiempo
+                navigate("/admin-app/usuarios/listar");
+            }, 2000);
         } catch (err) {
             setError("Error al actualizar el usuario. Revisa los datos.");
             console.error(err);
         }
     };
 
+    // Función para borrar el mensaje de error después de un tiempo
+    useEffect(() => {
+        if (error) {
+            const timer = setTimeout(() => setError(""), 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [error]);
+
     return (
         <div className="editar-usuario-container">
             <div className="form-container">
                 <h3>Editar Usuario</h3>
-                {error && <div className="alert error">{error}</div>}
-                {success && <div className="alert success">{success}</div>}
+
+                {/* Mostrar alertas con animación de fadeIn y fadeOut */}
+                {error && <div className={`editar-usuario-alert-message editar-usuario-alert-error ${error && "fade-in"}`}>{error}</div>}
+                {success && <div className={`editar-usuario-alert-message editar-usuario-alert-success ${success && "fade-in"}`}>{success}</div>}
 
                 <form onSubmit={handleSubmit} className="form">
                     <div className="form-group">

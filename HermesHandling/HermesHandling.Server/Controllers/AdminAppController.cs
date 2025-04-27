@@ -1,4 +1,5 @@
-﻿using HermesHandling.Server.Models.Usuarios;
+﻿using HermesHandling.Server.Models;
+using HermesHandling.Server.Models.Usuarios;
 using HermesHandling.Server.Repositories.UsuariosRepositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -76,13 +77,22 @@ namespace HermesHandling.Server.Controllers
         [HttpGet("dashboard/resumen")]
         public IActionResult GetDashboardResumen()
         {
-            var resumen = new
+            ResumenDashboard resumen = new ResumenDashboard();
+
+
+            DateTime haceUnaSemana = DateTime.Now.AddDays(-7);
+            DateTime hoy = DateTime.Now.Date;
+
+            using (HermesDbContext context = new HermesDbContext())
             {
-                totalUsuarios = 152,
-                usuariosActivosHoy = 37,
-                nuevosRegistrosSemana = 12,
-                admins = 5
-            };
+                resumen.totalUsuarios = context.Usuarios.Count();
+                resumen.nuevosSemana = context.Usuarios.Where(u => u.FechaCreacion >= haceUnaSemana).Count();
+                resumen.admins = context.Usuarios.Where(u => u.TipoUsuario == 0).Count();
+
+                resumen.usuariosActivos = context.Usuarios
+                    .Where(u => u.UltimaSesion.HasValue && u.UltimaSesion.Value.Date == hoy)
+                    .Count();
+            }
 
             return Ok(resumen);
         }
@@ -91,18 +101,25 @@ namespace HermesHandling.Server.Controllers
         [HttpGet("dashboard/usuarios-por-dia")]
         public IActionResult GetUsuariosPorDia()
         {
-            var datos = new[]
+               
+            using (HermesDbContext context = new HermesDbContext())
             {
-                new { dia = "Lunes", cantidad = 10 },
-                new { dia = "Martes", cantidad = 14 },
+                var datos = new[]
+{       
+                    //Crar una tabla para guardar cada vez que un usuario hace log-in
+                new { dia = "Lunes", cantidad = 25 },
+                new { dia = "Martes", cantidad = 12 },
                 new { dia = "Miércoles", cantidad = 7 },
-                new { dia = "Jueves", cantidad = 20 },
-                new { dia = "Viernes", cantidad = 12 },
-                new { dia = "Sábado", cantidad = 5 },
-                new { dia = "Domingo", cantidad = 3 }
-            };
+                new { dia = "Jueves", cantidad = 3 },
+                new { dia = "Viernes", cantidad = 23 },
+                new { dia = "Sábado", cantidad = 22 },
+                new { dia = "Domingo", cantidad = 21 }
+};
+                return Ok(datos);
 
-            return Ok(datos);
+            }
+
+
         }
     }
 }

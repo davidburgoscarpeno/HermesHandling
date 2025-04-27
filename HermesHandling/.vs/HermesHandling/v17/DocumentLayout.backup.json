@@ -3,36 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\main.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\main.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\controllers\\adminappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\controllers\\adminappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\resumendashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\resumendashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\assets\\css\\layout.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\assets\\css\\layout.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\components\\layout.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\components\\layout.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\views\\adminapp\\dashboard.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\views\\adminapp\\dashboard.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\assets\\css\\adminapp\\dashboard.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\assets\\css\\adminapp\\dashboard.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\components\\sidebaradminapp.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\components\\sidebaradminapp.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\views\\adminapp\\usuarios\\listarusuarios.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\views\\adminapp\\usuarios\\listarusuarios.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,114 +30,76 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Usuario.cs",
+              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\Usuario.cs",
+              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Usuario.cs",
+              "RelativeToolTip": "HermesHandling.Server\\Models\\Usuario.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAADwvxkAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T13:12:29.738Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "main.jsx",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\main.jsx",
-              "RelativeDocumentMoniker": "hermeshandling.client\\src\\main.jsx",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\main.jsx",
-              "RelativeToolTip": "hermeshandling.client\\src\\main.jsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2025-04-25T11:08:01.435Z",
+              "DocumentIndex": 2,
+              "Title": "ResumenDashboard.cs",
+              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\ResumenDashboard.cs",
+              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\ResumenDashboard.cs",
+              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\ResumenDashboard.cs",
+              "RelativeToolTip": "HermesHandling.Server\\Models\\ResumenDashboard.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T13:06:18.49Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Layout.jsx",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\components\\Layout.jsx",
-              "RelativeDocumentMoniker": "hermeshandling.client\\src\\components\\Layout.jsx",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\components\\Layout.jsx",
-              "RelativeToolTip": "hermeshandling.client\\src\\components\\Layout.jsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2025-04-25T11:07:35.366Z",
+              "DocumentIndex": 0,
+              "Title": "AdminAppController.cs",
+              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Controllers\\AdminAppController.cs",
+              "RelativeDocumentMoniker": "HermesHandling.Server\\Controllers\\AdminAppController.cs",
+              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Controllers\\AdminAppController.cs",
+              "RelativeToolTip": "HermesHandling.Server\\Controllers\\AdminAppController.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAmwHUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T13:02:16.538Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Layout.css",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\assets\\css\\Layout.css",
-              "RelativeDocumentMoniker": "hermeshandling.client\\src\\assets\\css\\Layout.css",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\assets\\css\\Layout.css",
-              "RelativeToolTip": "hermeshandling.client\\src\\assets\\css\\Layout.css",
-              "ViewState": "AgIAACMAAAAAAAAAAAAAAEsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-04-25T11:01:52.591Z",
+              "Title": "Dashboard.jsx",
+              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\views\\AdminApp\\Dashboard.jsx",
+              "RelativeDocumentMoniker": "hermeshandling.client\\src\\views\\AdminApp\\Dashboard.jsx",
+              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\views\\AdminApp\\Dashboard.jsx",
+              "RelativeToolTip": "hermeshandling.client\\src\\views\\AdminApp\\Dashboard.jsx",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAD8AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-04-26T12:59:31.54Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "Dashboard.css",
               "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\assets\\css\\AdminApp\\Dashboard.css",
               "RelativeDocumentMoniker": "hermeshandling.client\\src\\assets\\css\\AdminApp\\Dashboard.css",
               "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\assets\\css\\AdminApp\\Dashboard.css",
               "RelativeToolTip": "hermeshandling.client\\src\\assets\\css\\AdminApp\\Dashboard.css",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAAAIkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-04-25T11:00:27.413Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "SideBarAdminApp.jsx",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\components\\SideBarAdminApp.jsx",
-              "RelativeDocumentMoniker": "hermeshandling.client\\src\\components\\SideBarAdminApp.jsx",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\components\\SideBarAdminApp.jsx",
-              "RelativeToolTip": "hermeshandling.client\\src\\components\\SideBarAdminApp.jsx",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACAAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2025-04-25T10:59:57.054Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "index.css",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\index.css",
-              "RelativeDocumentMoniker": "hermeshandling.client\\src\\index.css",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\index.css",
-              "RelativeToolTip": "hermeshandling.client\\src\\index.css",
-              "ViewState": "AgIAABcAAAAAAAAAAAAAACgAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-04-25T09:58:07.009Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "App.jsx",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\App.jsx",
-              "RelativeDocumentMoniker": "hermeshandling.client\\src\\App.jsx",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\App.jsx",
-              "RelativeToolTip": "hermeshandling.client\\src\\App.jsx",
-              "ViewState": "AgIAABwAAAAAAAAAAAAIwEAAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2025-04-25T09:33:17.84Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ListarUsuarios.jsx",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\views\\AdminApp\\Usuarios\\ListarUsuarios.jsx",
-              "RelativeDocumentMoniker": "hermeshandling.client\\src\\views\\AdminApp\\Usuarios\\ListarUsuarios.jsx",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\views\\AdminApp\\Usuarios\\ListarUsuarios.jsx",
-              "RelativeToolTip": "hermeshandling.client\\src\\views\\AdminApp\\Usuarios\\ListarUsuarios.jsx",
-              "ViewState": "AgIAADUAAAAAAAAAAAAIwEUAAABVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2025-04-25T09:31:33.638Z",
+              "WhenOpened": "2025-04-26T12:59:28.627Z",
               "EditorCaption": ""
             }
           ]
