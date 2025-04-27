@@ -3,12 +3,19 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import AdminApp from './views/AdminApp/AdminApp';
 import AdminCompany from './views/AdminCompany/AdminCompany';
 import Usuario from './views/Usuario/Usuario';
+//Login
 import Login from './views/LoginView';
+//Usuarios
 import ListarUsuarios from './views/AdminApp/Usuarios/ListarUsuarios';
 import CrearUsuario from './views/AdminApp/Usuarios/CrearUsuario';
 import Dashboard from './views/AdminApp/Dashboard';
 import EditarUsuario from './views/AdminApp/Usuarios/EditarUsuario';
+//Comunicaciones
 import Comunicaciones from './views/AdminApp/Comunicaciones/ListarComunicaciones';
+//Reportes
+import ListarReportes from './views/AdminApp/Reportes/ListarReportes';
+import CrearReporte from './views/AdminApp/Reportes/CrearReporte';
+
 import Layout from './components/Layout'; // Importar el Layout
 import './App.css';
 
@@ -51,6 +58,14 @@ const App = () => {
                         <Route path="usuarios/crear" element={<CrearUsuario />} />
                         <Route path="usuarios/editar" element={<EditarUsuario />} />
                         <Route path="usuarios/comunicaciones" element={<Comunicaciones />} />
+                        
+                        <Route path="reportes/listar-reportes" element={<ListarReportes />} />
+                        <Route path="reportes/crear" element={<CrearReporte />} />
+                        <Route path="reportes/editar" element={<CrearReporte />} />
+
+
+
+
                     </Route>
 
                     <Route path="/admin-company" element={<AdminCompany />} />

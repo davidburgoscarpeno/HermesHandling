@@ -100,13 +100,8 @@ const SidebarAdminApp = () => {
                         <div className={`submenu ${openMenu.reports ? "expanded" : ""}`}>
                             <ul className="nav flex-column ms-3">
                                 <li className="nav-item">
-                                    <Link to="/admin-app/reportes/generar" className="nav-link text-white">
-                                        Generar Reporte
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link to="/admin-app/reportes/consultar" className="nav-link text-white">
-                                        Consultar Reportes
+                                    <Link to="/admin-app/reportes/listar-reportes" className="nav-link text-white">
+                                        Gesti&oacute;n Reportes
                                     </Link>
                                 </li>
                             </ul>

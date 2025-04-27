@@ -3,68 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\incidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\incidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\views\\adminapp\\reportes\\listarreportes.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\views\\adminapp\\reportes\\listarreportes.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\mantenimiento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\mantenimiento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\reporte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\reporte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.client\\src\\components\\sidebaradminapp.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{74F241BF-5EA0-4A72-8742-B663D2C80FFA}|hermeshandling.client\\hermeshandling.client.esproj|solutionrelative:hermeshandling.client\\src\\components\\sidebaradminapp.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\reportes_documento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\reportes_documento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\resumendashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\resumendashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\tipos_defecto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\tipos_defecto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\tipos_equipo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\tipos_equipo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\categorias_equipo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\categorias_equipo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\comunicaciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\comunicaciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\repositories\\usuarios\\usuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\repositories\\usuarios\\usuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\configurationkey.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\configurationkey.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\context\\hermesdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\context\\hermesdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\equipo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\equipo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\historial_incidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\historial_incidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\models\\historialincidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\models\\historialincidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|c:\\users\\david\\desktop\\hermeshandling\\hermeshandling\\hermeshandling.server\\controllers\\adminappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DC6A930-986F-49A6-B7CE-2362DC1727AA}|HermesHandling.Server\\HermesHandling.Server.csproj|solutionrelative:hermeshandling.server\\controllers\\adminappcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -82,210 +34,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Categorias_Equipo.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Categorias_Equipo.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\Categorias_Equipo.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Categorias_Equipo.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\Categorias_Equipo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "AdminAppController.cs",
+              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Controllers\\AdminAppController.cs",
+              "RelativeDocumentMoniker": "HermesHandling.Server\\Controllers\\AdminAppController.cs",
+              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Controllers\\AdminAppController.cs",
+              "RelativeToolTip": "HermesHandling.Server\\Controllers\\AdminAppController.cs",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAwwH0AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:25:02.334Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Comunicaciones.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Comunicaciones.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\Comunicaciones.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Comunicaciones.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\Comunicaciones.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:25:00.418Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ConfigurationKey.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\ConfigurationKey.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\ConfigurationKey.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\ConfigurationKey.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\ConfigurationKey.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:24:24.571Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "HermesDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Context\\HermesDbContext.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\Context\\HermesDbContext.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Context\\HermesDbContext.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\Context\\HermesDbContext.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAvwCUAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:23:38.514Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Equipo.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Equipo.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\Equipo.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Equipo.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\Equipo.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAQwCUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:16:05.723Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "historial_incidencia.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\historial_incidencia.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\historial_incidencia.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\historial_incidencia.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\historial_incidencia.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwB8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:15:59.194Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "HistorialIncidencia.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\HistorialIncidencia.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\HistorialIncidencia.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\HistorialIncidencia.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\HistorialIncidencia.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:15:57.719Z",
+              "WhenOpened": "2025-04-27T16:39:37.179Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Incidencia.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Incidencia.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\Incidencia.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Incidencia.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\Incidencia.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:15:42.195Z",
+              "Title": "ListarReportes.jsx",
+              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\views\\AdminApp\\Reportes\\ListarReportes.jsx",
+              "RelativeDocumentMoniker": "hermeshandling.client\\src\\views\\AdminApp\\Reportes\\ListarReportes.jsx",
+              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\views\\AdminApp\\Reportes\\ListarReportes.jsx",
+              "RelativeToolTip": "hermeshandling.client\\src\\views\\AdminApp\\Reportes\\ListarReportes.jsx",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwA8AAABuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-04-27T15:48:30.578Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Mantenimiento.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Mantenimiento.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\Mantenimiento.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Mantenimiento.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\Mantenimiento.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:15:36.821Z",
+              "Title": "App.jsx",
+              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\App.jsx",
+              "RelativeDocumentMoniker": "hermeshandling.client\\src\\App.jsx",
+              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\App.jsx",
+              "RelativeToolTip": "hermeshandling.client\\src\\App.jsx",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAUAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-04-27T15:47:00.294Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Reporte.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Reporte.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\Reporte.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Reporte.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\Reporte.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:15:23.308Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Reportes_Documento.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Reportes_Documento.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\Reportes_Documento.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Reportes_Documento.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\Reportes_Documento.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:15:17.033Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ResumenDashboard.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\ResumenDashboard.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\ResumenDashboard.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\ResumenDashboard.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\ResumenDashboard.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:15:15.675Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Tipos_Defecto.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Tipos_Defecto.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\Tipos_Defecto.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Tipos_Defecto.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\Tipos_Defecto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:15:12.648Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Tipos_Equipo.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Tipos_Equipo.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\Tipos_Equipo.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Tipos_Equipo.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\Tipos_Equipo.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:15:03.866Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "UsuarioRepository.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Repositories\\Usuarios\\UsuarioRepository.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Repositories\\Usuarios\\UsuarioRepository.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Repositories\\Usuarios\\UsuarioRepository.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Repositories\\Usuarios\\UsuarioRepository.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAwwBgAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:14:39.764Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Usuario.cs",
-              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Usuario.cs",
-              "RelativeDocumentMoniker": "HermesHandling.Server\\Models\\Usuario.cs",
-              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Models\\Usuario.cs",
-              "RelativeToolTip": "HermesHandling.Server\\Models\\Usuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T15:14:10.833Z",
+              "Title": "SideBarAdminApp.jsx",
+              "DocumentMoniker": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\components\\SideBarAdminApp.jsx",
+              "RelativeDocumentMoniker": "hermeshandling.client\\src\\components\\SideBarAdminApp.jsx",
+              "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\hermeshandling.client\\src\\components\\SideBarAdminApp.jsx",
+              "RelativeToolTip": "hermeshandling.client\\src\\components\\SideBarAdminApp.jsx",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAAwGYAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-04-27T15:45:14.7Z",
               "EditorCaption": ""
             }
           ]

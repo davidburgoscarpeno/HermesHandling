@@ -1,10 +1,9 @@
 ﻿using EjemploCifrado.Helper;
-using HermesHandling.Server.Models;
 using HermesHandling.Server.Models.Context;
 using HermesHandling.Server.Models.Login;
 using HermesHandling.Server.Models.Usuarios;
 using System.Security.Cryptography;
-using static HermesHandling.Server.Models.Usuario;
+using static HermesHandling.Server.Models.Usuarios.Usuario;
 
 namespace HermesHandling.Server.Repositories.UsuariosRepositories
 {
@@ -25,7 +24,7 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
             var usuario = _hermesDbContext.Usuarios
                                           .FirstOrDefault(u => u.Email == loginModel.Email);
 
-            if (usuario == null || string.IsNullOrEmpty(usuario.Salt) || string.IsNullOrEmpty(usuario.Password))
+                if (usuario == null || string.IsNullOrEmpty(usuario.Salt) || string.IsNullOrEmpty(usuario.Password))
             {
                 return null;
             }

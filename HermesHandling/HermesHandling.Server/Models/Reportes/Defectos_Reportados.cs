@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace HermesHandling.Server.Models;
+namespace HermesHandling.Server.Models.Reportes;
 
 public partial class Defectos_Reportados
 {
