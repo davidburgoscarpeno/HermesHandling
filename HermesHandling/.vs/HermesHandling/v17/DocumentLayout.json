@@ -44,7 +44,7 @@
               "RelativeDocumentMoniker": "HermesHandling.Server\\Repositories\\Usuarios\\UsuarioRepository.cs",
               "ToolTip": "C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\HermesHandling.Server\\Repositories\\Usuarios\\UsuarioRepository.cs",
               "RelativeToolTip": "HermesHandling.Server\\Repositories\\Usuarios\\UsuarioRepository.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAwwBUAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-27T15:45:59.751Z",
               "EditorCaption": ""
@@ -59,8 +59,7 @@
               "RelativeToolTip": "HermesHandling.Server\\Controllers\\AdminAppController.cs",
               "ViewState": "AgIAAGcAAAAAAAAAAAAwwH0AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T16:39:37.179Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-27T16:39:37.179Z"
             },
             {
               "$type": "Document",
@@ -72,8 +71,7 @@
               "RelativeToolTip": "hermeshandling.client\\src\\views\\AdminApp\\Reportes\\ListarReportes.jsx",
               "ViewState": "AgIAAAsAAAAAAAAAAAAAwA8AAABuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2025-04-27T15:48:30.578Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-27T15:48:30.578Z"
             },
             {
               "$type": "Document",
@@ -85,8 +83,7 @@
               "RelativeToolTip": "hermeshandling.client\\src\\App.jsx",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAAUAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2025-04-27T15:47:00.294Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-27T15:47:00.294Z"
             },
             {
               "$type": "Document",
@@ -98,8 +95,7 @@
               "RelativeToolTip": "hermeshandling.client\\src\\components\\SideBarAdminApp.jsx",
               "ViewState": "AgIAAE0AAAAAAAAAAAAAwGYAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2025-04-27T15:45:14.7Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-27T15:45:14.7Z"
             }
           ]
         }
