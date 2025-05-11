@@ -56,7 +56,8 @@ function ListarUsuarios() {
             (filtroActivo === "si" && usuario.activo) ||
             (filtroActivo === "no" && !usuario.activo);
         const coincideTipo =
-            filtroTipo === "todos" || usuario.tipoUsuario === Number(filtroTipo);
+            filtroTipo === "todos" ||
+            usuario.tipo_usuario === Number(filtroTipo);  // Aquí cambiamos 'tipoUsuario' a 'tipo_usuario'
 
         return coincideNombre && coincideApellido && coincideActivo && coincideTipo;
     });
@@ -142,9 +143,9 @@ function ListarUsuarios() {
                                             <td>{usuario.email}</td>
                                             <td>{usuario.activo ? "Si" : "No"}</td>
                                             <td>
-                                                {usuario.tipoUsuario === 0
+                                                {usuario.tipo_usuario === 0
                                                     ? "Admin App"
-                                                    : usuario.tipoUsuario === 1
+                                                    : usuario.tipo_usuario === 1
                                                         ? "Admin Company"
                                                         : "Usuario"}
                                             </td>
