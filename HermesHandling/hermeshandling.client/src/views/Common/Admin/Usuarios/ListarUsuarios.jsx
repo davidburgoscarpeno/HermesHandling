@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import SideBarAdminApp from "../../../components/SideBarAdminApp";
+import SideBarAdminApp from "../../../../components/SideBarAdminApp";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../../../assets/css/AdminApp/ListarUsuarios.css";
+import "../../../../assets/css/AdminApp/ListarUsuarios.css";
 
 function ListarUsuarios() {
     const [usuarios, setUsuarios] = useState([]);
@@ -29,7 +29,6 @@ function ListarUsuarios() {
     }, []);
 
     const handleEditar = (usuario) => {
-        console.log("Usuario a editar:", usuario);
         navigate("/admin-app/usuarios/editar", { state: { usuario } });
     };
 
@@ -57,7 +56,7 @@ function ListarUsuarios() {
             (filtroActivo === "si" && usuario.activo) ||
             (filtroActivo === "no" && !usuario.activo);
         const coincideTipo =
-            filtroTipo === "todos" || usuario.tipoUsuario.toString() === filtroTipo;
+            filtroTipo === "todos" || usuario.tipoUsuario === Number(filtroTipo);
 
         return coincideNombre && coincideApellido && coincideActivo && coincideTipo;
     });

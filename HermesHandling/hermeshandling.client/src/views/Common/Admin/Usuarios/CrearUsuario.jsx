@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../../../assets/css/AdminApp/CrearUsuario.css"
+import "../../../../assets/css/AdminApp/CrearUsuario.css"
 function CrearUsuario() {
     const [formData, setFormData] = useState({
         nombre: "",

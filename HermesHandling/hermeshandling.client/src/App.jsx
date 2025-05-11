@@ -6,16 +6,15 @@ import Usuario from './views/Usuario/Usuario';
 //Login
 import Login from './views/LoginView';
 //Usuarios
-import ListarUsuarios from './views/AdminApp/Usuarios/ListarUsuarios';
-import CrearUsuario from './views/AdminApp/Usuarios/CrearUsuario';
-import Dashboard from './views/AdminApp/Dashboard';
-import EditarUsuario from './views/AdminApp/Usuarios/EditarUsuario';
+import ListarUsuarios from './views/Common/Admin/Usuarios/ListarUsuarios';
+import CrearUsuario from './views/Common/Admin/Usuarios/CrearUsuario';
+import Dashboard from './views/Common/Admin/Dashboard';
+import EditarUsuario from './views/Common/Admin/Usuarios/EditarUsuario';
 //Comunicaciones
-import Comunicaciones from './views/AdminApp/Comunicaciones/ListarComunicaciones';
+import Comunicaciones from './views/Common/Admin/Comunicaciones/ListarComunicaciones';
 //Reportes
-import ListarReportes from './views/AdminApp/Reportes/ListarReportes';
-import CrearReporte from './views/AdminApp/Reportes/CrearReporte';
-
+import ListarReportes from './views/Common/Reportes/ListarReportes';
+import CrearReporte from './views/Common/Reportes/CrearReporte';
 import Layout from './components/Layout'; // Importar el Layout
 import './App.css';
 
