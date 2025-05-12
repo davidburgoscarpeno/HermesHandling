@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../../../assets/css/AdminApp/EditarUsuario.css";
+import "../../../../assets/css/AdminApp/EditarUsuario.css";
 
 function EditarUsuario() {
     const location = useLocation();

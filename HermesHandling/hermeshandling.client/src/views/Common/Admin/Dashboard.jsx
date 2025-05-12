@@ -9,8 +9,7 @@ import {
     CartesianGrid,
     ResponsiveContainer
 } from "recharts";
-import SidebarAdminApp from "../../components/SideBarAdminApp";
-import "../../assets/css/AdminApp/Dashboard.css"; // Asegúrate de agregar estos estilos en el archivo CSS
+import "../../../assets/css/AdminApp/Dashboard.css"; // Asegúrate de agregar estos estilos en el archivo CSS
 
 function Dashboard() {
     const [resumen, setResumen] = useState(null);

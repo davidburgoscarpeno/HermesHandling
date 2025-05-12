@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import SideBarAdminApp from "../../../components/SideBarAdminApp";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../../../assets/css/AdminApp/ListarComunicaciones.css"
+import "../../../../assets/css/AdminApp/ListarComunicaciones.css"
 function ListarComunicaciones() {
     const [comunicaciones, setComunicaciones] = useState([]);
     const [loading, setLoading] = useState(true);

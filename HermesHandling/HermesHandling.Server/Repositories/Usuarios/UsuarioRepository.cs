@@ -191,12 +191,16 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
         {
             try
             {
-                var user = _hermesDbContext.Usuarios.FirstOrDefault(u => u.Email == email && u.Nombre == nombre);
-
-                if (user != null)
+                using (HermesDbContext context = new HermesDbContext())
                 {
-                    return true;
+                    var user = _hermesDbContext.Usuarios.FirstOrDefault(u => u.Email == email && u.Nombre == nombre);
+
+                    if (user != null)
+                    {
+                        return true;
+                    }
                 }
+               
             }
             catch (Exception ex)
             {
