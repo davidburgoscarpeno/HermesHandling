@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import AdminApp from './views/AdminApp/AdminApp';
 import AdminCompany from './views/AdminCompany/AdminCompany';
 import Usuario from './views/Usuario/Usuario';
 //Login
@@ -10,6 +9,8 @@ import ListarUsuarios from './views/Common/Admin/Usuarios/ListarUsuarios';
 import CrearUsuario from './views/Common/Admin/Usuarios/CrearUsuario';
 import Dashboard from './views/Common/Admin/Dashboard';
 import EditarUsuario from './views/Common/Admin/Usuarios/EditarUsuario';
+//Documentacion Interna
+import DocumentacionInterna from './views/AdminApp/ListarDocumentacionInterna';
 //Comunicaciones
 import Comunicaciones from './views/Common/Admin/Comunicaciones/ListarComunicaciones';
 //Reportes
@@ -56,7 +57,9 @@ const App = () => {
                         <Route path="usuarios/listar" element={<ListarUsuarios />} />
                         <Route path="usuarios/crear" element={<CrearUsuario />} />
                         <Route path="usuarios/editar" element={<EditarUsuario />} />
-                        <Route path="usuarios/comunicaciones" element={<Comunicaciones />} />
+                        <Route path="comunicaciones" element={<Comunicaciones />} />
+                        <Route path="documentacion-interna" element={<DocumentacionInterna />} />
+
                         
                         <Route path="reportes/listar-reportes" element={<ListarReportes />} />
                         <Route path="reportes/crear" element={<CrearReporte />} />

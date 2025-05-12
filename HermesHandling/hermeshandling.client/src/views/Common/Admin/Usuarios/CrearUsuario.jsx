@@ -59,7 +59,7 @@ function CrearUsuario() {
                     </div>
 
                     <div>
-                        <label>Apellido</label>
+                        <label> Apellido</label>
                         <input
                             type="text"
                             className="crear-usuario-form-input"
@@ -83,7 +83,7 @@ function CrearUsuario() {
                     </div>
 
                     <div>
-                        <label>Contraseña</label>
+                        <label>Contrase&ntilde;a</label>
                         <input
                             type="password"
                             className="crear-usuario-form-input"
@@ -103,7 +103,7 @@ function CrearUsuario() {
                             onChange={handleChange}
                         >
                             <option value={0}>Administrador App</option>
-                            <option value={1}>Administrador Compañía</option>
+                            <option value={1}>Administrador Compa&ntilde;ia</option>
                             <option value={2}>Usuario</option>
                         </select>
                     </div>

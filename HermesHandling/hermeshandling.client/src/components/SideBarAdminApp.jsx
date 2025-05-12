@@ -51,12 +51,12 @@ const SidebarAdminApp = () => {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/admin-app/usuarios/listar" className="nav-link text-white">
+                                    <Link to="/admin-app/documentacion-interna" className="nav-link text-white">
                                         Documentacion Interna
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/admin-app/usuarios/comunicaciones" className="nav-link text-white">
+                                    <Link to="/admin-app/comunicaciones" className="nav-link text-white">
                                         Comunicaciones
                                     </Link>
                                 </li>

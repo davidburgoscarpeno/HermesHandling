@@ -57,8 +57,8 @@ function ListarReportes() {
                                 <tr>
                                     <th>ID Reporte</th>
                                     <th>Usuario ID</th>
-                                    <th>Ubicación</th>
-                                    <th>Fecha de Creación</th>
+                                    <th>Ubicaci&oacute;n</th>
+                                    <th>Fecha de Creaci&oacute;n</th>
                                     <th>Acciones</th>
                                 </tr>
                                 <tr>
@@ -75,7 +75,7 @@ function ListarReportes() {
                                     <td>
                                         <input
                                             type="text"
-                                            placeholder="Filtrar ubicación"
+                                            placeholder="Filtrar ubicaci&oacute;n"
                                             value={filtroUbicacion}
                                             onChange={(e) => setFiltroUbicacion(e.target.value)}
                                             className="input"

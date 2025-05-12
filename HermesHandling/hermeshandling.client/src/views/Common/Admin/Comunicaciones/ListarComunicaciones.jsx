@@ -45,7 +45,7 @@ function ListarComunicaciones() {
             <div className="contenido">
                 <div className="header">
                     <h2>Comunicaciones</h2>
-                    <button className="btn success" onClick={handleCrear}>Nueva Comunicación</button>
+                    <button className="btn success" onClick={handleCrear}>Nueva Comunicaci&oacute;n</button>
                 </div>
 
                 {loading ? (
@@ -55,9 +55,9 @@ function ListarComunicaciones() {
                         <table className="tabla">
                             <thead>
                                 <tr>
-                                    <th>ID Comunicación</th>
+                                    <th>ID Comunicaci&oacute;n</th>
                                     <th>Asunto</th>
-                                    <th>Fecha de Envío</th>
+                                    <th>Fecha de Envio</th>
                                     <th>Acciones</th>
                                 </tr>
                                 <tr>
