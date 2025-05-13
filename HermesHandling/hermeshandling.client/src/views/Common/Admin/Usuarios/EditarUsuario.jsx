@@ -123,7 +123,7 @@ function EditarUsuario() {
                     </div>
 
                     <div className="form-group">
-                        <label>Contraseña</label>
+                        <label>Contrase&ntilde;a</label>
                         <input
                             type="password"
                             name="password"
@@ -139,7 +139,7 @@ function EditarUsuario() {
                             onChange={handleChange}
                         >
                             <option value={0}>Administrador App</option>
-                            <option value={1}>Administrador Compañía</option>
+                            <option value={1}>Administrador Compa&ntilde;ia</option>
                             <option value={2}>Usuario</option>
                         </select>
                     </div>
@@ -151,7 +151,7 @@ function EditarUsuario() {
                             value={formData.activo}
                             onChange={handleChange}
                         >
-                            <option value={1}>Sí</option>
+                            <option value={1}>Si</option>
                             <option value={0}>No</option>
                         </select>
                     </div>

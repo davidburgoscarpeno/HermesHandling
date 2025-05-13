@@ -9,6 +9,7 @@ function ListarUsuarios() {
     const [loading, setLoading] = useState(true);
     const [filtroNombre, setFiltroNombre] = useState("");
     const [filtroApellido, setFiltroApellido] = useState("");
+    const [filtroEmail, setFiltroEmail] = useState("");
     const [filtroActivo, setFiltroActivo] = useState("todos");
     const [filtroTipo, setFiltroTipo] = useState("todos");
     const navigate = useNavigate();
@@ -51,6 +52,8 @@ function ListarUsuarios() {
     const usuariosFiltrados = usuarios.filter((usuario) => {
         const coincideNombre = usuario.nombre.toLowerCase().includes(filtroNombre.toLowerCase());
         const coincideApellido = usuario.apellido.toLowerCase().includes(filtroApellido.toLowerCase());
+        const coincideEmail = usuario.email.toLowerCase().includes(filtroEmail.toLowerCase());
+
         const coincideActivo =
             filtroActivo === "todos" ||
             (filtroActivo === "si" && usuario.activo) ||
@@ -59,7 +62,7 @@ function ListarUsuarios() {
             filtroTipo === "todos" ||
             usuario.tipo_usuario === Number(filtroTipo);  // Aquí cambiamos 'tipoUsuario' a 'tipo_usuario'
 
-        return coincideNombre && coincideApellido && coincideActivo && coincideTipo;
+        return coincideNombre && coincideApellido && coincideActivo && coincideTipo && coincideEmail;
     });
 
     return (
@@ -78,7 +81,6 @@ function ListarUsuarios() {
                         <table className="user-table">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Email</th>
@@ -87,7 +89,6 @@ function ListarUsuarios() {
                                     <th>Acciones</th>
                                 </tr>
                                 <tr>
-                                    <td></td>
                                     <td>
                                         <input
                                             type="text"
@@ -105,8 +106,16 @@ function ListarUsuarios() {
                                             value={filtroApellido}
                                             onChange={(e) => setFiltroApellido(e.target.value)}
                                         />
-                                    </td>
-                                    <td></td>
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                className="filter-input"
+                                                placeholder="Email"
+                                                value={filtroEmail}
+                                                onChange={(e) => setFiltroEmail(e.target.value)}
+                                            />
+                                        </td>
                                     <td>
                                         <select
                                             className="filter-select"
@@ -137,7 +146,6 @@ function ListarUsuarios() {
                                 {usuariosFiltrados.length > 0 ? (
                                     usuariosFiltrados.map((usuario) => (
                                         <tr key={usuario.id}>
-                                            <td>{usuario.id}</td>
                                             <td>{usuario.nombre}</td>
                                             <td>{usuario.apellido}</td>
                                             <td>{usuario.email}</td>

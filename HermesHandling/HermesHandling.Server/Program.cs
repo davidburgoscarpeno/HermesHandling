@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using HermesHandling.Server.Repositories.UsuariosRepositories;
 using HermesHandling.Server.Repositories.MantenimientoRepositories;
-using HermesHandling.Server.Models.Context; // Asegúrate de que el namespace del contexto sea correcto
+using HermesHandling.Data.Models; // Asegúrate de que el namespace del contexto sea correcto
 
 var builder = WebApplication.CreateBuilder(args);
 

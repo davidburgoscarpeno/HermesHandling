@@ -10,7 +10,8 @@ import CrearUsuario from './views/Common/Admin/Usuarios/CrearUsuario';
 import Dashboard from './views/Common/Admin/Dashboard';
 import EditarUsuario from './views/Common/Admin/Usuarios/EditarUsuario';
 //Documentacion Interna
-import DocumentacionInterna from './views/AdminApp/ListarDocumentacionInterna';
+import DocumentacionInterna from './views/Common/Admin/DocumentacionInterna/ListarDocumentacionInterna';
+import CrearDocumentacionInterna from './views/Common/Admin/DocumentacionInterna/CrearDocumentacionInterna'
 //Comunicaciones
 import Comunicaciones from './views/Common/Admin/Comunicaciones/ListarComunicaciones';
 //Reportes
@@ -58,7 +59,10 @@ const App = () => {
                         <Route path="usuarios/crear" element={<CrearUsuario />} />
                         <Route path="usuarios/editar" element={<EditarUsuario />} />
                         <Route path="comunicaciones" element={<Comunicaciones />} />
+
                         <Route path="documentacion-interna" element={<DocumentacionInterna />} />
+                        <Route path="documentacion-interna/crear" element={<CrearDocumentacionInterna />} />
+
 
                         
                         <Route path="reportes/listar-reportes" element={<ListarReportes />} />

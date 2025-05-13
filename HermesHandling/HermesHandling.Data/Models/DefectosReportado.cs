@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace HermesHandling.Data.Models;
+
+public partial class DefectosReportado
+{
+    public int Id { get; set; }
+
+    public int? ReporteId { get; set; }
+
+    public int? TipoDefectoId { get; set; }
+
+    public virtual Reporte? Reporte { get; set; }
+
+    public virtual TiposDefecto? TipoDefecto { get; set; }
+}
