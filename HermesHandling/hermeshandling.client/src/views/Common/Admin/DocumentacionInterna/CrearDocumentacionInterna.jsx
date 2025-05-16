@@ -6,26 +6,27 @@ import "../../../../assets/css/AdminApp/CrearDocumentacionInterna.css";
 const CrearDocumentacion = () => {
     const [nombre, setNombre] = useState('');
     const [archivoDocumento, setArchivoDocumento] = useState(null);
+    const [mensaje, setMensaje] = useState(''); 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!nombre || !archivoDocumento) {
-            alert('Todos los campos son obligatorios');
+            setMensaje('Todos los campos son obligatorios');
             return;
         }
 
         const allowedExtensions = ['.pdf', '.docx'];
         const ext = archivoDocumento.name.split('.').pop().toLowerCase();
         if (!allowedExtensions.includes(`.${ext}`)) {
-            alert('Solo se permiten archivos PDF o DOCX');
+            setMensaje('Solo se permiten archivos PDF o DOCX');
             return;
         }
 
         const formData = new FormData();
-        formData.append('Nombre', nombre); // Debe coincidir con el ViewModel en el backend
-        formData.append('Documento', archivoDocumento); // Debe coincidir con el ViewModel en el backend
+        formData.append('Nombre', nombre); 
+        formData.append('Documento', archivoDocumento); 
 
         try {
             const response = await axios.post(
@@ -38,13 +39,17 @@ const CrearDocumentacion = () => {
                 }
             );
 
-            alert('Documento subido correctamente');
+            setMensaje('Documento subido correctamente');
             setNombre('');
             setArchivoDocumento(null);
-            navigate('/admin-app/documentacion-interna'); // o donde deba redirigir
+
+            // Redirigir después de 2 segundos
+            setTimeout(() => {
+                navigate('/admin-app/documentacion-interna');
+            }, 2000);
         } catch (error) {
             console.error('Error al enviar:', error);
-            alert('Error al guardar la documentación');
+            setMensaje('Error al guardar la documentación');
         }
     };
 
@@ -72,6 +77,8 @@ const CrearDocumentacion = () => {
                         required
                     />
                 </div>
+
+                {mensaje && <p className="mensaje">{mensaje}</p>}
 
                 <button className="btn-guardar" type="submit">Guardar</button>
             </form>

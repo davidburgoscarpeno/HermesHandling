@@ -11,7 +11,6 @@ public partial class Comunicacione
 
     public string? Mensaje { get; set; }
 
-    public string? PathDocumento { get; set; }
 
     public DateTime? FechaPublicacion { get; set; }
 

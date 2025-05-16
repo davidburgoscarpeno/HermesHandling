@@ -15,35 +15,31 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
             _hermesDbContext = hermesDbContext;
         }
 
-        #region Metodos Publicos
+        #region Métodos Públicos
 
-        //Metodo para buscar usuario y autentificar
+        // Método para autenticar usuario
         public Usuario Authenticate(LoginModel loginModel)
         {
-            var usuario = _hermesDbContext.Usuarios
-                                          .FirstOrDefault(u => u.Email == loginModel.Email);
-
-                if (usuario == null || string.IsNullOrEmpty(usuario.Salt) || string.IsNullOrEmpty(usuario.Password))
-            {
+            if (loginModel == null || string.IsNullOrEmpty(loginModel.Email) || string.IsNullOrEmpty(loginModel.Password))
                 return null;
-            }
+
+            var usuario = _hermesDbContext.Usuarios.FirstOrDefault(u => u.Email == loginModel.Email);
+
+            if (usuario == null || string.IsNullOrEmpty(usuario.Salt) || string.IsNullOrEmpty(usuario.Password))
+                return null;
 
             try
             {
                 bool isPasswordValid = Cifrado.VerifyPassword(loginModel.Password, usuario.Salt, usuario.Password);
 
                 if (!isPasswordValid)
-                {
-                    return null; 
-                }
+                    return null;
 
-                using(HermesDbContext context = new HermesDbContext())
-                {
-                    usuario.UltimaSesion = DateTime.Now;
-                    context.Usuarios.Update(usuario);
-                    context.SaveChanges();
-                }
-               
+                // Actualizar última sesión
+                usuario.UltimaSesion = DateTime.Now;
+                _hermesDbContext.Usuarios.Update(usuario);
+                _hermesDbContext.SaveChanges();
+
                 return usuario;
             }
             catch (Exception ex)
@@ -53,165 +49,124 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
             }
         }
 
+        // Obtener todos los usuarios
         public List<Usuario> GetUsers()
         {
-            var users = _hermesDbContext.Usuarios.ToList();
-            if(users == null)
-            {
-                return null;
-            } else
-            {
-                return users;
-            }
+            return _hermesDbContext.Usuarios.ToList();
         }
 
+        // Eliminar un usuario por ID
         public bool DeleteUser(int id)
         {
             var user = _hermesDbContext.Usuarios.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+                return false;
+
             try
             {
                 _hermesDbContext.Usuarios.Remove(user);
                 _hermesDbContext.SaveChanges();
                 return true;
-
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Error al eliminar usuario: {ex.Message}");
                 return false;
             }
-           
         }
 
-        public Boolean CreateUser(CreateUserModel model)
+        // Crear un nuevo usuario
+        public bool CreateUser(CreateUserModel model)
         {
-            if (model != null)
+            if (model == null || string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
+                return false;
+
+            if (UserExist(model.Email, model.Nombre))
+                return false;
+
+            try
             {
+                string salt = Cifrado.GenerateSalt();
+                string passwordEncrypted = Cifrado.HashPassword(model.Password, salt);
 
-                if (UserExist(model.Email, model.Nombre))
-                {
-                    return false;
-                }
-
-                String salt = Cifrado.GenerateSalt();
-                String passwordEncrypted = Cifrado.HashPassword(model.Password, salt);
-
-
-                Usuario usu = new Usuario()
+                var usuario = new Usuario
                 {
                     Nombre = model.Nombre,
                     Apellido = model.Apellido,
                     Email = model.Email,
                     Password = passwordEncrypted,
                     Salt = salt,
-                    TipoUsuario = (int)model.TipoUsuario,
+                    TipoUsuario = model.TipoUsuario,
+                    Activo = model.Activo.HasValue && model.Activo.Value == 1,
                     FechaCreacion = DateTime.Now
                 };
 
-                try
-                {
-                    _hermesDbContext.Usuarios.Add(usu);
-                    _hermesDbContext.SaveChanges();
-                    return true;
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return false;
-                }
-
-
-
+                _hermesDbContext.Usuarios.Add(usuario);
+                _hermesDbContext.SaveChanges();
+                return true;
             }
-
-            return false;
-
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al crear usuario: {ex.Message}");
+                return false;
+            }
         }
 
-        public Boolean EditUser(CreateUserModel model)
+        // Editar un usuario existente
+        public bool EditUser(CreateUserModel model)
         {
-            if (model != null)
+            if (model == null || string.IsNullOrEmpty(model.Email))
+                return false;
+
+            var user = _hermesDbContext.Usuarios.FirstOrDefault(u => u.Email == model.Email);
+            if (user == null)
+                return false;
+
+            try
             {
-
-                using(HermesDbContext context = new HermesDbContext())
+                // Actualizar contraseña si ha cambiado
+                if (!string.IsNullOrEmpty(model.Password) && user.Password != model.Password)
                 {
-                    var user = context.Usuarios.FirstOrDefault(u => u.Email == model.Email);
-                    if (user.Password != model.Password)
-                    {
-                        String salt = Cifrado.GenerateSalt();
-                        String passwordEncrypted = Cifrado.HashPassword(model.Password, salt);
-                        user.Salt = salt;
-                        user.Password = passwordEncrypted;
-                    }
-      
-                    user.Email = model.Email;
-                    user.Nombre = model.Nombre;
-                    user.Apellido = model.Apellido;
-                    user.TipoUsuario =(int)model.TipoUsuario;
-                    // model.Activo es bool
-                    user.Activo = Convert.ToBoolean(model.Activo);
-                    user.FechaModificacion = DateTime.Now;
-
-               
-
-                try
-                {
-                    _hermesDbContext.Usuarios.Update(user);
-                    _hermesDbContext.SaveChanges();
-                    return true;
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return false;
+                    string salt = Cifrado.GenerateSalt();
+                    string passwordEncrypted = Cifrado.HashPassword(model.Password, salt);
+                    user.Salt = salt;
+                    user.Password = passwordEncrypted;
                 }
 
-                }
+                // Actualizar otros campos
+                user.Nombre = model.Nombre;
+                user.Apellido = model.Apellido;
+                user.TipoUsuario = model.TipoUsuario;
+                user.Activo = model.Activo.HasValue && model.Activo.Value == 1;
+                user.FechaModificacion = DateTime.Now;
 
+                _hermesDbContext.Usuarios.Update(user);
+                _hermesDbContext.SaveChanges();
+                return true;
             }
-
-            return false;
-
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al editar usuario: {ex.Message}");
+                return false;
+            }
         }
 
         #endregion
 
-        #region Metodos Privados
+        #region Métodos Privados
 
+        // Verificar si un usuario ya existe
+        public bool UserExist(string email, string nombre)
+        {
+            return _hermesDbContext.Usuarios.Any(u => u.Email == email && u.Nombre == nombre);
+        }
+
+        // Validar si una cadena es Base64
         public bool IsBase64String(string base64)
         {
             Span<byte> buffer = new Span<byte>(new byte[base64.Length]);
             return Convert.TryFromBase64String(base64, buffer, out _);
         }
-
-        public bool UserExist(string email, string nombre)
-        {
-            try
-            {
-                using (HermesDbContext context = new HermesDbContext())
-                {
-                    var user = _hermesDbContext.Usuarios.FirstOrDefault(u => u.Email == email && u.Nombre == nombre);
-
-                    if (user != null)
-                    {
-                        return true;
-                    }
-                }
-               
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            return false;
-        }
-
-        
-     
-        
 
         #endregion
     }

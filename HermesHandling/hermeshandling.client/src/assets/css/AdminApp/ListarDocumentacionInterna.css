@@ -30,29 +30,55 @@
     }
 
 /* Botón Nueva Comunicación */
-.btn.success {
-    background-color: #28a745;
-    color: white;
-    padding: 12px 25px;
+/* Estilo base para los botones */
+.btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
     border: none;
-    border-radius: 30px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-    .btn.success:hover {
-        background-color: #218838;
-        transform: translateY(-3px);
+    /* Botón de éxito (Crear) */
+    .btn.success {
+        background-color: #28a745;
+        color: white;
     }
 
-    .btn.success i {
-        font-size: 18px;
+        .btn.success:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+    /* Botón de advertencia (Editar) */
+    .btn.warning {
+        background-color: #ffc107;
+        color: black;
     }
+
+        .btn.warning:hover {
+            background-color: #e0a800;
+            transform: scale(1.05);
+        }
+
+    /* Botón de peligro (Eliminar) */
+    .btn.danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+        .btn.danger:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+
+/* Espaciado entre botones */
+td .btn {
+    margin-right: 8px;
+}
+
 
 /* Tabla */
 .tabla-wrapper {

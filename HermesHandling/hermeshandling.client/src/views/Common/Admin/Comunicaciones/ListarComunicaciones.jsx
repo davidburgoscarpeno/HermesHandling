@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../../../../assets/css/AdminApp/ListarComunicaciones.css"
+import "../../../../assets/css/AdminApp/ListarDocumentacionInterna.css";
+
 function ListarComunicaciones() {
     const [comunicaciones, setComunicaciones] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [filtroAsunto, setFiltroAsunto] = useState("");
-    const [filtroFechaEnvio, setFiltroFechaEnvio] = useState("");
+    const [filtroTitulo, setFiltroTitulo] = useState("");
+    const [filtroFecha, setFiltroFecha] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchComunicaciones = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/AdminApp/listar-comunicaciones`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/AdminCommon/listar-comunicaciones`);
                 setComunicaciones(response.data);
             } catch (error) {
                 console.error("Error al obtener las comunicaciones:", error);
@@ -20,24 +21,38 @@ function ListarComunicaciones() {
                 setLoading(false);
             }
         };
-
         fetchComunicaciones();
     }, []);
-
-    const handleVerDetalles = (comunicacion) => {
-        navigate("/admin-app/comunicaciones/detalles", { state: { comunicacion } });
-    };
 
     const handleCrear = () => {
         navigate(`/admin-app/comunicaciones/crear`);
     };
 
-    const comunicacionesFiltradas = comunicaciones.filter((comunicacion) => {
-        const coincideAsunto = comunicacion.asunto.toLowerCase().includes(filtroAsunto.toLowerCase());
-        const coincideFechaEnvio =
-            !filtroFechaEnvio || comunicacion.fechaEnvio.includes(filtroFechaEnvio);
+    const handleEditar = (id) => {
+        navigate(`/admin-app/comunicaciones/editar/${id}`);
+    };
 
-        return coincideAsunto && coincideFechaEnvio;
+    const handleEliminar = async (id) => {
+        const confirmar = window.confirm("¿Estás seguro de que deseas eliminar esta comunicación?");
+        if (confirmar) {
+            try {
+                await axios.delete(`${import.meta.env.VITE_API_URL}/api/AdminCommon/eliminar-comunicacion/${id}`);
+                setComunicaciones(comunicaciones.filter((c) => c.id !== id));
+                alert("Comunicación eliminada correctamente.");
+            } catch (error) {
+                console.error("Error al eliminar la comunicación:", error);
+                alert("Hubo un error al intentar eliminar la comunicación.");
+            }
+        }
+    };
+
+    const comunicacionesFiltradas = comunicaciones.filter((comunicacion) => {
+        const coincideTitulo = comunicacion.asunto
+            ? comunicacion.asunto.toLowerCase().includes(filtroTitulo.toLowerCase())
+                : false;
+        const coincideFecha = !filtroFecha || (comunicacion.fecha &&
+            new Date(comunicacion.fecha).toISOString().split("T")[0] === filtroFecha);
+        return coincideTitulo && coincideFecha;
     });
 
     return (
@@ -45,9 +60,8 @@ function ListarComunicaciones() {
             <div className="contenido">
                 <div className="header">
                     <h2>Comunicaciones</h2>
-                    <button className="btn success" onClick={handleCrear}>Nueva Comunicaci&oacute;n</button>
+                    <button className="btn success" onClick={handleCrear}>Nueva Comunicación</button>
                 </div>
-
                 {loading ? (
                     <p>Cargando comunicaciones...</p>
                 ) : (
@@ -55,9 +69,9 @@ function ListarComunicaciones() {
                         <table className="tabla">
                             <thead>
                                 <tr>
-                                    <th>ID Comunicaci&oacute;n</th>
+                                    <th>ID</th>
                                     <th>Asunto</th>
-                                    <th>Fecha de Envio</th>
+                                    <th>Fecha de Publicación</th>
                                     <th>Acciones</th>
                                 </tr>
                                 <tr>
@@ -65,17 +79,17 @@ function ListarComunicaciones() {
                                     <td>
                                         <input
                                             type="text"
-                                            placeholder="Filtrar asunto"
-                                            value={filtroAsunto}
-                                            onChange={(e) => setFiltroAsunto(e.target.value)}
+                                            placeholder="Filtrar por título"
+                                            value={filtroTitulo}
+                                            onChange={(e) => setFiltroTitulo(e.target.value)}
                                             className="input"
                                         />
                                     </td>
                                     <td>
                                         <input
                                             type="date"
-                                            value={filtroFechaEnvio}
-                                            onChange={(e) => setFiltroFechaEnvio(e.target.value)}
+                                            value={filtroFecha}
+                                            onChange={(e) => setFiltroFecha(e.target.value)}
                                             className="input"
                                         />
                                     </td>
@@ -85,12 +99,25 @@ function ListarComunicaciones() {
                             <tbody>
                                 {comunicacionesFiltradas.length > 0 ? (
                                     comunicacionesFiltradas.map((comunicacion) => (
-                                        <tr key={comunicacion.idComunicacion}>
-                                            <td>{comunicacion.idComunicacion}</td>
+                                        <tr key={comunicacion.id}>
+                                            <td>{comunicacion.id}</td>
                                             <td>{comunicacion.asunto}</td>
-                                            <td>{comunicacion.fechaEnvio}</td>
+                                            <td>{comunicacion.fechaPublicacion ? new Date(comunicacion.fechaPublicacion).toLocaleDateString("es-ES") : "Sin fecha"}</td>
                                             <td>
-                                                <button className="btn info" onClick={() => handleVerDetalles(comunicacion)}>Ver Detalles</button>
+                                                <div className="action-buttons">
+                                                    <button
+                                                        className="btn-edit"
+                                                        onClick={() => handleEditar(comunicacion.id)}
+                                                    >
+                                                        <i className="fa-solid fa-pen-to-square"></i> Editar
+                                                    </button>
+                                                    <button
+                                                        className="btn-delete"
+                                                        onClick={() => handleEliminar(comunicacion.id)}
+                                                    >
+                                                        <i className="fa-solid fa-trash-can"></i> Eliminar
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
                                     ))

@@ -99,11 +99,7 @@ public partial class HermesDbContext : DbContext
             entity.Property(e => e.Mensaje)
                 .HasColumnType("text")
                 .HasColumnName("mensaje");
-            entity.Property(e => e.PathDocumento)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("path_documento");
-
+     
             entity.HasOne(d => d.IdUsuarioAltaNavigation).WithMany(p => p.ComunicacioneIdUsuarioAltaNavigations)
                 .HasForeignKey(d => d.IdUsuarioAlta)
                 .HasConstraintName("FK__comunicac__id_us__1F98B2C1");
