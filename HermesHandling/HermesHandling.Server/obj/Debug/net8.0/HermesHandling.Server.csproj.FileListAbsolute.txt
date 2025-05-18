@@ -172,3 +172,4 @@ C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\D
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -19,13 +19,27 @@ function ListarUsuarios() {
         1: "Usuario"
     };
 
+    // Obtén el token del localStorage
+    const token = localStorage.getItem('token');
+
     useEffect(() => {
         const fetchUsuarios = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/AdminApp/listar-usuarios`);
+                const response = await axios.get(
+                    `${import.meta.env.VITE_API_URL}/api/AdminApp/listar-usuarios`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
                 setUsuarios(response.data);
             } catch (error) {
                 console.error("Error al obtener los usuarios:", error);
+                // Si el token es inválido o expiró, redirige al login
+                if (error.response && error.response.status === 401) {
+                    window.location.href = "/login";
+                }
             } finally {
                 setLoading(false);
             }
@@ -46,10 +60,20 @@ function ListarUsuarios() {
         const confirmar = window.confirm("¿Estás seguro de que deseas eliminar este usuario?");
         if (confirmar) {
             try {
-                await axios.delete(`${import.meta.env.VITE_API_URL}/api/AdminApp/delete-user/${id}`);
+                await axios.delete(
+                    `${import.meta.env.VITE_API_URL}/api/AdminApp/delete-user/${id}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
                 setUsuarios((prev) => prev.filter((u) => u.id !== id));
             } catch (error) {
                 console.error("Error al eliminar el usuario:", error);
+                if (error.response && error.response.status === 401) {
+                    window.location.href = "/login";
+                }
             }
         }
     };
@@ -112,16 +136,16 @@ function ListarUsuarios() {
                                             value={filtroApellido}
                                             onChange={(e) => setFiltroApellido(e.target.value)}
                                         />
-                                        </td>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                className="filter-input"
-                                                placeholder="Email"
-                                                value={filtroEmail}
-                                                onChange={(e) => setFiltroEmail(e.target.value)}
-                                            />
-                                        </td>
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            className="filter-input"
+                                            placeholder="Email"
+                                            value={filtroEmail}
+                                            onChange={(e) => setFiltroEmail(e.target.value)}
+                                        />
+                                    </td>
                                     <td>
                                         <select
                                             className="filter-select"

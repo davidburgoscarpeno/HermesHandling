@@ -16,33 +16,22 @@ const LoginView = () => {
         };
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/account/login`, user);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/Account/login`, user);
 
-            console.log("Respuesta del backend:", response.data);
-
-            // Validamos que la respuesta tenga lo que necesitamos
             const data = response.data;
 
-            if (typeof data !== 'object' || data === null) {
+            if (!data.token || !data.usuario) {
                 setError("Respuesta no válida del servidor");
                 return;
             }
 
-            const { idUsuario, nombreUsuario, email, tipoUsuario } = data;
-
-            // Guardar en localStorage
-            localStorage.setItem("usuario", JSON.stringify({
-                idUsuario,
-                nombreUsuario,
-                email,
-                tipoUsuario
-            }));
+            // Al hacer login exitoso
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('usuario', JSON.stringify(response.data.usuario));
 
             // Redirección según tipo de usuario
-            if (tipoUsuario === 0) {
+            if (data.usuario.tipoUsuario === 0) {
                 window.location.href = "/admin-app/dashboard";
-            } else if (tipoUsuario === 1) {
-                window.location.href = "/admin-company";
             } else {
                 window.location.href = "/usuario";
             }

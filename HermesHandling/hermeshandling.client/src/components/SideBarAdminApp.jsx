@@ -20,9 +20,11 @@ const SidebarAdminApp = () => {
         }));
     };
 
+    const user = JSON.parse(localStorage.getItem('usuario'));
+
     const handleLogout = () => {
-        // Aquí puedes limpiar el almacenamiento local, cookies, etc.
-        // localStorage.removeItem("token");
+        localStorage.removeItem("token");
+        localStorage.removeItem("usuario");
         navigate("/login");
     };
 
@@ -121,7 +123,9 @@ const SidebarAdminApp = () => {
                 <div className="user-avatar-wrapper" onClick={() => setUserMenuOpen(!userMenuOpen)}>
                     <i className="bi bi-person-circle"></i>
                 </div>
-                <div className="user-name text-white mt-2" style={{fontSize: "1rem"}}>Nombre Usuario</div>
+                <div className="user-name text-white mt-2" style={{ fontSize: "1rem" }}>
+                    {user ? user.nombreUsuario : "Nombre Usuario"}
+                </div>
                 {userMenuOpen && (
                     <div className="dropdown-menu show user-dropdown-menu">
                         <button className="dropdown-item" onClick={() => { setUserMenuOpen(false); navigate("/admin-app/perfil"); }}>
