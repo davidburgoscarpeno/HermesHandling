@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Asegúrate de tener react-router-dom instalado
-import 'bootstrap/dist/css/bootstrap.min.css'; // Si aún no lo tienes, necesitarás instalar Bootstrap
-import "../assets/css/AdminApp/SideBarAdmin.css"; // Ruta del archivo CSS
+import { Link, useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "../assets/css/AdminApp/SideBarAdmin.css";
 
 const SidebarAdminApp = () => {
     const [openMenu, setOpenMenu] = useState({
@@ -10,6 +10,8 @@ const SidebarAdminApp = () => {
         configuracion: false,
         reports: false,
     });
+    const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     const toggleMenu = (menu) => {
         setOpenMenu((prevState) => ({
@@ -18,99 +20,122 @@ const SidebarAdminApp = () => {
         }));
     };
 
+    const handleLogout = () => {
+        // Aquí puedes limpiar el almacenamiento local, cookies, etc.
+        // localStorage.removeItem("token");
+        navigate("/login");
+    };
+
     return (
-        <div className="sidebar-container">
-            {/* Logo o nombre de la aplicación */}
-            <div className="sidebar-header">
-                <h3>App Admin Panel</h3>
+        <div className="sidebar-container d-flex flex-column justify-content-between" style={{height: "100%"}}>
+            <div>
+                {/* Logo o nombre de la aplicación */}
+                <div className="sidebar-header">
+                    <h3>App Admin Panel</h3>
+                </div>
+
+                {/* Menú */}
+                <div className="sidebar-menu">
+                    <ul className="nav flex-column">
+                        {/* Dashboard */}
+                        <li className="nav-item">
+                            <Link to="/admin-app/dashboard" className="nav-link text-white">
+                                Dashboard
+                            </Link>
+                        </li>
+                        {/* Usuarios */}
+                        <li className="nav-item">
+                            <button
+                                className="nav-link text-white w-100 text-start btn-toggle"
+                                onClick={() => toggleMenu("usuarios")}
+                            >
+                                Gesti&oacute;n <i className={`bi bi-chevron-${openMenu.usuarios ? "down" : "right"}`}></i>
+                            </button>
+                            <div className={`submenu ${openMenu.usuarios ? "expanded" : ""}`}>
+                                <ul className="nav flex-column ms-3">
+                                    <li className="nav-item">
+                                        <Link to="/admin-app/usuarios/listar" className="nav-link text-white">
+                                            Gesti&oacute;n Usuarios
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link to="/admin-app/documentacion-interna" className="nav-link text-white">
+                                            Documentacion Interna
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link to="/admin-app/comunicaciones" className="nav-link text-white">
+                                            Comunicaciones
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        {/* Reportes */}
+                        <li className="nav-item">
+                            <button
+                                className="nav-link text-white w-100 text-start btn-toggle"
+                                onClick={() => toggleMenu("reports")}
+                            >
+                                Reportes <i className={`bi bi-chevron-${openMenu.reports ? "down" : "right"}`}></i>
+                            </button>
+                            <div className={`submenu ${openMenu.reports ? "expanded" : ""}`}>
+                                <ul className="nav flex-column ms-3">
+                                    <li className="nav-item">
+                                        <Link to="/admin-app/reportes/listar-reportes" className="nav-link text-white">
+                                            Gesti&oacute;n Reportes
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        {/* Configuración */}
+                        <li className="nav-item">
+                            <button
+                                className="nav-link text-white w-100 text-start btn-toggle"
+                                onClick={() => toggleMenu("configuracion")}
+                            >
+                                Configuraci&oacute;n
+                                <i className={`bi bi-chevron-${openMenu.configuracion ? "down" : "right"}`}></i>
+                            </button>
+                            <div className={`submenu ${openMenu.configuracion ? "expanded" : ""}`}>
+                                <ul className="nav flex-column ms-3">
+                                    <li className="nav-item">
+                                        <Link to="/admin-app/configuracion/ajustes" className="nav-link text-white">
+                                            Ajustes Generales
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link to="/admin-app/configuracion/seguridad" className="nav-link text-white">
+                                            Seguridad
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
-            {/* Menú */}
-            <div className="sidebar-menu">
-                <ul className="nav flex-column">
-                    {/* Dashboard */}
-                    <li className="nav-item">
-                        <Link to="/admin-app/dashboard" className="nav-link text-white">
-                           Dashboard
-                        </Link>
-                    </li>
-
-                    {/* Usuarios */}
-                    <li className="nav-item">
-                        <button
-                            className="nav-link text-white w-100 text-start btn-toggle"
-                            onClick={() => toggleMenu("usuarios")}
-                        >
-                            Gesti&oacute;n <i className={`bi bi-chevron-${openMenu.usuarios ? "down" : "right"}`}></i>
+            {/* Menú de usuario */}
+            <div className="sidebar-user-menu mb-3 text-center">
+                <div className="user-avatar-wrapper" onClick={() => setUserMenuOpen(!userMenuOpen)}>
+                    <i className="bi bi-person-circle"></i>
+                </div>
+                <div className="user-name text-white mt-2" style={{fontSize: "1rem"}}>Nombre Usuario</div>
+                {userMenuOpen && (
+                    <div className="dropdown-menu show user-dropdown-menu">
+                        <button className="dropdown-item" onClick={() => { setUserMenuOpen(false); navigate("/admin-app/perfil"); }}>
+                            Perfil
                         </button>
-                        <div className={`submenu ${openMenu.usuarios ? "expanded" : ""}`}>
-                            <ul className="nav flex-column ms-3">
-                                <li className="nav-item">
-                                    <Link to="/admin-app/usuarios/listar" className="nav-link text-white">
-                                        Gesti&oacute;n Usuarios
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link to="/admin-app/documentacion-interna" className="nav-link text-white">
-                                        Documentacion Interna
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link to="/admin-app/comunicaciones" className="nav-link text-white">
-                                        Comunicaciones
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    {/* Configuración */}
-                    <li className="nav-item">
-                        <button
-                            className="nav-link text-white w-100 text-start btn-toggle"
-                            onClick={() => toggleMenu("configuracion")}
-                        >
-                            Configuraci&oacute;n
-                            <i className={`bi bi-chevron-${openMenu.configuracion ? "down" : "right"}`}></i>
+                        <button className="dropdown-item" onClick={handleLogout}>
+                            Cerrar sesión
                         </button>
-                        <div className={`submenu ${openMenu.configuracion ? "expanded" : ""}`}>
-                            <ul className="nav flex-column ms-3">
-                                <li className="nav-item">
-                                    <Link to="/admin-app/configuracion/ajustes" className="nav-link text-white">
-                                        Ajustes Generales
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link to="/admin-app/configuracion/seguridad" className="nav-link text-white">
-                                        Seguridad
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    {/* Reportes */}
-                    <li className="nav-item">
-                        <button
-                            className="nav-link text-white w-100 text-start btn-toggle"
-                            onClick={() => toggleMenu("reports")}
-                        >
-                            Reportes <i className={`bi bi-chevron-${openMenu.reports ? "down" : "right"}`}></i>
-                        </button>
-                        <div className={`submenu ${openMenu.reports ? "expanded" : ""}`}>
-                            <ul className="nav flex-column ms-3">
-                                <li className="nav-item">
-                                    <Link to="/admin-app/reportes/listar-reportes" className="nav-link text-white">
-                                        Gesti&oacute;n Reportes
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+                    </div>
+                )}
             </div>
         </div>
     );
 };
 
 export default SidebarAdminApp;
+

@@ -13,7 +13,7 @@ function ListarReportes() {
     useEffect(() => {
         const fetchReportes = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/AdminApp/listar-reportes`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/AdminCommon/listar-reportes`);
                 setReportes(response.data);
             } catch (error) {
                 console.error("Error al obtener los reportes:", error);
@@ -33,11 +33,28 @@ function ListarReportes() {
         navigate(`/admin-app/reportes/crear`);
     };
 
-    const reportesFiltrados = reportes.filter((reporte) => {
-        const coincideUsuario = reporte.usuario_id.toString().includes(filtroUsuario);
-        const coincideUbicacion = reporte.ubicacion.toLowerCase().includes(filtroUbicacion.toLowerCase());
+    const handleEditar = (id) => {
+        navigate(`/admin-app/reportes/editar/${id}`);
+    };
 
-        return coincideUsuario && coincideUbicacion;
+    const handleEliminar = async (id) => {
+        if (window.confirm("¿Estás seguro de que deseas eliminar este reporte?")) {
+            try {
+                await axios.delete(`${import.meta.env.VITE_API_URL}/api/AdminCommon/eliminar-reporte/${id}`);
+                setReportes(reportes.filter((r) => r.id !== id));
+            } catch (error) {
+                alert("Hubo un error al eliminar el reporte.");
+            }
+        }
+    };
+
+    const reportesFiltrados = reportes.filter((reporte) => {
+        const coincideTitulo = reporte.titulo
+            ? reporte.titulo.toLowerCase().includes(filtroTitulo.toLowerCase())
+            : false;
+        const coincideFecha = !filtroFecha || (reporte.fechaCreacion &&
+            new Date(reporte.fechaCreacion).toISOString().split("T")[0] === filtroFecha);
+        return coincideTitulo && coincideFecha;
     });
 
     return (
@@ -55,10 +72,12 @@ function ListarReportes() {
                         <table className="tabla">
                             <thead>
                                 <tr>
-                                    <th>ID Reporte</th>
-                                    <th>Usuario ID</th>
-                                    <th>Ubicaci&oacute;n</th>
-                                    <th>Fecha de Creaci&oacute;n</th>
+                                    <th>ID</th>
+                                    <th>Título</th>
+                                    <th>Fecha de Creación</th>
+                                    <th>ID</th>
+                                    <th>Título</th>
+                                    <th>Fecha de Creación</th>
                                     <th>Acciones</th>
                                 </tr>
                                 <tr>
@@ -113,3 +132,4 @@ function ListarReportes() {
 }
 
 export default ListarReportes;
+

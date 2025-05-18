@@ -12,8 +12,14 @@ import EditarUsuario from './views/Common/Admin/Usuarios/EditarUsuario';
 //Documentacion Interna
 import DocumentacionInterna from './views/Common/Admin/DocumentacionInterna/ListarDocumentacionInterna';
 import CrearDocumentacionInterna from './views/Common/Admin/DocumentacionInterna/CrearDocumentacionInterna'
+import EditarDocumentacionInterna from './views/Common/Admin/DocumentacionInterna/EditarDocumentacionInterna'
+
 //Comunicaciones
 import Comunicaciones from './views/Common/Admin/Comunicaciones/ListarComunicaciones';
+import ListarComunicaciones from './views/Common/Admin/Comunicaciones/ListarComunicaciones';
+import CrearComunicacion from './views/Common/Admin/Comunicaciones/CrearComunicacion';
+import EditarComunicacion from './views/Common/Admin/Comunicaciones/EditarComunicacion';
+
 //Reportes
 import ListarReportes from './views/Common/Reportes/ListarReportes';
 import CrearReporte from './views/Common/Reportes/CrearReporte';
@@ -58,11 +64,15 @@ const App = () => {
                         <Route path="usuarios/listar" element={<ListarUsuarios />} />
                         <Route path="usuarios/crear" element={<CrearUsuario />} />
                         <Route path="usuarios/editar" element={<EditarUsuario />} />
-                        <Route path="comunicaciones" element={<Comunicaciones />} />
+
+                        <Route path="comunicaciones" element={<ListarComunicaciones />} />
+                        <Route path="comunicaciones/crear" element={<CrearComunicacion />} />
+                        <Route path="comunicaciones/editar/:id" element={<EditarComunicacion />} />
 
                         <Route path="documentacion-interna" element={<DocumentacionInterna />} />
                         <Route path="documentacion-interna/crear" element={<CrearDocumentacionInterna />} />
-
+                        <Route path="documentacion-interna/editar" element={<EditarDocumentacionInterna />} />
+                        <Route path="documentacion-interna/editar/:id" element={<EditarDocumentacionInterna />} />
 
                         
                         <Route path="reportes/listar-reportes" element={<ListarReportes />} />

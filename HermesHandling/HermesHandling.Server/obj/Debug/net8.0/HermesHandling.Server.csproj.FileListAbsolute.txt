@@ -22,11 +22,6 @@ C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\D
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\HermesHandling.Server.sourcelink.json
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.development.json
-C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets\msbuild.HermesHandling.Server.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets\msbuild.build.HermesHandling.Server.props
-C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.HermesHandling.Server.props
-C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.HermesHandling.Server.props
-C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\scopedcss\bundle\HermesHandling.Server.styles.css
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\HermesHa.C91BA26C.Up2Date
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\HermesHandling.Server.dll
@@ -171,3 +166,9 @@ C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\D
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\Debug\net8.0\HermesHandling.Data.dll
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\Debug\net8.0\HermesHandling.Data.pdb
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\Debug\net8.0\HermesHandling.Server.staticwebassets.endpoints.json
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

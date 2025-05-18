@@ -137,3 +137,35 @@
         width: 100%;
     }
 }
+
+/* User avatar styles */
+.user-avatar-wrapper {
+    width: 56px;
+    height: 56px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 2.2rem;
+}
+
+.user-avatar-wrapper:hover {
+    background: rgba(255,255,255,0.18);
+}
+
+.user-dropdown-menu {
+    left: 50% !important;
+    transform: translateX(-50%);
+    bottom: 0;
+    min-width: 150px;
+    animation: fadeIn 0.2s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px);}
+    to { opacity: 1; transform: translateY(0);}
+}

@@ -1,0 +1,15 @@
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\bin\Debug\net8.0\HermesHandling.Data.deps.json
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\bin\Debug\net8.0\HermesHandling.Data.dll
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\bin\Debug\net8.0\HermesHandling.Data.pdb
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\obj\Debug\net8.0\HermesHandling.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\obj\Debug\net8.0\HermesHandling.Data.AssemblyInfoInputs.cache
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\obj\Debug\net8.0\HermesHandling.Data.AssemblyInfo.cs
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\obj\Debug\net8.0\HermesHandling.Data.csproj.CoreCompileInputs.cache
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\obj\Debug\net8.0\HermesHandling.Data.sourcelink.json
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\obj\Debug\net8.0\HermesHandling.Data.dll
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\obj\Debug\net8.0\refint\HermesHandling.Data.dll
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\obj\Debug\net8.0\HermesHandling.Data.pdb
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\obj\Debug\net8.0\ref\HermesHandling.Data.dll
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\bin\Debug\net8.0\HermesHandling.Data.runtimeconfig.json
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\obj\Debug\net8.0\HermesHandling.Data.csproj.AssemblyReference.cache
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Data\obj\Debug\net8.0\HermesHandling.Data.genruntimeconfig.cache
