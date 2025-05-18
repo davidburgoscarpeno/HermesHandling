@@ -14,6 +14,11 @@ function ListarUsuarios() {
     const [filtroTipo, setFiltroTipo] = useState("todos");
     const navigate = useNavigate();
 
+    const tipos = {
+        0: "Admin App",
+        1: "Usuario"
+    };
+
     useEffect(() => {
         const fetchUsuarios = async () => {
             try {
@@ -58,9 +63,10 @@ function ListarUsuarios() {
             filtroActivo === "todos" ||
             (filtroActivo === "si" && usuario.activo) ||
             (filtroActivo === "no" && !usuario.activo);
+
         const coincideTipo =
             filtroTipo === "todos" ||
-            usuario.tipo_usuario === Number(filtroTipo);  // Aquí cambiamos 'tipoUsuario' a 'tipo_usuario'
+            String(usuario.tipoUsuario) === String(filtroTipo);
 
         return coincideNombre && coincideApellido && coincideActivo && coincideTipo && coincideEmail;
     });
@@ -135,8 +141,7 @@ function ListarUsuarios() {
                                         >
                                             <option value="todos">Todos</option>
                                             <option value="0">Admin App</option>
-                                            <option value="1">Admin Company</option>
-                                            <option value="2">Usuario</option>
+                                            <option value="1">Usuario</option>
                                         </select>
                                     </td>
                                     <td></td>
@@ -151,11 +156,7 @@ function ListarUsuarios() {
                                             <td>{usuario.email}</td>
                                             <td>{usuario.activo ? "Si" : "No"}</td>
                                             <td>
-                                                {usuario.tipo_usuario === 0
-                                                    ? "Admin App"
-                                                    : usuario.tipo_usuario === 1
-                                                        ? "Admin Company"
-                                                        : "Usuario"}
+                                                {tipos[Number(usuario.tipoUsuario)] ?? usuario.tipoUsuario ?? "Sin tipo"}
                                             </td>
                                             <td>
                                                 <div className="action-buttons">

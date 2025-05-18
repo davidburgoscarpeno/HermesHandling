@@ -68,6 +68,12 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
                 _hermesDbContext.SaveChanges();
                 return true;
             }
+            catch (Microsoft.Data.SqlClient.SqlException ex) when (ex.Message.Contains("FK__reportes__usuari"))
+            {
+                // El usuario tiene reportes asociados, no se puede borrar
+                Console.WriteLine("No se puede eliminar el usuario porque tiene reportes asociados.");
+                return false;
+            }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al eliminar usuario: {ex.Message}");

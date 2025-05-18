@@ -263,6 +263,7 @@ public partial class HermesDbContext : DbContext
 
             entity.HasOne(d => d.Usuario).WithMany(p => p.HistorialIncidencia)
                 .HasForeignKey(d => d.UsuarioId)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK__historial__usuar__18EBB532");
         });
 
@@ -336,6 +337,7 @@ public partial class HermesDbContext : DbContext
 
             entity.HasOne(d => d.Usuario).WithMany(p => p.Mantenimientos)
                 .HasForeignKey(d => d.UsuarioId)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK__mantenimi__usuar__151B244E");
         });
 
@@ -366,6 +368,7 @@ public partial class HermesDbContext : DbContext
 
             entity.HasOne(d => d.Usuario).WithMany(p => p.Reportes)
                 .HasForeignKey(d => d.UsuarioId)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK__reportes__usuari__1AD3FDA4");
         });
 
@@ -404,6 +407,7 @@ public partial class HermesDbContext : DbContext
 
             entity.HasOne(d => d.Usuario).WithMany(p => p.ReportesDocumentos)
                 .HasForeignKey(d => d.UsuarioId)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK__reportes___usuar__1EA48E88");
         });
 
