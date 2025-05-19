@@ -128,11 +128,11 @@ const SidebarAdminApp = () => {
                 </div>
                 {userMenuOpen && (
                     <div className="dropdown-menu show user-dropdown-menu">
-                        <button className="dropdown-item" onClick={() => { setUserMenuOpen(false); navigate("/admin-app/perfil"); }}>
+                        <button className="dropdown-item" onClick={() => { setUserMenuOpen(false); navigate("/admin-app/ver-perfil"); }}>
                             Perfil
                         </button>
                         <button className="dropdown-item" onClick={handleLogout}>
-                            Cerrar sesión
+                            Cerrar sesi&oacute;n
                         </button>
                     </div>
                 )}

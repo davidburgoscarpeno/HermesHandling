@@ -71,7 +71,7 @@ function ListarComunicaciones() {
                                 <tr>
                                     <th>ID</th>
                                     <th>Asunto</th>
-                                    <th>Fecha de Publicación</th>
+                                        <th>Fecha de Publicaci&oacute;n</th>
                                     <th>Acciones</th>
                                 </tr>
                                 <tr>
@@ -79,7 +79,7 @@ function ListarComunicaciones() {
                                     <td>
                                         <input
                                             type="text"
-                                            placeholder="Filtrar por título"
+                                            placeholder="Filtrar por titulo"
                                             value={filtroTitulo}
                                             onChange={(e) => setFiltroTitulo(e.target.value)}
                                             className="input"

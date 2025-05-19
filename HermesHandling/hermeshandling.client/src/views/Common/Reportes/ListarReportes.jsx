@@ -33,28 +33,11 @@ function ListarReportes() {
         navigate(`/admin-app/reportes/crear`);
     };
 
-    const handleEditar = (id) => {
-        navigate(`/admin-app/reportes/editar/${id}`);
-    };
-
-    const handleEliminar = async (id) => {
-        if (window.confirm("¿Estás seguro de que deseas eliminar este reporte?")) {
-            try {
-                await axios.delete(`${import.meta.env.VITE_API_URL}/api/AdminCommon/eliminar-reporte/${id}`);
-                setReportes(reportes.filter((r) => r.id !== id));
-            } catch (error) {
-                alert("Hubo un error al eliminar el reporte.");
-            }
-        }
-    };
-
+    // Filtrado por usuario y ubicación
     const reportesFiltrados = reportes.filter((reporte) => {
-        const coincideTitulo = reporte.titulo
-            ? reporte.titulo.toLowerCase().includes(filtroTitulo.toLowerCase())
-            : false;
-        const coincideFecha = !filtroFecha || (reporte.fechaCreacion &&
-            new Date(reporte.fechaCreacion).toISOString().split("T")[0] === filtroFecha);
-        return coincideTitulo && coincideFecha;
+        const coincideUsuario = filtroUsuario === "" || (reporte.usuario_id && reporte.usuario_id.toString().toLowerCase().includes(filtroUsuario.toLowerCase()));
+        const coincideUbicacion = filtroUbicacion === "" || (reporte.ubicacion && reporte.ubicacion.toLowerCase().includes(filtroUbicacion.toLowerCase()));
+        return coincideUsuario && coincideUbicacion;
     });
 
     return (
@@ -73,11 +56,9 @@ function ListarReportes() {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Título</th>
-                                    <th>Fecha de Creación</th>
-                                    <th>ID</th>
-                                    <th>Título</th>
-                                    <th>Fecha de Creación</th>
+                                    <th>Usuario</th>
+                                        <th>Ubicaci&oacute;n</th>
+                                    <th>Fecha de Creaci&oacute;n</th>
                                     <th>Acciones</th>
                                 </tr>
                                 <tr>
@@ -94,7 +75,7 @@ function ListarReportes() {
                                     <td>
                                         <input
                                             type="text"
-                                            placeholder="Filtrar ubicaci&oacute;n"
+                                            placeholder="Filtrar ubicación"
                                             value={filtroUbicacion}
                                             onChange={(e) => setFiltroUbicacion(e.target.value)}
                                             className="input"

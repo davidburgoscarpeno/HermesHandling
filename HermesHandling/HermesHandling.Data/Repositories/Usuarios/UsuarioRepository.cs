@@ -79,6 +79,7 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
                 Console.WriteLine($"Error al eliminar usuario: {ex.Message}");
                 return false;
             }
+        
         }
 
         // Crear un nuevo usuario
