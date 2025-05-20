@@ -1,0 +1,78 @@
+.detalles-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 32px 24px 24px 24px;
+}
+
+    .detalles-container h2 {
+        text-align: center;
+        margin-bottom: 28px;
+        color: #2c3e50;
+        font-weight: 700;
+    }
+
+.tabla-detalles {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    background: #fafbfc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+    .tabla-detalles th,
+    .tabla-detalles td {
+        padding: 12px 16px;
+        text-align: left;
+    }
+
+    .tabla-detalles th {
+        background: #f0f2f5;
+        color: #34495e;
+        font-weight: 600;
+        width: 40%;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .tabla-detalles td {
+        background: #fff;
+        color: #222;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .tabla-detalles tr:last-child th,
+    .tabla-detalles tr:last-child td {
+        border-bottom: none;
+    }
+
+.btn {
+    display: inline-block;
+    padding: 8px 20px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 10px;
+}
+
+    .btn:hover {
+        background: #125ea7;
+    }
+
+@media (max-width: 700px) {
+    .detalles-container {
+        padding: 16px 4px;
+    }
+
+    .tabla-detalles th,
+    .tabla-detalles td {
+        padding: 8px 6px;
+        font-size: 15px;
+    }
+}

@@ -26,6 +26,7 @@ import CrearReporte from './views/Common/Reportes/CrearReporte';
 import Layout from './components/Layout'; // Importar el Layout
 import './App.css';
 import VerUsuario from './views/Usuario/VerUsuario';
+import VerDetallesReporte from './views/Common/Admin/Reportes/VerDetallesReporte';
 
 const App = () => {
     const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -81,6 +82,8 @@ const App = () => {
                         <Route path="reportes/listar-reportes" element={<ListarReportes />} />
                         <Route path="reportes/crear" element={<CrearReporte />} />
                         <Route path="reportes/editar" element={<CrearReporte />} />
+                        <Route path="reportes/detalles/:id" element={<VerDetallesReporte />} />
+
 
 
 

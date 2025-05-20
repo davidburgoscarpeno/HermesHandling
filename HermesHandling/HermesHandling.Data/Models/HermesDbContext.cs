@@ -41,6 +41,8 @@ public partial class HermesDbContext : DbContext
 
     public virtual DbSet<TiposEquipo> TiposEquipos { get; set; }
 
+    public virtual DbSet <RegistroLogin> RegistroLogin { get; set; }
+
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -152,6 +154,12 @@ public partial class HermesDbContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ReporteId).HasColumnName("reporte_id");
             entity.Property(e => e.TipoDefectoId).HasColumnName("tipo_defecto_id");
+            entity.Property(e => e.FechaAlta)
+                .HasColumnType("datetime")
+                .HasColumnName("fecha_alta");
+            entity.Property(e => e.FechaResolucion)
+                .HasColumnType("datetime")
+                .HasColumnName("fecha_resolucion");
 
             entity.HasOne(d => d.Reporte).WithMany(p => p.DefectosReportados)
                 .HasForeignKey(d => d.ReporteId)
@@ -161,6 +169,7 @@ public partial class HermesDbContext : DbContext
                 .HasForeignKey(d => d.TipoDefectoId)
                 .HasConstraintName("FK__defectos___tipo___1CBC4616");
         });
+
 
         modelBuilder.Entity<DocumentacionInterna>(entity =>
         {
@@ -356,6 +365,12 @@ public partial class HermesDbContext : DbContext
             entity.Property(e => e.Observaciones)
                 .HasColumnType("text")
                 .HasColumnName("observaciones");
+            entity.Property(e => e.ObservacionesResuelto) // <-- NUEVO
+                .HasColumnType("text")
+                .HasColumnName("observaciones_resuelto");
+            entity.Property(e => e.Activo) // <-- NUEVO
+                .HasColumnName("activo")
+                .HasDefaultValue(true);
             entity.Property(e => e.Ubicacion)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -371,6 +386,7 @@ public partial class HermesDbContext : DbContext
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK__reportes__usuari__1AD3FDA4");
         });
+
 
         modelBuilder.Entity<ReportesDocumento>(entity =>
         {
@@ -495,6 +511,21 @@ public partial class HermesDbContext : DbContext
             entity.Property(e => e.UltimaSesion)
                 .HasColumnType("datetime")
                 .HasColumnName("ultima_sesion");
+        });
+
+        modelBuilder.Entity<RegistroLogin>(entity =>
+        {
+            entity.ToTable("registro_login");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.UserId)
+                  .HasColumnName("user_id") // Usa el nombre real de la columna en la base de datos
+                  .IsRequired();
+
+            entity.Property(e => e.Fecha)
+                  .HasColumnType("datetime");
+
         });
 
         OnModelCreatingPartial(modelBuilder);

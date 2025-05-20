@@ -10,6 +10,21 @@ namespace HermesHandling.Server.Controllers
     [Route("api/[controller]")]
     public class AdminCommonController : ControllerBase
     {
+        private readonly IDocumentacionInternaRepository _docRepo;
+        private readonly IComunicacionesRepository _comRepo;
+        private readonly IReporte _reporteRepo;
+        private readonly IDefectosReportadoRepository _defReportadoRepo;
+
+
+        public AdminCommonController(IDocumentacionInternaRepository docRepo, IDefectosReportadoRepository defReportadoRepo, IReporte reporteRepo, IComunicacionesRepository comRepo)
+        {
+            _docRepo = docRepo;
+            _comRepo = comRepo;
+            _reporteRepo = reporteRepo;
+            _defReportadoRepo = defReportadoRepo;
+
+        }
+
         #region Documentacion Interna
         [HttpPost("crear-documentacion-interna")]
         public async Task<IActionResult> CrearDocumentacion([FromForm] DocumentacionInternaViewModel model)
@@ -27,173 +42,117 @@ namespace HermesHandling.Server.Controllers
                 Directory.CreateDirectory(path);
 
             var filePath = Path.Combine(path, model.Nombre + extension);
-
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await model.Documento.CopyToAsync(stream);
             }
 
-            // Ahora usamos el _context inyectado
-            DocumentacionInterna document = new DocumentacionInterna()
+            // Conversión manual del ViewModel a la entidad
+            var documentacion = new DocumentacionInterna
             {
                 Nombre = model.Nombre,
                 PathDocumento = filePath,
                 FechaAlta = DateTime.Now,
                 Activo = true,
-                IdUsuarioAlta = null, // O asigna un valor explícito
+                IdUsuarioAlta = null,
                 IdUsuarioModificacion = null
             };
 
-            using (HermesDbContext context = new HermesDbContext())
-            {
-                context.DocumentacionInternas.Add(document);
-                await context.SaveChangesAsync();
-            }
-            
+            await _docRepo.AddAsync(documentacion);
 
             return Ok(new { message = "Documento subido correctamente." });
         }
 
 
-        //Documentacion Interna
-        // Ruta para listar la documentacion interna
         [HttpGet("listar-documentacion-interna")]
-        public IActionResult ListarDocumentacionInternaApp()
+        public async Task<IActionResult> ListarDocumentacionInternaApp()
         {
-            using (HermesDbContext context = new HermesDbContext())
-            {
-                var documentacion = context.DocumentacionInternas.ToList();
-                return Ok(documentacion);
-            }
+            var documentacion = await _docRepo.GetAllAsync();
+            return Ok(documentacion);
         }
 
         [HttpPut("editar-documentacion/{id}")]
         public async Task<IActionResult> EditarDocumentacion(int id, [FromForm] DocumentacionInternaViewModel model)
         {
+            var documentacion = await _docRepo.GetByIdAsync(id);
+            if (documentacion == null)
+                return NotFound("No se encontró la documentación interna con el ID proporcionado.");
+
+            // Actualizar las propiedades de la entidad con los valores del modelo
+            documentacion.Nombre = model.Nombre;
+
             if (model.Documento != null && model.Documento.Length > 0)
             {
                 var allowedExtensions = new[] { ".pdf", ".docx" };
                 var extension = Path.GetExtension(model.Documento.FileName).ToLower();
                 if (!allowedExtensions.Contains(extension))
                     return BadRequest("Solo se permiten archivos PDF o DOCX.");
-            }
 
-            using (HermesDbContext context = new HermesDbContext())
-            {
-                // Buscar el registro en la base de datos
-                var documentacion = await context.DocumentacionInternas.FindAsync(id);
-                if (documentacion == null)
-                    return NotFound("No se encontró la documentación interna con el ID proporcionado.");
-
-                // Obtener la ruta del directorio
                 var path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "FicherosOcultosWeb", "DocumentacionInterna");
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
 
-                // Si se subió un nuevo archivo, reemplazar el existente
-                if (model.Documento != null && model.Documento.Length > 0)
+                var filePath = Path.Combine(path, model.Nombre + extension);
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    // Eliminar el archivo anterior si existe
-                    if (!string.IsNullOrEmpty(documentacion.PathDocumento) && System.IO.File.Exists(documentacion.PathDocumento))
-                    {
-                        System.IO.File.Delete(documentacion.PathDocumento);
-                    }
-
-                    // Guardar el nuevo archivo
-                    var filePath = Path.Combine(path, model.Nombre + Path.GetExtension(model.Documento.FileName).ToLower());
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await model.Documento.CopyToAsync(stream);
-                    }
-
-                    // Actualizar la ruta del archivo en la base de datos
-                    documentacion.PathDocumento = filePath;
+                    await model.Documento.CopyToAsync(stream);
                 }
 
-                // Actualizar otros campos
-                documentacion.Nombre = model.Nombre;
-                documentacion.FechaModificacion = DateTime.Now;
-
-                // Guardar los cambios en la base de datos
-                context.DocumentacionInternas.Update(documentacion);
-                await context.SaveChangesAsync();
-
-                return Ok(new { message = "Documentación interna actualizada correctamente." });
+                documentacion.PathDocumento = filePath;
             }
+
+            var result = await _docRepo.UpdateAsync(documentacion);
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            return Ok(new { message = "Documentación interna actualizada correctamente." });
         }
-
-
 
 
         [HttpDelete("eliminar-documentacion/{id}")]
         public async Task<IActionResult> EliminarDocumentacion(int id)
         {
-            using (HermesDbContext context = new HermesDbContext())
-            {
-                var documentacion = await context.DocumentacionInternas.FindAsync(id);
-                if (documentacion == null)
-                    return NotFound("No se encontró la documentación interna con el ID proporcionado.");
+            var result = await _docRepo.DeleteAsync(id);
+            if (!result.Success)
+                return NotFound(result.Message);
 
-                if (!string.IsNullOrEmpty(documentacion.PathDocumento) && System.IO.File.Exists(documentacion.PathDocumento))
-                {
-                    System.IO.File.Delete(documentacion.PathDocumento);
-                }
-
-                context.DocumentacionInternas.Remove(documentacion);
-                await context.SaveChangesAsync();
-
-                return Ok(new { message = "Documentación interna eliminada correctamente." });
-            }
+            return Ok(new { message = "Documentación interna eliminada correctamente." });
         }
 
         [HttpGet("obtener-documentacion-interna/{id}")]
         public async Task<IActionResult> ObtenerDocumentacionInterna(int id)
         {
-            using (HermesDbContext context = new HermesDbContext())
-            {
-                var documentacion = await context.DocumentacionInternas.FindAsync(id);
-                if (documentacion == null)
-                    return NotFound("No se encontró la documentación interna con el ID proporcionado.");
+            var documentacion = await _docRepo.GetByIdAsync(id);
+            if (documentacion == null)
+                return NotFound("No se encontró la documentación interna con el ID proporcionado.");
 
-                return Ok(new
-                {
-                    documentacion.Nombre,
-                    documentacion.PathDocumento
-                });
-            }
+            return Ok(new
+            {
+                documentacion.Nombre,
+                documentacion.PathDocumento
+            });
         }
         #endregion
 
         #region Comunicaciones
 
-        // GET: api/AdminCommon/listar-comunicaciones
         [HttpGet("listar-comunicaciones")]
-        public IActionResult ListarComunicaciones()
+        public async Task<IActionResult> ListarComunicaciones()
         {
-            using (HermesDbContext context = new HermesDbContext())
-            {
-                var comunicaciones = context.Comunicaciones
-                    .OrderByDescending(c => c.FechaPublicacion)
-                    .ToList();
-                return Ok(comunicaciones);
-            }
+            var comunicaciones = await _comRepo.GetAllAsync();
+            return Ok(comunicaciones);
         }
 
-        // GET: api/AdminCommon/obtener-comunicacion/{id}
         [HttpGet("obtener-comunicacion/{id}")]
         public async Task<IActionResult> ObtenerComunicacion(int id)
         {
-            using (HermesDbContext context = new HermesDbContext())
-            {
-                var comunicacion = await context.Comunicaciones.FindAsync(id);
-                if (comunicacion == null)
-                    return NotFound("No se encontró la comunicación con el ID proporcionado.");
+            var comunicacion = await _comRepo.GetByIdAsync(id);
+            if (comunicacion == null)
+                return NotFound("No se encontró la comunicación con el ID proporcionado.");
 
-                return Ok(comunicacion);
-            }
+            return Ok(comunicacion);
         }
 
-        // POST: api/AdminCommon/crear-comunicacion
         [HttpPost("crear-comunicacion")]
         public async Task<IActionResult> CrearComunicacion([FromBody] Comunicacione comunicacion)
         {
@@ -203,54 +162,89 @@ namespace HermesHandling.Server.Controllers
             comunicacion.FechaPublicacion = comunicacion.FechaPublicacion ?? DateTime.Now;
             comunicacion.FechaAlta = DateTime.Now;
 
-            using (HermesDbContext context = new HermesDbContext())
-            {
-                context.Comunicaciones.Add(comunicacion);
-                await context.SaveChangesAsync();
-            }
+            await _comRepo.AddAsync(comunicacion);
 
             return Ok(new { message = "Comunicación creada correctamente." });
         }
 
-        // PUT: api/AdminCommon/editar-comunicacion/{id}
         [HttpPut("editar-comunicacion/{id}")]
         public async Task<IActionResult> EditarComunicacion(int id, [FromBody] Comunicacione model)
         {
-            using (HermesDbContext context = new HermesDbContext())
-            {
-                var comunicacion = await context.Comunicaciones.FindAsync(id);
-                if (comunicacion == null)
-                    return NotFound("No se encontró la comunicación con el ID proporcionado.");
+            var result = await _comRepo.UpdateAsync(id, model);
+            if (!result.Success)
+                return NotFound(result.Message);
 
-                comunicacion.Asunto = model.Asunto;
-                comunicacion.Mensaje = model.Mensaje;
-                comunicacion.FechaPublicacion = model.FechaPublicacion ?? comunicacion.FechaPublicacion;
-                comunicacion.FechaModificacion = DateTime.Now;
-                comunicacion.IdUsuarioModificacion = model.IdUsuarioModificacion;
-
-                context.Comunicaciones.Update(comunicacion);
-                await context.SaveChangesAsync();
-
-                return Ok(new { message = "Comunicación actualizada correctamente." });
-            }
+            return Ok(new { message = "Comunicación actualizada correctamente." });
         }
 
-        // DELETE: api/AdminCommon/eliminar-comunicacion/{id}
         [HttpDelete("eliminar-comunicacion/{id}")]
         public async Task<IActionResult> EliminarComunicacion(int id)
         {
-            using (HermesDbContext context = new HermesDbContext())
-            {
-                var comunicacion = await context.Comunicaciones.FindAsync(id);
-                if (comunicacion == null)
-                    return NotFound("No se encontró la comunicación con el ID proporcionado.");
+            var result = await _comRepo.DeleteAsync(id);
+            if (!result.Success)
+                return NotFound(result.Message);
 
-                context.Comunicaciones.Remove(comunicacion);
-                await context.SaveChangesAsync();
-
-                return Ok(new { message = "Comunicación eliminada correctamente." });
-            }
+            return Ok(new { message = "Comunicación eliminada correctamente." });
         }
+        #endregion
+
+        #region Reportes
+        [HttpGet("listar-reportes")]
+        public IActionResult ListarReportesApp()
+        {
+            var reportes = _reporteRepo.GetReportes();
+            return Ok(reportes);
+        }
+
+        [HttpGet("get-reporte/{id}")]
+        public IActionResult GetReporte(int id)
+        {
+            var reporte = _reporteRepo.GetReporte(id);
+            if (reporte == null)
+                return NotFound();
+
+            var dto = new ReporteDto
+            {
+                Id = reporte.Id,
+                Ubicacion = reporte.Ubicacion,
+                Observaciones = reporte.Observaciones,
+                ObservacionesResuelto = reporte.ObservacionesResuelto,
+                Activo = reporte.Activo,
+                FechaCreacion = reporte.FechaCreacion,
+                AssetIdEquipo = reporte.Equipo?.AssetId,
+                DefectosReportados = reporte.DefectosReportados?.Select(d => d.TipoDefecto?.Nombre ?? d.TipoDefectoId.ToString()).ToList() ?? new List<string>(),
+                Documentos = reporte.ReportesDocumentos?.Select(d => d.Nombre ?? d.PathDocumento).ToList() ?? new List<string>()
+            };
+
+            return Ok(dto);
+        }
+
+
+        [HttpPut("resolver-reporte/{id}")]
+        public async Task<IActionResult> ResolverReporte(int id, [FromBody] ResolverReporteViewModel model)
+        {
+            var reporte = _reporteRepo.GetReporte(id);
+            if (reporte == null)
+                return NotFound("No se encontró el reporte.");
+
+            // Validar que no esté ya resuelto, etc.  
+            reporte.ObservacionesResuelto = model.ObservacionesResuelto;
+            reporte.Activo = false;
+
+            //Actualizamos que el defecto a sido solucionado y metemos la fecha
+            await _defReportadoRepo.UpdateAsync(id);
+          
+        
+            // Reemplazar _context por el repositorio correspondiente  
+            var result = await _reporteRepo.UpdateAsync(reporte);
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            return Ok(new { message = "Reporte resuelto correctamente." });
+        }
+
+
+
         #endregion
     }
 }

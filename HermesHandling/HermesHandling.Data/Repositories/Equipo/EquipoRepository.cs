@@ -1,14 +1,13 @@
-﻿using HermesHandling.Data.Models;
+using HermesHandling.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace HermesHandling.Server.Repositories.EquiposRepositories
+public class EquipoRepository : IEquipoRepository
 {
-    public class HistorialIncidenciasRepository : IEquipo
-    {
-        private readonly HermesDbContext _hermesDbContext;
+    private readonly HermesDbContext _context;
+    public EquipoRepository(HermesDbContext context) { _context = context; }
 
-        public HistorialIncidenciasRepository(HermesDbContext hermesDbContext)
-        {
-            _hermesDbContext = hermesDbContext;
-        }
+    public async Task<IEnumerable<Equipo>> GetAllAsync()
+    {
+        return await _context.Equipos.ToListAsync();
     }
 }

@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../assets/css/AdminApp/SideBarAdmin.css";
+import logoHermes from "../assets/images/logo_hermesHandlingBg.png";
+import logoHermesInvertido from "../assets/images/logo_hermesHandlingOs.png";
+
+
 
 const SidebarAdminApp = () => {
     const [openMenu, setOpenMenu] = useState({
@@ -31,9 +35,12 @@ const SidebarAdminApp = () => {
     return (
         <div className="sidebar-container d-flex flex-column justify-content-between" style={{height: "100%"}}>
             <div>
-                {/* Logo o nombre de la aplicación */}
                 <div className="sidebar-header">
-                    <h3>App Admin Panel</h3>
+                    <img
+                        src={logoHermesInvertido}
+                        alt="Logo de la app"
+                        style={{ width: "210px", height: "210px" }}
+                    />
                 </div>
 
                 {/* Menú */}
@@ -91,7 +98,7 @@ const SidebarAdminApp = () => {
                                 </ul>
                             </div>
                         </li>
-                        {/* Configuración */}
+                        {/* Configuración
                         <li className="nav-item">
                             <button
                                 className="nav-link text-white w-100 text-start btn-toggle"
@@ -114,7 +121,7 @@ const SidebarAdminApp = () => {
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>

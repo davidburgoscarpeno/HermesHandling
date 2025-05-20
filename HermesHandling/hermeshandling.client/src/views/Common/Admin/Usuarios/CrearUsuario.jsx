@@ -44,6 +44,8 @@ function CrearUsuario() {
     return (
         <div className="crear-usuario-form-container">
             <div className="crear-usuario-form-card">
+                {success && <div className="crear-usuario-alert-message crear-usuario-alert-success">{success}</div>}
+                {error && <div className="crear-usuario-alert-message crear-usuario-alert-error">{error}</div>}
                 <h3>Crear Nuevo Usuario</h3>
                 <form onSubmit={handleSubmit}>
                     <div>
@@ -113,8 +115,7 @@ function CrearUsuario() {
                     </button>
                 </form>
 
-                {success && <div className="crear-usuario-alert-message crear-usuario-alert-success">{success}</div>}
-                {error && <div className="crear-usuario-alert-message crear-usuario-alert-error">{error}</div>}
+                
             </div>
         </div>
     );

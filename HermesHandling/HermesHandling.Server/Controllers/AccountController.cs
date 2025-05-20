@@ -53,6 +53,17 @@ namespace HermesHandling.Server.Controllers
                 signingCredentials: creds
             );
 
+            using(HermesDbContext context = new HermesDbContext())
+            {
+                RegistroLogin registro = new RegistroLogin()
+                {
+                    Fecha = DateTime.Now,
+                    UserId = usuario.Id,
+                };
+                context.RegistroLogin.Add(registro);
+                context.SaveChanges();
+            }
+
             // Devuelve el token y los datos del usuario
             return Ok(new
             {

@@ -1,6 +1,7 @@
 ﻿using EjemploCifrado.Helper;
 using HermesHandling.Data.Models;
 using HermesHandling.Server.Models;
+using HermesHandling.Server.Repositories.UsuariosRepositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HermesHandling.Server.Controllers
@@ -15,19 +16,13 @@ namespace HermesHandling.Server.Controllers
             if (model == null || string.IsNullOrEmpty(model.Password))
                 return BadRequest(new { message = "Datos inválidos" });
 
+            // Usa inyección de dependencias si es posible, si no, crea el contexto aquí
             using (HermesDbContext context = new HermesDbContext())
             {
-                var usuario = context.Usuarios.FirstOrDefault(u => u.Id == model.Id);
-                if (usuario == null)
-                {
+                var repo = new UsuarioRepository(context);
+                var result = repo.UpdatePassword(model.Id, model.Password);
+                if (!result)
                     return NotFound(new { message = "Usuario no encontrado" });
-                }
-                var salt = Cifrado.GenerateSalt();
-                var hashedPassword = Cifrado.HashPassword(model.Password, salt);
-                usuario.Password = hashedPassword;
-                usuario.Salt = salt;
-               
-                context.SaveChanges();
             }
 
             return Ok(new { message = "Password editado correctamente" });

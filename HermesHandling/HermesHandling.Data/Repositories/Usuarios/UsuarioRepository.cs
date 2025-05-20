@@ -158,6 +158,32 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
             }
         }
 
+        //Metodo para actualizar la contraseña del usuario por si mismo
+        public bool UpdatePassword(int userId, string newPassword)
+        {
+            var usuario = _hermesDbContext.Usuarios.FirstOrDefault(u => u.Id == userId);
+            if (usuario == null)
+                return false;
+
+            try
+            {
+                string salt = Cifrado.GenerateSalt();
+                string passwordEncrypted = Cifrado.HashPassword(newPassword, salt);
+                usuario.Salt = salt;
+                usuario.Password = passwordEncrypted;
+                usuario.FechaModificacion = DateTime.Now;
+
+                _hermesDbContext.Usuarios.Update(usuario);
+                _hermesDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al actualizar contraseña: {ex.Message}");
+                return false;
+            }
+        }
+
         #endregion
 
         #region Métodos Privados

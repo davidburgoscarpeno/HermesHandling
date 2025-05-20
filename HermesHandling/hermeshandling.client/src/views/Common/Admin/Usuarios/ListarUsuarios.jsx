@@ -16,7 +16,8 @@ function ListarUsuarios() {
 
     const tipos = {
         0: "Admin App",
-        1: "Usuario"
+        1: "Cordinador",
+        2: "Usuario"
     };
 
     // Obtén el token del localStorage
@@ -165,7 +166,8 @@ function ListarUsuarios() {
                                         >
                                             <option value="todos">Todos</option>
                                             <option value="0">Admin App</option>
-                                            <option value="1">Usuario</option>
+                                            <option value="1">Cordinador</option>
+                                            <option value="2">Usuario</option>
                                         </select>
                                     </td>
                                     <td></td>

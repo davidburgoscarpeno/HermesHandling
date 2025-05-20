@@ -14,10 +14,11 @@
     transition: width 0.3s ease;
 }
 
+
+
 /* Header del Sidebar */
 .sidebar-header {
     padding: 24px 16px;
-    background-color: #1c2833;
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: 1px;

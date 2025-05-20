@@ -15,6 +15,10 @@ public partial class Reporte
 
     public string? Observaciones { get; set; }
 
+    public string? ObservacionesResuelto { get; set; }
+
+    public bool Activo { get; set; }
+
     public DateTime? FechaCreacion { get; set; }
 
     public virtual ICollection<DefectosReportado> DefectosReportados { get; set; } = new List<DefectosReportado>();

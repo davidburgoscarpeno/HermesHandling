@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Agregar CORS para permitir solicitudes desde el frontend
@@ -50,7 +51,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Inyecto los repositorios
-builder.Services.AddScoped<IUsuario, UsuarioRepository>(); // Asegúrate de que UsuarioRepository implemente IUsuario
+builder.Services.AddScoped<IUsuario, UsuarioRepository>();
+builder.Services.AddScoped<IReporte, ReporteRepository>();
+builder.Services.AddScoped<IDashboard, DashboardRepository>();
+builder.Services.AddScoped<IDocumentacionInternaRepository, DocumentacionInternaRepository>();
+builder.Services.AddScoped<IComunicacionesRepository, ComunicacionesRepository>();
+builder.Services.AddScoped<IEquipoRepository, EquipoRepository>();
+builder.Services.AddScoped<IReporte, ReporteRepository>();
+builder.Services.AddScoped<IDefectosReportadoRepository, DefectosReportadoRepository>();
+builder.Services.AddScoped<IReportesDocumentoRepository, ReportesDocumentoRepository>();
+builder.Services.AddScoped<ITiposDefectoRepository, TiposDefectoRepository>();
+
+
+
+
 
 var app = builder.Build();
 

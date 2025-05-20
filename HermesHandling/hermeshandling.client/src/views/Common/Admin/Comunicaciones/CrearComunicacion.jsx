@@ -34,7 +34,7 @@ function CrearComunicacion() {
 
     return (
         <div className="crear-container">
-            <h2>Nueva Comunicación</h2>
+            <h2>Nueva Comunicaci&oacute;n</h2>
             {mensajeExito && (
                 <div className="alert-success">
                     {mensajeExito}
@@ -42,7 +42,7 @@ function CrearComunicacion() {
             )}
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>Título</label>
+                    <label>T&iacute;tulo</label>
                     <input
                         type="text"
                         value={titulo}
