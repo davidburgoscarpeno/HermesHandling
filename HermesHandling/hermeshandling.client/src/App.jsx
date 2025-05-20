@@ -27,6 +27,8 @@ import Layout from './components/Layout'; // Importar el Layout
 import './App.css';
 import VerUsuario from './views/Usuario/VerUsuario';
 import VerDetallesReporte from './views/Common/Admin/Reportes/VerDetallesReporte';
+//Private Route
+import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
     const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -61,7 +63,11 @@ const App = () => {
                     <Route path="/" element={<Navigate to="/login" />} />
                     <Route path="/login" element={<Login />} />
 
-                    <Route path="/admin-app" element={<Layout />}>
+                    <Route path="/admin-app" element={
+                        <PrivateRoute>
+                            <Layout />
+                        </PrivateRoute>
+                    }>
                         <Route path="dashboard" element={<Dashboard />} />
                         <Route path="usuarios/listar" element={<ListarUsuarios />} />
                         <Route path="usuarios/crear" element={<CrearUsuario />} />
@@ -77,21 +83,22 @@ const App = () => {
                         <Route path="documentacion-interna/editar/:id" element={<EditarDocumentacionInterna />} />
 
                         <Route path="ver-perfil" element={<VerUsuario />} />
-
-                        
                         <Route path="reportes/listar-reportes" element={<ListarReportes />} />
                         <Route path="reportes/crear" element={<CrearReporte />} />
                         <Route path="reportes/editar" element={<CrearReporte />} />
                         <Route path="reportes/detalles/:id" element={<VerDetallesReporte />} />
-
-
-
-
-
                     </Route>
 
-                    <Route path="/admin-company" element={<AdminCompany />} />
-                    <Route path="/usuario" element={<Usuario />} />
+                    <Route path="/admin-company" element={
+                        <PrivateRoute>
+                            <AdminCompany />
+                        </PrivateRoute>
+                    } />
+                    <Route path="/usuario" element={
+                        <PrivateRoute>
+                            <Usuario />
+                        </PrivateRoute>
+                    } />
                 </Routes>
             </div>
         </Router>
