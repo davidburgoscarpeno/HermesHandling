@@ -1,0 +1,189 @@
+﻿/* --------- ESTILO BASE (PC/Portátil) --------- */
+.crear-reporte-form {
+    background: #fff;
+    max-width: 480px;
+    margin: 32px auto;
+    padding: 32px 24px;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+    .crear-reporte-form h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #22223b;
+        text-align: center;
+        margin-bottom: 8px;
+        letter-spacing: 0.5px;
+    }
+
+    .crear-reporte-form label {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #4a4e69;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+.mensaje-exito {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #b2dfb2;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.crear-reporte-form input,
+.crear-reporte-form select,
+.crear-reporte-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #c9c9c9;
+    font-size: 1rem;
+    color: #22223b;
+    background: #f8f8fa;
+    margin-bottom: 2px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: vertical;
+}
+
+    .crear-reporte-form input:focus,
+    .crear-reporte-form select:focus,
+    .crear-reporte-form textarea:focus {
+        border-color: #4f8cff;
+        background: #fff;
+        outline: none;
+        box-shadow: 0 0 0 2px #4f8cff22;
+    }
+
+.crear-reporte-form button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(90deg, #4f8cff 0%, #4361ee 100%);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 8px;
+}
+
+    .crear-reporte-form button[type="submit"]:hover {
+        background: linear-gradient(90deg, #4361ee 0%, #4f8cff 100%);
+        transform: translateY(-2px) scale(1.01);
+    }
+
+/* --------- PORTÁTIL (≤ 1200px) --------- */
+@media (max-width: 1200px) {
+    .crear-reporte-form {
+        max-width: 420px;
+        padding: 28px 18px;
+        gap: 15px;
+    }
+
+        .crear-reporte-form h3 {
+            font-size: 1.7rem;
+        }
+}
+
+/* --------- TABLET (≤ 900px) --------- */
+@media (max-width: 900px) {
+    .crear-reporte-form {
+        max-width: 98vw;
+        padding: 20px 6vw;
+        gap: 13px;
+    }
+
+        .crear-reporte-form h3 {
+            font-size: 1.4rem;
+        }
+
+        .crear-reporte-form input,
+        .crear-reporte-form select,
+        .crear-reporte-form textarea {
+            font-size: 0.98rem;
+            padding: 10px;
+        }
+}
+
+/* --------- MÓVIL (≤ 600px) --------- */
+@media (max-width: 600px) {
+    .crear-reporte-form {
+        max-width: 100vw;
+        padding: 12px 2vw;
+        gap: 10px;
+    }
+
+        .crear-reporte-form h3 {
+            font-size: 1.1rem;
+        }
+
+        .crear-reporte-form input,
+        .crear-reporte-form select,
+        .crear-reporte-form textarea {
+            font-size: 0.93rem;
+            padding: 8px;
+        }
+
+        .crear-reporte-form button[type="submit"] {
+            font-size: 1rem;
+            padding: 10px;
+        }
+}
+
+/* --------- MODO NOCTURNO --------- */
+body.dark-mode .crear-reporte-form {
+    background: #232a36;
+    color: #e0e6ed;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.30);
+}
+
+    body.dark-mode .crear-reporte-form h3 {
+        color: #e0e6ed;
+    }
+
+    body.dark-mode .crear-reporte-form label {
+        color: #b0b8c1;
+    }
+
+    body.dark-mode .crear-reporte-form input,
+    body.dark-mode .crear-reporte-form select,
+    body.dark-mode .crear-reporte-form textarea {
+        background: #1e232b;
+        color: #e0e6ed;
+        border: 1px solid #38405a;
+    }
+
+        body.dark-mode .crear-reporte-form input:focus,
+        body.dark-mode .crear-reporte-form select:focus,
+        body.dark-mode .crear-reporte-form textarea:focus {
+            background: #232a36;
+            border-color: #6cb6ff;
+            box-shadow: 0 0 0 2px #6cb6ff33;
+            color: #fff;
+        }
+
+    body.dark-mode .crear-reporte-form button[type="submit"] {
+        background: linear-gradient(90deg, #3bb36a 0%, #2980b9 100%);
+        color: #fff;
+    }
+
+        body.dark-mode .crear-reporte-form button[type="submit"]:hover {
+            background: linear-gradient(90deg, #2980b9 0%, #3bb36a 100%);
+        }
+
+body.dark-mode .mensaje-exito {
+    background-color: #223d2c;
+    color: #6be39c;
+    border: 1px solid #3bb36a;
+}
