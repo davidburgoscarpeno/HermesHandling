@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import AdminCompany from './views/AdminCompany/AdminCompany';
 import Usuario from './views/Usuario/Usuario';
 //Login
@@ -15,7 +15,6 @@ import CrearDocumentacionInterna from './views/Common/Admin/DocumentacionInterna
 import EditarDocumentacionInterna from './views/Common/Admin/DocumentacionInterna/EditarDocumentacionInterna'
 
 //Comunicaciones
-import Comunicaciones from './views/Common/Admin/Comunicaciones/ListarComunicaciones';
 import ListarComunicaciones from './views/Common/Admin/Comunicaciones/ListarComunicaciones';
 import CrearComunicacion from './views/Common/Admin/Comunicaciones/CrearComunicacion';
 import EditarComunicacion from './views/Common/Admin/Comunicaciones/EditarComunicacion';
@@ -27,8 +26,12 @@ import Layout from './components/Layout'; // Importar el Layout
 import './App.css';
 import VerUsuario from './views/Usuario/VerUsuario';
 import VerDetallesReporte from './views/Common/Admin/Reportes/VerDetallesReporte';
-//Private Route
-import PrivateRoute from './components/PrivateRoute';
+
+// PrivateRoute actualizado para comprobar autenticación
+const PrivateRoute = ({ children }) => {
+    const isAuthenticated = !!localStorage.getItem('token');
+    return isAuthenticated ? children : <Navigate to="/login" replace />;
+};
 
 const App = () => {
     const [isDarkMode, setIsDarkMode] = useState(() => {

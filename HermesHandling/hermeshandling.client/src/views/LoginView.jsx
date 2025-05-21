@@ -2,13 +2,25 @@ import React, { useState } from "react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// Spinner simple usando Bootstrap
+const Spinner = () => (
+    <div className="d-flex justify-content-center align-items-center mt-3">
+        <div className="spinner-border text-primary" role="status" aria-label="Cargando">
+            <span className="visually-hidden">Cargando...</span>
+        </div>
+    </div>
+);
+
 const LoginView = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setError("");
+        setLoading(true);
 
         const user = {
             email: email.trim(),
@@ -22,23 +34,22 @@ const LoginView = () => {
 
             if (!data.token || !data.usuario) {
                 setError("Respuesta no válida del servidor");
+                setLoading(false);
                 return;
             }
 
-            // Al hacer login exitoso
-            localStorage.setItem('token', response.data.token);
-            localStorage.setItem('usuario', JSON.stringify(response.data.usuario));
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('usuario', JSON.stringify(data.usuario));
 
-            // Redirección según tipo de usuario
             if (data.usuario.tipoUsuario === 0) {
                 window.location.href = "/admin-app/dashboard";
             } else {
                 window.location.href = "/usuario";
             }
-
         } catch (error) {
             console.error("Error en login:", error.response?.data || error.message);
             setError(error.response?.data?.message || "Credenciales incorrectas o error en el servidor");
+            setLoading(false);
         }
     };
 
@@ -62,6 +73,7 @@ const LoginView = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
+                                disabled={loading}
                             />
                             <label htmlFor="email">Correo Electr&oacute;nico</label>
                         </div>
@@ -74,13 +86,20 @@ const LoginView = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
+                                disabled={loading}
                             />
                             <label htmlFor="password">Contrase&ntilde;a</label>
                         </div>
-                        <button type="submit" className="btn btn-primary w-100">
-                            Iniciar sesi&oacute;n
+                        <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+                            {loading ? (
+                                <>
+                                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                    Cargando...
+                                </>
+                            ) : (
+                                "Iniciar sesión"
+                            )}
                         </button>
-
                     </form>
                     <div className="text-center mt-4">
                         <a href="/register" className="text-decoration-none text-muted">

@@ -1,17 +1,24 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import SideBar from "../components/SideBarAdminApp";
-import '../assets/css/Layout.css'; // Asegúrate que este CSS contenga los estilos que te pasé
+import '../assets/css/Layout.css';
 
 const Layout = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login', { replace: true });
+        }
+        // Si necesitas validar el token con el backend, puedes hacerlo aquí
+    }, [navigate]);
+
     return (
         <div className="layout-container">
-            {/* Sidebar - ocupa el 20% del ancho */}
             <div className="sidebar-container">
                 <SideBar />
             </div>
-
-            {/* Contenido principal - ocupa el 80% */}
             <div className="content-container">
                 <Outlet />
             </div>

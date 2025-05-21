@@ -48,6 +48,14 @@ body.dark-mode {
         color: #ecf0f1;
     }
 
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
 /* Responsividad */
 @media (max-width: 768px) {
     .dark-mode-toggle-btn {

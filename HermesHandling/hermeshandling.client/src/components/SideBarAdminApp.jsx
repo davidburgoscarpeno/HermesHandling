@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../assets/css/AdminApp/SideBarAdmin.css";
 import logoHermes from "../assets/images/logo_hermesHandlingBg.png";
-import logoHermesInvertido from "../assets/images/logo_hermesHandlingOs.png";
+import logoHermesInvertido from "../assets/images/hermes.png";
 
 
 
