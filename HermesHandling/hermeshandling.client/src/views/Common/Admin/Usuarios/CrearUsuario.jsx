@@ -105,7 +105,7 @@ function CrearUsuario() {
                             onChange={handleChange}
                         >
                             <option value={0}>Administrador App</option>
-                            <option value={1}>Administrador Compa&ntilde;ia</option>
+                            <option value={1}>Coordinador</option>
                             <option value={2}>Usuario</option>
                         </select>
                     </div>

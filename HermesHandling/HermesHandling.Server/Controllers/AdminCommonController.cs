@@ -14,14 +14,23 @@ namespace HermesHandling.Server.Controllers
         private readonly IComunicacionesRepository _comRepo;
         private readonly IReporte _reporteRepo;
         private readonly IDefectosReportadoRepository _defReportadoRepo;
+        private readonly IEquipoRepository _equipoRepo;
+        private readonly ITiposEquipoRepository _tiposEquipoRepo;
+        private readonly HermesDbContext _context;
 
 
-        public AdminCommonController(IDocumentacionInternaRepository docRepo, IDefectosReportadoRepository defReportadoRepo, IReporte reporteRepo, IComunicacionesRepository comRepo)
+
+
+
+        public AdminCommonController(IDocumentacionInternaRepository docRepo, ITiposEquipoRepository tiposEquipoRepo,IEquipoRepository equipoRepo, IDefectosReportadoRepository defReportadoRepo, IReporte reporteRepo, IComunicacionesRepository comRepo)
         {
             _docRepo = docRepo;
             _comRepo = comRepo;
             _reporteRepo = reporteRepo;
             _defReportadoRepo = defReportadoRepo;
+            _equipoRepo = equipoRepo;
+            _tiposEquipoRepo = tiposEquipoRepo;
+
 
         }
 
@@ -227,15 +236,12 @@ namespace HermesHandling.Server.Controllers
             if (reporte == null)
                 return NotFound("No se encontró el reporte.");
 
-            // Validar que no esté ya resuelto, etc.  
             reporte.ObservacionesResuelto = model.ObservacionesResuelto;
             reporte.Activo = false;
 
-            //Actualizamos que el defecto a sido solucionado y metemos la fecha
             await _defReportadoRepo.UpdateAsync(id);
           
         
-            // Reemplazar _context por el repositorio correspondiente  
             var result = await _reporteRepo.UpdateAsync(reporte);
             if (!result.Success)
                 return BadRequest(result.Message);
@@ -244,6 +250,39 @@ namespace HermesHandling.Server.Controllers
         }
 
 
+
+        #endregion
+
+        #region Equipos
+        [HttpGet("equipos/{id}")]
+        public async Task<IActionResult> ObtenerEquipo(int id)
+        {
+            var equipo = await _equipoRepo.GetByIdAsync(id);
+            if (equipo == null)
+                return NotFound("No se encontró el equipo con el ID proporcionado.");
+
+            return Ok(equipo);
+        }
+
+        [HttpGet("tipos-equipo")]
+        public async Task<IActionResult> ListarTiposEquipo()
+        {
+            var tipos = await _tiposEquipoRepo.GetAllAsync();
+            return Ok(tipos);
+        }
+
+        [HttpPut("editar-equipo/{id}")]
+        public async Task<IActionResult> EditarEquipo(int id, [FromBody] Equipo model)
+        {
+            if (id != model.Id)
+                return BadRequest("El ID de la URL no coincide con el del modelo.");
+
+            var result = await _equipoRepo.UpdateAsync(model);
+            if (!result.Success)
+                return NotFound(result.Message);
+
+            return Ok(new { message = "Equipo actualizado correctamente." });
+        }
 
         #endregion
     }

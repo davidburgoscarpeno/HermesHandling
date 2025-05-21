@@ -166,7 +166,7 @@ function ListarUsuarios() {
                                         >
                                             <option value="todos">Todos</option>
                                             <option value="0">Admin App</option>
-                                            <option value="1">Cordinador</option>
+                                            <option value="1">Coordinador</option>
                                             <option value="2">Usuario</option>
                                         </select>
                                     </td>

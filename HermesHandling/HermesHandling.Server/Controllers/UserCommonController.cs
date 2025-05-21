@@ -44,60 +44,73 @@ namespace HermesHandling.Server.Controllers
         }
 
 
-
         #region Reportes
         [HttpPost("crear-reporte")]
         public async Task<IActionResult> CrearReporte([FromForm] CrearReporteViewModel model)
         {
-            var reporte = new Reporte
+            try
             {
-                EquipoId = model.EquipoId,
-                UsuarioId = model.UsuarioId,
-                Ubicacion = model.Ubicacion,
-                Observaciones = model.Observaciones,
-                FechaCreacion = DateTime.Now,
-                Activo = true
-            };
-            await _reporteRepository.AddAsync(reporte);
-
-            if (model.TipoDefectoId > 0)
-            {
-                var defecto = new DefectosReportado
+                var reporte = new Reporte
                 {
-                    ReporteId = reporte.Id,
-                    TipoDefectoId = model.TipoDefectoId
+                    EquipoId = model.EquipoId,
+                    UsuarioId = model.UsuarioId,
+                    Ubicacion = model.Ubicacion,
+                    Observaciones = model.Observaciones,
+                    FechaCreacion = DateTime.Now,
+                    Activo = true
                 };
-                await _defectoRepo.AddAsync(defecto);
-            }
+                await _reporteRepository.AddAsync(reporte);
 
-
-            if (model.Documentos != null)
-            {
-                foreach (var archivo in model.Documentos)
+                if (model.TipoDefectoId > 0)
                 {
-                    if (archivo.Length > 0)
+                    var defecto = new DefectosReportado
                     {
-                        var nombreArchivo = Path.GetFileName(archivo.FileName);
-                        var ruta = Path.Combine("RUTA_A_TU_CARPETA", nombreArchivo);
-                        using (var stream = new FileStream(ruta, FileMode.Create))
+                        ReporteId = reporte.Id,
+                        TipoDefectoId = model.TipoDefectoId,
+                        FechaAlta = DateTime.Now,
+                        FechaResolucion = null,
+                        Resuelto = false
+                    };
+                    await _defectoRepo.AddAsync(defecto);
+                }
+
+
+                if (model.Documentos != null)
+                {
+                    foreach (var archivo in model.Documentos)
+                    {
+                        if (archivo.Length > 0)
                         {
-                            await archivo.CopyToAsync(stream);
+                            var nombreArchivo = Path.GetFileName(archivo.FileName);
+                            var ruta = Path.Combine("C:\\Users\\David\\Desktop\\HermesHandling\\HermesHandling\\FicherosOcultosWeb\\DocumentosReportes", nombreArchivo);
+                            using (var stream = new FileStream(ruta, FileMode.Create))
+                            {
+                                await archivo.CopyToAsync(stream);
+                            }
+                            var doc = new ReportesDocumento
+                            {
+                                ReporteId = reporte.Id,
+                                Nombre = nombreArchivo,
+                                PathDocumento = ruta,
+                                Activo = true,
+                                FechaSubida = DateTime.Now
+                            };
+                            await _documentoRepo.AddAsync(doc);
                         }
-                        var doc = new ReportesDocumento
-                        {
-                            ReporteId = reporte.Id,
-                            Nombre = nombreArchivo,
-                            PathDocumento = ruta,
-                            Activo = true,
-                            FechaSubida = DateTime.Now
-                        };
-                        await _documentoRepo.AddAsync(doc);
                     }
                 }
-            }
 
-            return Ok(new { message = "Reporte creado correctamente." });
+                return Ok(new { message = "Reporte creado correctamente." });
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.Message ?? "";
+                return StatusCode(500, $"Error interno: {ex.Message} {inner}");
+                Console.WriteLine(inner);
+            }
+           
         }
+
         #endregion
     }
 }

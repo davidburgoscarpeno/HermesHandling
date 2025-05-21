@@ -97,7 +97,7 @@ const LoginView = () => {
                                     Cargando...
                                 </>
                             ) : (
-                                "Iniciar sesión"
+                                "Iniciar sesion"
                             )}
                         </button>
                     </form>

@@ -13,7 +13,7 @@ public partial class DefectosReportado
 
     public bool Resuelto { get; set; }
 
-    public DateTime FechaResolucion { get; set; }
+    public DateTime? FechaResolucion { get; set; }
 
     public DateTime FechaAlta { get; set; }
 

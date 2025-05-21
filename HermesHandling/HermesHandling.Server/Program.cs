@@ -61,6 +61,8 @@ builder.Services.AddScoped<IReporte, ReporteRepository>();
 builder.Services.AddScoped<IDefectosReportadoRepository, DefectosReportadoRepository>();
 builder.Services.AddScoped<IReportesDocumentoRepository, ReportesDocumentoRepository>();
 builder.Services.AddScoped<ITiposDefectoRepository, TiposDefectoRepository>();
+builder.Services.AddScoped<ITiposEquipoRepository, TiposEquipoRepository>();
+
 
 
 

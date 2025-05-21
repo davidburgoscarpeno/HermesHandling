@@ -92,13 +92,11 @@ function ListarComunicaciones() {
                         <table className="tabla">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Asunto</th>
                                         <th>Fecha de Publicaci&oacute;n</th>
                                     <th>Acciones</th>
                                 </tr>
                                 <tr>
-                                    <td></td>
                                     <td>
                                         <input
                                             type="text"
@@ -123,7 +121,6 @@ function ListarComunicaciones() {
                                 {comunicacionesFiltradas.length > 0 ? (
                                     comunicacionesFiltradas.map((comunicacion) => (
                                         <tr key={comunicacion.id}>
-                                            <td>{comunicacion.id}</td>
                                             <td>{comunicacion.asunto}</td>
                                             <td>{comunicacion.fechaPublicacion ? new Date(comunicacion.fechaPublicacion).toLocaleDateString("es-ES") : "Sin fecha"}</td>
                                             <td>

@@ -27,6 +27,11 @@ import './App.css';
 import VerUsuario from './views/Usuario/VerUsuario';
 import VerDetallesReporte from './views/Common/Admin/Reportes/VerDetallesReporte';
 
+//Equipos
+import ListarEquipos from './views/Common/Admin/Equipos/ListarEquipos';
+import CrearEquipo from './views/Common/Admin/Equipos/CrearEquipo';
+import EditarEquipo from './views/Common/Admin/Equipos/EditarEquipo';
+
 // PrivateRoute actualizado para comprobar autenticación
 const PrivateRoute = ({ children }) => {
     const isAuthenticated = !!localStorage.getItem('token');
@@ -85,11 +90,17 @@ const App = () => {
                         <Route path="documentacion-interna/editar" element={<EditarDocumentacionInterna />} />
                         <Route path="documentacion-interna/editar/:id" element={<EditarDocumentacionInterna />} />
 
-                        <Route path="ver-perfil" element={<VerUsuario />} />
+                        <Route path="equipos/listar-equipos" element={<ListarEquipos />} />
+                        <Route path="equipos/crear" element={<CrearEquipo />} />
+                        <Route path="equipos/editar/:id" element={<EditarEquipo />} />
+
                         <Route path="reportes/listar-reportes" element={<ListarReportes />} />
                         <Route path="reportes/crear" element={<CrearReporte />} />
                         <Route path="reportes/editar" element={<CrearReporte />} />
                         <Route path="reportes/detalles/:id" element={<VerDetallesReporte />} />
+
+                        <Route path="ver-perfil" element={<VerUsuario />} />
+
                     </Route>
 
                     <Route path="/admin-company" element={

@@ -39,18 +39,18 @@ function CrearReporte() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setMensajeExito(""); // Limpia mensaje anterior
+        setMensajeExito("");
         try {
-            const formData = new FormData();
-            formData.append("equipoId", form.equipoId);
-            formData.append("usuarioId", user.idUsuario);
-            formData.append("ubicacion", form.ubicacion);
-            formData.append("observaciones", form.observaciones);
-            formData.append("fechaCreacion", form.fechaCreacion);
-            formData.append("tipoDefectoId", form.tipoDefectoId);
-            for (let i = 0; i < form.documentos.length; i++) {
-                formData.append("documentos", form.documentos[i]);
-            }
+         const formData = new FormData();
+formData.append("EquipoId", form.equipoId);
+formData.append("UsuarioId", user.idUsuario);
+formData.append("Ubicacion", form.ubicacion);
+formData.append("Observaciones", form.observaciones);
+formData.append("TipoDefectoId", form.tipoDefectoId ? form.tipoDefectoId : 0);
+for (let i = 0; i < form.documentos.length; i++) {
+    formData.append("Documentos", form.documentos[i]);
+}
+
             await axios.post(
                 `${import.meta.env.VITE_API_URL}/api/UserCommon/crear-reporte`,
                 formData,

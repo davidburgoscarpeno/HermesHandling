@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import "../../../../assets/css/AdminApp/VerDetallesReporte.css";
 
 function VerDetallesReporte() {
@@ -11,6 +15,7 @@ function VerDetallesReporte() {
     const [error, setError] = useState(null);
     const [obsResuelto, setObsResuelto] = useState("");
     const [resolviendo, setResolviendo] = useState(false);
+    const [showExportMenu, setShowExportMenu] = useState(false);
 
     useEffect(() => {
         const fetchReporte = async () => {
@@ -58,6 +63,131 @@ function VerDetallesReporte() {
         }
     };
 
+    // Exportar a Excel
+    const exportDetalleToExcel = () => {
+        if (!reporte) return;
+
+        const data = [
+            { Propiedad: "ID", Valor: reporte.id },
+            { Propiedad: "Ubicación", Valor: reporte.ubicacion },
+            { Propiedad: "Fecha de Creación", Valor: new Date(reporte.fechaCreacion).toLocaleString() },
+            { Propiedad: "Activo", Valor: reporte.activo ? "Sí" : "No" },
+            { Propiedad: "Observaciones", Valor: reporte.observaciones || "" }
+        ];
+
+        if (reporte.assetIdEquipo) {
+            data.push({ Propiedad: "Identificador Equipo", Valor: reporte.assetIdEquipo });
+        }
+
+        if (reporte.activo === false || reporte.activo === "false") {
+            data.push({ Propiedad: "Observaciones Resuelto", Valor: reporte.observacionesResuelto || "" });
+        }
+
+        if (reporte.defectosReportados && reporte.defectosReportados.length > 0) {
+            data.push({
+                Propiedad: "Defectos Reportados",
+                Valor: reporte.defectosReportados.map(def =>
+                    def.tipoDefecto?.nombre || def.tipoDefectoId || def || "Defecto sin nombre"
+                ).join(", ")
+            });
+        } else {
+            data.push({ Propiedad: "Defectos Reportados", Valor: "Sin defectos" });
+        }
+
+        const hayDocumentos = reporte.documentos && reporte.documentos.length > 0;
+        data.push({ Propiedad: "¿Hay Documentos?", Valor: hayDocumentos ? "Sí" : "No" });
+
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "DetalleReporte");
+        const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+        const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
+        saveAs(blob, `reporte_${reporte.id}.xlsx`);
+        setShowExportMenu(false);
+    };
+
+    // Exportar a PDF
+    const exportDetalleToPDF = () => {
+        if (!reporte) return;
+
+        const doc = new jsPDF();
+
+        // Título centrado
+        doc.setFontSize(18);
+        doc.setTextColor(41, 128, 185);
+        doc.text(`Detalle del Reporte #${reporte.id}`, doc.internal.pageSize.getWidth() / 2, 20, { align: "center" });
+
+        // Subtítulo con fecha de exportación
+        doc.setFontSize(11);
+        doc.setTextColor(100, 100, 100);
+        doc.text(`Exportado: ${new Date().toLocaleString()}`, doc.internal.pageSize.getWidth() / 2, 28, { align: "center" });
+
+        // Datos principales
+        const body = [
+            ["ID", reporte.id],
+            ["Ubicación", reporte.ubicacion],
+            ["Fecha de Creación", new Date(reporte.fechaCreacion).toLocaleString()],
+            ["Activo", reporte.activo ? "Sí" : "No"],
+            ["Observaciones", reporte.observaciones || ""]
+        ];
+
+        if (reporte.assetIdEquipo) {
+            body.push(["Identificador Equipo", reporte.assetIdEquipo]);
+        }
+
+        if (reporte.activo === false || reporte.activo === "false") {
+            body.push(["Observaciones Resuelto", reporte.observacionesResuelto || ""]);
+        }
+
+        if (reporte.defectosReportados && reporte.defectosReportados.length > 0) {
+            body.push([
+                "Defectos Reportados",
+                reporte.defectosReportados.map(def =>
+                    def.tipoDefecto?.nombre || def.tipoDefectoId || def || "Defecto sin nombre"
+                ).join(", ")
+            ]);
+        } else {
+            body.push(["Defectos Reportados", "Sin defectos"]);
+        }
+
+        const hayDocumentos = reporte.documentos && reporte.documentos.length > 0;
+        body.push(["¿Hay Documentos?", hayDocumentos ? "Sí" : "No"]);
+
+        autoTable(doc, {
+            startY: 36,
+            head: [["Propiedad", "Valor"]],
+            body,
+            styles: {
+                fontSize: 11,
+                cellPadding: 4,
+                valign: "middle",
+            },
+            headStyles: {
+                fillColor: [41, 128, 185],
+                textColor: 255,
+                fontStyle: "bold",
+                halign: "center",
+            },
+            bodyStyles: {
+                textColor: 50,
+            },
+            alternateRowStyles: {
+                fillColor: [240, 248, 255],
+            },
+            tableLineColor: [41, 128, 185],
+            tableLineWidth: 0.2,
+            margin: { left: 18, right: 18 }
+        });
+
+        // Pie de página
+        doc.setFontSize(9);
+        doc.setTextColor(150, 150, 150);
+        doc.text("Hermes Handling - Reporte generado automáticamente", doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 10, { align: "center" });
+
+        doc.save(`reporte_${reporte.id}.pdf`);
+        setShowExportMenu(false);
+    };
+
     if (loading) {
         return (
             <div className="detalles-container">
@@ -71,7 +201,7 @@ function VerDetallesReporte() {
         return (
             <div className="detalles-container">
                 <h2>Detalles del Reporte</h2>
-                <p>{error || "No se encontr� informaci�n del reporte."}</p>
+                <p>{error || "No se encontró información del reporte."}</p>
                 <button className="btn" onClick={() => navigate(-1)}>Volver</button>
             </div>
         );
@@ -80,14 +210,57 @@ function VerDetallesReporte() {
     return (
         <div className="detalles-container">
             <h2>Detalles del Reporte</h2>
+            <div style={{ position: "relative", display: "inline-block", marginBottom: "16px" }}>
+                <button
+                    className="btn info"
+                    onClick={() => setShowExportMenu((v) => !v)}
+                >
+                    Exportar ▼
+                </button>
+                {showExportMenu && (
+                    <div
+                        style={{
+                            position: "absolute",
+                            right: 0,
+                            top: "100%",
+                            background: "#fff",
+                            border: "1px solid #ccc",
+                            zIndex: 10,
+                            minWidth: "150px",
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
+                        }}
+                        onMouseLeave={() => setShowExportMenu(false)}
+                    >
+                        <button
+                            className="btn"
+                            style={{ width: "100%", textAlign: "left" }}
+                            onClick={exportDetalleToPDF}
+                        >
+                            Exportar a PDF
+                        </button>
+                        <button
+                            className="btn"
+                            style={{ width: "100%", textAlign: "left" }}
+                            onClick={exportDetalleToExcel}
+                        >
+                            Exportar a Excel
+                        </button>
+                    </div>
+                )}
+            </div>
             <table className="tabla-detalles">
                 <tbody>
-                    {/* Propiedades principales */}
+                    <tr>
+                        <th>ID</th>
+                        <td>{reporte.id}</td>
+                    </tr>
                     {Object.entries(reporte).map(([key, value]) =>
+                        key !== "id" &&
                         key !== "defectosReportados" &&
                         key !== "documentos" &&
                         key !== "equipo" &&
-                        key !== "reportesDocumentos" && (
+                        key !== "reportesDocumentos" &&
+                        key !== "assetIdEquipo" && (
                             <tr key={key}>
                                 <th>{formatKey(key)}</th>
                                 <td>
@@ -108,7 +281,12 @@ function VerDetallesReporte() {
                         )
                     )}
 
-                    {/* Defectos reportados */}
+                    {reporte.assetIdEquipo && (
+                        <tr>
+                            <th>Identificador Equipo</th>
+                            <td>{reporte.assetIdEquipo}</td>
+                        </tr>
+                    )}
                     <tr>
                         <th>Defectos Reportados</th>
                         <td>
@@ -125,8 +303,6 @@ function VerDetallesReporte() {
                             )}
                         </td>
                     </tr>
-
-                    {/* Documentos */}
                     <tr>
                         <th>Documentos</th>
                         <td>
@@ -152,9 +328,7 @@ function VerDetallesReporte() {
                         </td>
                     </tr>
                 </tbody>
-
             </table>
-            {/* Solo muestra el bot�n Resolver si el reporte no est� resuelto */}
             {(!reporte.observacionesResuelto || reporte.observacionesResuelto === "") && (
                 <button
                     className="btn success"
