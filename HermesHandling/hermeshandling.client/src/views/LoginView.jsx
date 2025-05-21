@@ -1,21 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-// Spinner simple usando Bootstrap
-const Spinner = () => (
-    <div className="d-flex justify-content-center align-items-center mt-3">
-        <div className="spinner-border text-primary" role="status" aria-label="Cargando">
-            <span className="visually-hidden">Cargando...</span>
-        </div>
-    </div>
-);
+import logo from "../assets/images/hermes-og.png";
+import logoDark from "../assets/images/hermes.png";
+import "../assets/css/login/login.css";
 
 const LoginView = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(
+        document.body.classList.contains("dark-mode")
+    );
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const observer = new MutationObserver(() => {
+            setIsDarkMode(document.body.classList.contains("dark-mode"));
+        });
+        observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+        return () => observer.disconnect();
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -42,58 +48,59 @@ const LoginView = () => {
             localStorage.setItem('usuario', JSON.stringify(data.usuario));
 
             if (data.usuario.tipoUsuario === 0) {
-                window.location.href = "/admin-app/dashboard";
+                navigate("/admin-app/dashboard");
             } else {
-                window.location.href = "/usuario";
+                navigate("/usuario");
             }
         } catch (error) {
-            console.error("Error en login:", error.response?.data || error.message);
             setError(error.response?.data?.message || "Credenciales incorrectas o error en el servidor");
             setLoading(false);
         }
     };
 
     return (
-        <div className="container-fluid d-flex justify-content-center align-items-center min-vh-100">
-            <div className="card shadow border-0" style={{ maxWidth: '400px', width: '100%' }}>
-                <div className="card-body p-4">
-                    <h3 className="text-center mb-4">Iniciar sesi&oacute;n</h3>
-                    <form onSubmit={handleLogin} className="d-flex flex-column gap-3">
+        <div className="login-root">
+            <div className="login-bg">
+                <img src={isDarkMode ? logoDark : logo} alt="Logo" className="login-bg-logo" />
+            </div>
+            <div className="login-container">
+                <div className="login-card">
+                    <form className="login-form" onSubmit={handleLogin}>
                         {error && (
-                            <div className="alert alert-danger" role="alert">
+                            <div className="login-error" role="alert">
                                 {error}
                             </div>
                         )}
-                        <div className="form-floating">
+                        <div>
+                            <label className="login-label" htmlFor="email">Correo Electr&oacute;nico</label>
                             <input
+                                className="login-input"
                                 type="email"
-                                className="form-control"
                                 id="email"
-                                placeholder="Correo Electrónico"
+                                placeholder=""
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                                 disabled={loading}
                             />
-                            <label htmlFor="email">Correo Electr&oacute;nico</label>
                         </div>
-                        <div className="form-floating">
+                        <div>
+                            <label className="login-label" htmlFor="password">Contrase&ntilde;a</label>
                             <input
+                                className="login-input"
                                 type="password"
-                                className="form-control"
                                 id="password"
-                                placeholder="Contraseña"
+                                placeholder=""
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                                 disabled={loading}
                             />
-                            <label htmlFor="password">Contrase&ntilde;a</label>
                         </div>
-                        <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+                        <button type="submit" className="login-btn" disabled={loading}>
                             {loading ? (
                                 <>
-                                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                    <span className="login-spinner" aria-label="Cargando"></span>
                                     Cargando...
                                 </>
                             ) : (
@@ -101,10 +108,8 @@ const LoginView = () => {
                             )}
                         </button>
                     </form>
-                    <div className="text-center mt-4">
-                        <a href="/register" className="text-decoration-none text-muted">
-                            &iquest;No tienes cuenta? Contacta con nosotros
-                        </a>
+                    <div className="login-link">
+                        &iquest;No tienes cuenta? <a href="/register">Reg&iacute;strate</a>
                     </div>
                 </div>
             </div>

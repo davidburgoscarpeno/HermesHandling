@@ -9,4 +9,7 @@ public interface IReporte
     Reporte GetReporte(int id);
     Task<(bool Success, string Message)> UpdateAsync(Reporte reporte);
 
+    Task<IEnumerable<Reporte>> GetAllAsync();
+
+
 }

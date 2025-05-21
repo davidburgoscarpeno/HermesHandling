@@ -140,7 +140,7 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
                     user.Password = passwordEncrypted;
                 }
 
-                // Actualizar otros campos
+                // Actualizar otros campo
                 user.Nombre = model.Nombre;
                 user.Apellido = model.Apellido;
                 user.TipoUsuario = model.TipoUsuario;

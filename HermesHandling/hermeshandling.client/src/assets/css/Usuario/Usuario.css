@@ -6,6 +6,7 @@
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 2px 15px rgba(0,0,0,0.10);
+    height: auto;
     min-height: 70vh;
 }
 
@@ -18,12 +19,27 @@
     gap: 12px;
 }
 
-    .kanban-header h2 {
-        margin: 0;
-        font-size: 2rem;
-        font-weight: 700;
-        color: #333;
-    }
+.kanban-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.kanban-logo {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    background: #fff;
+}
+
+.kanban-header h2 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+}
 
 .btn-create {
     background-color: #28a745;
@@ -52,6 +68,9 @@
     align-items: flex-start;
     min-height: 350px;
     width: 100%;
+    max-height: 600px; /* Limita la altura máxima del tablero */
+    overflow-y: auto; /* Scroll vertical si hay muchas tarjetas */
+    overscroll-behavior: contain; /* Opcional: evita scroll en el body al llegar al tope */
 }
 
 .kanban-column {
@@ -144,6 +163,7 @@
     .kanban-board {
         flex-direction: column;
         gap: 18px;
+        max-height: 70vh; /* Ajusta la altura máxima en tablet */
     }
 
     .kanban-column {
@@ -159,6 +179,14 @@
 
     .kanban-header h2 {
         font-size: 1.5rem;
+    }
+
+    .kanban-logo {
+        height: 76px;
+    }
+
+    .kanban-header-left {
+        gap: 8px;
     }
 
     .kanban-card {
@@ -198,6 +226,7 @@
 
     .kanban-board {
         gap: 10px;
+        max-height: 60vh; /* Ajusta la altura máxima en móvil */
     }
 
     .kanban-column {
@@ -217,6 +246,10 @@
 
     .kanban-card-obs {
         font-size: 0.95rem;
+    }
+
+    .kanban-logo {
+        height: 28px;
     }
 }
 

@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import logo from "../../assets/images/hermes-og.png";
 import "../../assets/css/Usuario/Usuario.css";
 
 function Usuario() {
     const [reportes, setReportes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [menuOpen, setMenuOpen] = useState(false);
     const user = JSON.parse(localStorage.getItem("usuario"));
     const navigate = useNavigate();
+    const menuRef = useRef(null);
 
     useEffect(() => {
         if (!user?.idUsuario) return;
@@ -17,8 +20,33 @@ function Usuario() {
             .finally(() => setLoading(false));
     }, [user]);
 
+    // Cierra el menú al hacer clic fuera
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setMenuOpen(false);
+            }
+        }
+        if (menuOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [menuOpen]);
+
     const handleCrearReporte = () => {
         navigate("/usuario/crear-reporte");
+    };
+
+    const handleLogoClick = () => {
+        setMenuOpen((open) => !open);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("usuario");
+        navigate("/login");
     };
 
     // Agrupa los reportes por estado
@@ -28,7 +56,23 @@ function Usuario() {
     return (
         <div className="usuario-kanban-container">
             <div className="kanban-header">
-                <h2>Mis Reportes</h2>
+                <div className="kanban-header-left" style={{ position: "relative" }}>
+                    <img
+                        src={logo}
+                        alt="Logo"
+                        className="kanban-logo"
+                        onClick={handleLogoClick}
+                        style={{ cursor: "pointer" }}
+                    />
+                    <h2>Mis Reportes</h2>
+                    {menuOpen && (
+                        <div className="logo-dropdown-menu" ref={menuRef}>
+                            <button onClick={handleLogout} className="dropdown-item">
+                                <i className="bi bi-box-arrow-right"></i> Cerrar sesi&oacute;n
+                            </button>
+                        </div>
+                    )}
+                </div>
                 <button className="btn-create" onClick={handleCrearReporte}>
                     <i className="bi bi-plus-circle"></i> Crear reporte
                 </button>
@@ -47,9 +91,6 @@ function Usuario() {
                                     </div>
                                     <div className="kanban-card-date">
                                         {r.fechaCreacion ? new Date(r.fechaCreacion).toLocaleDateString() : ""}
-                                    </div>
-                                    <div className="kanban-card-obs">
-                                        {r.observaciones}
                                     </div>
                                 </div>
                             ))
@@ -84,4 +125,3 @@ function Usuario() {
 }
 
 export default Usuario;
-

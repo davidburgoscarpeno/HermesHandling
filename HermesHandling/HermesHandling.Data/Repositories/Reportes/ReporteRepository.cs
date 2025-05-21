@@ -62,4 +62,12 @@ public class ReporteRepository : IReporte
         return (true, "");
     }
 
+    public async Task<IEnumerable<Reporte>> GetAllAsync()
+    {
+        return await _context.Reportes
+            .Include(r => r.Equipo)
+            .ToListAsync();
+    }
+
+
 }

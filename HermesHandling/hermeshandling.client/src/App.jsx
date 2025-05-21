@@ -26,13 +26,17 @@ import Layout from './components/Layout'; // Importar el Layout
 import './App.css';
 import VerUsuario from './views/Usuario/VerUsuario';
 import VerDetallesReporte from './views/Common/Admin/Reportes/VerDetallesReporte';
+import CrearReporteUsuario from './views/Usuario/CrearReporte';
 
 //Equipos
 import ListarEquipos from './views/Common/Admin/Equipos/ListarEquipos';
 import CrearEquipo from './views/Common/Admin/Equipos/CrearEquipo';
 import EditarEquipo from './views/Common/Admin/Equipos/EditarEquipo';
 
-// PrivateRoute actualizado para comprobar autenticación
+// Importa tu componente RoleRoute
+import RoleRoute from './components/RoleRoute';
+import RegisterView from './views/RegisterView';
+
 const PrivateRoute = ({ children }) => {
     const isAuthenticated = !!localStorage.getItem('token');
     return isAuthenticated ? children : <Navigate to="/login" replace />;
@@ -70,10 +74,14 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<Navigate to="/login" />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<RegisterView />} />
+
 
                     <Route path="/admin-app" element={
                         <PrivateRoute>
-                            <Layout />
+                            <RoleRoute allowedRoles={["admin", "superadmin"]}>
+                                <Layout />
+                            </RoleRoute>
                         </PrivateRoute>
                     }>
                         <Route path="dashboard" element={<Dashboard />} />
@@ -100,17 +108,25 @@ const App = () => {
                         <Route path="reportes/detalles/:id" element={<VerDetallesReporte />} />
 
                         <Route path="ver-perfil" element={<VerUsuario />} />
+                    </Route>
 
+                    <Route path="/usuario" element={
+                        <PrivateRoute>
+                            <RoleRoute allowedRoles={["usuario"]}>
+                                <Outlet />
+                            </RoleRoute>
+                        </PrivateRoute>
+                    }>
+                        <Route index element={<Usuario />} />
+                        <Route path="crear-reporte" element={<CrearReporteUsuario />} />
+                        <Route path="ver-reporte/:id" element={<VerDetallesReporte />} />
                     </Route>
 
                     <Route path="/admin-company" element={
                         <PrivateRoute>
-                            <AdminCompany />
-                        </PrivateRoute>
-                    } />
-                    <Route path="/usuario" element={
-                        <PrivateRoute>
-                            <Usuario />
+                            <RoleRoute allowedRoles={["adminCompany"]}>
+                                <AdminCompany />
+                            </RoleRoute>
                         </PrivateRoute>
                     } />
                 </Routes>

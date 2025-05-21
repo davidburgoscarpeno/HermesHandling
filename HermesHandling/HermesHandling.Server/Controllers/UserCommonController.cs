@@ -111,6 +111,26 @@ namespace HermesHandling.Server.Controllers
            
         }
 
+        [HttpGet("reportes-usuario/{idUsuario}")]
+        public async Task<IActionResult> GetReportesUsuario(int idUsuario)
+        {
+            var todos = await _reporteRepository.GetAllAsync(); 
+            var reportesUsuario = todos
+                .Where(r => r.UsuarioId == idUsuario)
+                .Select(r => new {
+                    id = r.Id,
+                    equipoId = r.EquipoId,
+                    assetIdEquipo = r.Equipo != null ? r.Equipo.AssetId : null,
+                    fechaCreacion = r.FechaCreacion,
+                    observaciones = r.Observaciones,
+                    activo = r.Activo
+                })
+                .ToList();
+
+            return Ok(reportesUsuario);
+        }
+
+
         #endregion
     }
 }
