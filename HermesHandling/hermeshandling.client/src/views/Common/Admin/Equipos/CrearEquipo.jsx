@@ -17,7 +17,7 @@ function CrearEquipo() {
 
     useEffect(() => {
         // Cargar tipos de equipo si tienes endpoint
-        axios.get(`${import.meta.env.VITE_API_URL}/api/UserCommon/tipos-equipo`)
+        axios.get(`${import.meta.env.VITE_API_URL}/api/AdminCommon/tipos-equipo`)
             .then(res => setTiposEquipo(Array.isArray(res.data) ? res.data : []))
             .catch(() => setTiposEquipo([]));
     }, []);
