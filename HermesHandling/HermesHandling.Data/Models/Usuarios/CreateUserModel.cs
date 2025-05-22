@@ -9,6 +9,9 @@
         public string Password { get; set; }
         public int TipoUsuario { get; set; }
 
+        public int? IdAlta { get; set; }
+        public int? IdMod { get; set; }
+
         public int? Activo { get; set; }
 
     }

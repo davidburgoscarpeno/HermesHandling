@@ -35,11 +35,6 @@ public partial class Usuario
 
     public virtual ICollection<DocumentacionInterna> DocumentacionInternaIdUsuarioModificacionNavigations { get; set; } = new List<DocumentacionInterna>();
 
-    public virtual ICollection<HistorialIncidencia> HistorialIncidencia { get; set; } = new List<HistorialIncidencia>();
-
-    public virtual ICollection<Incidencia> IncidenciaAlta { get; set; } = new List<Incidencia>();
-
-    public virtual ICollection<Incidencia> IncidenciaModificacions { get; set; } = new List<Incidencia>();
 
     public virtual ICollection<Mantenimiento> Mantenimientos { get; set; } = new List<Mantenimiento>();
 

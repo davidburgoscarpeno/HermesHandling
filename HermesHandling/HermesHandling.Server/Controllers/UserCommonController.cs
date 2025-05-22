@@ -71,6 +71,19 @@ namespace HermesHandling.Server.Controllers
                 };
                 await _reporteRepository.AddAsync(reporte);
 
+                var historial = new EquipoReporteHistorial
+                {
+                    EquipoId = model.EquipoId,
+                    ReporteId = reporte.Id,
+                    UsuarioId = model.UsuarioId,
+                    Descripcion = model.Observaciones,
+                    FechaIncidente = DateTime.Now,
+                    TipoIncidente = null,
+                    Activo = true
+                };
+                _db.EquiposReportesHistorial.Add(historial);
+                await _db.SaveChangesAsync();
+
                 if (model.TipoDefectoId > 0)
                 {
                     var defecto = new DefectosReportado
