@@ -31,4 +31,10 @@ public class EquipoRepository : IEquipoRepository
         await _context.SaveChangesAsync();
         return (true, "Equipo actualizado correctamente.");
     }
+
+    public async Task AddAsync(Equipo equipo)
+    {
+        await _context.Equipos.AddAsync(equipo);
+        await _context.SaveChangesAsync();
+    }
 }

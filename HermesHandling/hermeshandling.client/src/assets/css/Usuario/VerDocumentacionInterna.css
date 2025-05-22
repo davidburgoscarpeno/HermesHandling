@@ -1,5 +1,5 @@
 .documentacion-interna-container {
-    max-width: 600px;
+    max-width: 700px;
     margin: 40px auto;
     padding: 32px 24px;
     min-width: 70vw;
@@ -8,25 +8,94 @@
     box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
 
-.doc-header {
+/* Cabecera con logo y menú */
+.kanban-header-left {
     display: flex;
     align-items: center;
-    margin-bottom: 12px;
+    gap: 18px;
+    position: relative;
+    margin-bottom: 24px;
 }
 
-.doc-logo {
-    height: 90px;
-    min-height:60px;
-    object-fit: contain;
+.kanban-logo {
+    width: 48px;
+    height: 48px;
     border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    object-fit: contain;
     background: #fff;
+    box-shadow: 0 2px 8px rgba(67, 97, 238, 0.10);
+    display: block;
+    padding: 4px;
+    transition: box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
 }
 
-    .doc-logo:hover {
-        
+    .kanban-logo:hover {
+        box-shadow: 0 4px 16px rgba(67, 97, 238, 0.18);
+        transform: scale(1.05);
     }
 
+.kanban-header-left h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #22223b;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.logo-dropdown-menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    min-width: 220px;
+    background: #fff;
+    border: 1px solid #e0e6ed;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(67, 97, 238, 0.13), 0 3px 12px rgba(0,0,0,0.10);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    animation: fadeInMenu 0.18s;
+}
+
+@keyframes fadeInMenu {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    background: none;
+    border: none;
+    color: #22223b;
+    font-size: 1rem;
+    padding: 12px 24px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.18s, color 0.18s;
+}
+
+    .dropdown-item:hover {
+        background: #f6f9ff;
+        color: #4361ee;
+    }
+
+    .dropdown-item i {
+        font-size: 1.2rem;
+    }
+
+/* Botón volver (si lo usas) */
 .btn-volver {
     background: #e0e6ed;
     color: #22223b;
@@ -93,6 +162,16 @@
         min-width: 600px;
         padding: 20px 10px;
     }
+
+    .kanban-header-left h2 {
+        font-size: 1.1rem;
+    }
+
+    .kanban-logo {
+        width: 36px;
+        height: 36px;
+        padding: 2px;
+    }
 }
 
 /* Móvil (hasta 600px) */
@@ -109,7 +188,7 @@
         gap: 6px;
     }
 
-    .doc-header {
+    .kanban-header-left {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
@@ -123,13 +202,29 @@ body.dark-mode .documentacion-interna-container {
     box-shadow: 0 2px 12px rgba(0,0,0,0.32);
 }
 
-    body.dark-mode .documentacion-interna-container h2 {
-        color: #e0e6ed;
-    }
-
-body.dark-mode .documento-item {
-    border-bottom: 1px solid #38405a;
+body.dark-mode .kanban-header-left h2 {
+    color: #e0e6ed;
 }
+
+body.dark-mode .kanban-logo {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(67, 97, 238, 0.18);
+}
+
+body.dark-mode .logo-dropdown-menu {
+    background: #232a36;
+    border: 1px solid #38405a;
+    box-shadow: 0 8px 32px rgba(67, 97, 238, 0.18), 0 3px 12px rgba(0,0,0,0.22);
+}
+
+body.dark-mode .dropdown-item {
+    color: #e0e6ed;
+}
+
+    body.dark-mode .dropdown-item:hover {
+        background: #20243a;
+        color: #6cb6ff;
+    }
 
 body.dark-mode .btn-descargar {
     background: #2980b9;
@@ -150,3 +245,7 @@ body.dark-mode .btn-volver {
         background: #2980b9;
         color: #fff;
     }
+
+body.dark-mode .documento-item {
+    border-bottom: 1px solid #38405a;
+}

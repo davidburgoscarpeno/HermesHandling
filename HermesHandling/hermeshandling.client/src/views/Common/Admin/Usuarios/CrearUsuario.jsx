@@ -3,12 +3,15 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../../../../assets/css/AdminApp/CrearUsuario.css"
 function CrearUsuario() {
+    const user = JSON.parse(localStorage.getItem('usuario'));
+
     const [formData, setFormData] = useState({
         nombre: "",
         apellido: "",
         email: "",
         password: "",
         tipoUsuario: 0,
+        IdAlta: user.idUsuario
     });
 
     const [error, setError] = useState("");

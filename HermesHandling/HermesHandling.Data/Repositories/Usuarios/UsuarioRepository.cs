@@ -106,6 +106,7 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
                     TipoUsuario = model.TipoUsuario,
                     Activo = model.Activo.HasValue && model.Activo.Value == 1,
                     FechaCreacion = DateTime.Now
+                    
                 };
 
                 _hermesDbContext.Usuarios.Add(usuario);

@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../../assets/css/Usuario/CrearReporteUsuario.css"
+import logo from "../../assets/images/hermes-og.png"; // Ajusta la ruta si es necesario
+import "../../assets/css/Usuario/CrearReporteUsuario.css";
 
 function CrearReporte() {
     const [equipos, setEquipos] = useState([]);
     const [tiposDefecto, setTiposDefecto] = useState([]);
     const [mensajeExito, setMensajeExito] = useState("");
+    const [menuOpen, setMenuOpen] = useState(false);
+    const menuRef = useRef(null);
     const navigate = useNavigate();
     const [form, setForm] = useState({
         equipoId: "",
@@ -28,6 +31,43 @@ function CrearReporte() {
             .catch(() => setTiposDefecto([]));
     }, []);
 
+    // Cerrar menú al hacer click fuera
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setMenuOpen(false);
+            }
+        }
+        if (menuOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [menuOpen]);
+
+    const handleLogoClick = () => setMenuOpen((open) => !open);
+
+    const handleDocumentacion = () => {
+        navigate("/usuario/ver-documentacion-interna");
+    };
+
+    const handleComunicados = () => {
+        navigate("/usuario/ver-comunicaciones");
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("usuario");
+        navigate("/login");
+    };
+
+    const handleCrearReporte = () => {
+        navigate("/usuario/crear-reporte");
+    };
+
     const handleChange = (e) => {
         const { name, value, files } = e.target;
         if (name === "documentos") {
@@ -41,7 +81,7 @@ function CrearReporte() {
         e.preventDefault();
         setMensajeExito("");
         try {
-         const formData = new FormData();
+            const formData = new FormData();
             formData.append("EquipoId", form.equipoId);
             formData.append("UsuarioId", user.idUsuario);
             formData.append("Ubicacion", form.ubicacion);
@@ -77,7 +117,34 @@ function CrearReporte() {
 
     return (
         <form onSubmit={handleSubmit} className="crear-reporte-form">
-            <h3>Crear Reporte</h3>
+            {/* Cabecera con logo, menú y botón */}
+            <div className="kanban-header">
+                <div className="kanban-header-left" style={{ position: "relative" }}>
+                    <img
+                        src={logo}
+                        alt="Logo"
+                        className="kanban-logo"
+                        onClick={handleLogoClick}
+                        style={{ cursor: "pointer" }}
+                    />
+                    <h2>Crear Reporte</h2>
+                    {menuOpen && (
+                        <div className="logo-dropdown-menu" ref={menuRef}>
+                            <button onClick={handleDocumentacion} className="dropdown-item">
+                                <i className="bi bi-journal-text"></i> Documentaci&oacute;n Interna
+                            </button>
+                            <button onClick={handleComunicados} className="dropdown-item">
+                                <i className="bi bi-megaphone"></i> Comunicados
+                            </button>
+                            <button onClick={handleLogout} className="dropdown-item">
+                                <i className="bi bi-box-arrow-right"></i> Cerrar sesi&oacute;n
+                            </button>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            {/* Título y formulario */}
             {mensajeExito && (
                 <div className="mensaje-exito">{mensajeExito}</div>
             )}
@@ -123,7 +190,6 @@ function CrearReporte() {
                     onChange={handleChange}
                 />
             </div>
-            
             <div>
                 <label>Tipo de Defecto</label>
                 <select

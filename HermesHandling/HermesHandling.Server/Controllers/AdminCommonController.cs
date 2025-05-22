@@ -63,7 +63,7 @@ namespace HermesHandling.Server.Controllers
                 PathDocumento = filePath,
                 FechaAlta = DateTime.Now,
                 Activo = true,
-                IdUsuarioAlta = null,
+                IdUsuarioAlta = model.IdAlta,
                 IdUsuarioModificacion = null
             };
 
@@ -88,6 +88,7 @@ namespace HermesHandling.Server.Controllers
                 return NotFound("No se encontró la documentación interna con el ID proporcionado.");
 
             documentacion.Nombre = model.Nombre;
+            documentacion.IdUsuarioModificacion = model.IdMod;
 
             if (model.Documento != null && model.Documento.Length > 0)
             {
@@ -297,6 +298,23 @@ namespace HermesHandling.Server.Controllers
 
             return Ok(new { message = "Equipo actualizado correctamente." });
         }
+
+        [HttpPost("crear-equipo")]
+        public async Task<IActionResult> CrearEquipo([FromBody] Equipo equipo)
+        {
+            if (equipo == null)
+                return BadRequest("El equipo no puede ser nulo.");
+
+            if (string.IsNullOrWhiteSpace(equipo.Nombre))
+                return BadRequest("El nombre del equipo es obligatorio.");
+
+            equipo.FechaCreacion = DateTime.Now;
+
+            await _equipoRepo.AddAsync(equipo);
+
+            return Ok(new { message = "Equipo creado correctamente." });
+        }
+
 
         #endregion
     }

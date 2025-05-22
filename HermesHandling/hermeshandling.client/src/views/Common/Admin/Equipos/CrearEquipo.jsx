@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../../../assets/css/AdminApp/CrearEquipo.css";
 
@@ -14,9 +15,9 @@ function CrearEquipo() {
         fechaCreacion: new Date().toISOString().slice(0, 16),
         fechaUltimaRevision: ""
     });
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Cargar tipos de equipo si tienes endpoint
         axios.get(`${import.meta.env.VITE_API_URL}/api/AdminCommon/tipos-equipo`)
             .then(res => setTiposEquipo(Array.isArray(res.data) ? res.data : []))
             .catch(() => setTiposEquipo([]));
@@ -32,7 +33,7 @@ function CrearEquipo() {
         setMensajeExito("");
         try {
             await axios.post(
-                `${import.meta.env.VITE_API_URL}/api/UserCommon/crear-equipo`,
+                `${import.meta.env.VITE_API_URL}/api/AdminCommon/crear-equipo`,
                 {
                     assetId: form.assetId,
                     nombre: form.nombre,
@@ -44,15 +45,9 @@ function CrearEquipo() {
                 }
             );
             setMensajeExito("Equipo creado con éxito.");
-            setForm({
-                assetId: "",
-                nombre: "",
-                descripcion: "",
-                tipoEquipoId: "",
-                estado: "",
-                fechaCreacion: new Date().toISOString().slice(0, 16),
-                fechaUltimaRevision: ""
-            });
+            setTimeout(() => {
+                navigate("/admin-app/equipos/listar-equipos");
+            }, 1200);
         } catch (error) {
             setMensajeExito("Error al crear el equipo.");
         }
@@ -106,13 +101,19 @@ function CrearEquipo() {
             </div>
             <div>
                 <label>Estado</label>
-                <input
-                    type="text"
+                <select
                     name="estado"
                     value={form.estado}
                     onChange={handleChange}
-                />
+                    required
+                >
+                    <option value="">Selecciona un estado</option>
+                    <option value="Operativo">Operativo</option>
+                    <option value="En mantenimiento">En mantenimiento</option>
+                    <option value="En revisión">En revisi&oacute;n</option>
+                </select>
             </div>
+
             <div>
                 <label>Fecha de Creaci&oacute;n</label>
                 <input

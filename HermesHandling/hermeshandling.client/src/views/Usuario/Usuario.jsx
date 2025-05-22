@@ -57,6 +57,11 @@ function Usuario() {
         navigate("/usuario/ver-documentacion-interna");
     };
 
+    // Nuevo: Navegar a detalles del reporte
+    const handleVerDetalle = (id) => {
+        navigate(`/usuario/ver-reporte/${id}`);
+    };
+
     // Agrupa los reportes por estado
     const abiertos = reportes.filter(r => r.activo);
     const resueltos = reportes.filter(r => !r.activo);
@@ -75,14 +80,14 @@ function Usuario() {
                     <h2>Mis Reportes</h2>
                     {menuOpen && (
                         <div className="logo-dropdown-menu" ref={menuRef}>
-                            <button onClick={handleLogout} className="dropdown-item">
-                                <i className="bi bi-box-arrow-right"></i> Cerrar sesi&oacute;n
-                            </button>
                             <button onClick={handleDocumentacion} className="dropdown-item">
                                 <i className="bi bi-journal-text"></i> Documentaci&oacute;n Interna
                             </button>
                             <button onClick={handleComunicados} className="dropdown-item">
                                 <i className="bi bi-megaphone"></i> Comunicados
+                            </button>
+                            <button onClick={handleLogout} className="dropdown-item">
+                                <i className="bi bi-box-arrow-right"></i> Cerrar sesi&oacute;n
                             </button>
                         </div>
                     )}
@@ -99,7 +104,12 @@ function Usuario() {
                         <div className="kanban-column-title abierto">Abiertos</div>
                         {abiertos.length > 0 ? (
                             abiertos.map(r => (
-                                <div className="kanban-card" key={r.id}>
+                                <div
+                                    className="kanban-card"
+                                    key={r.id}
+                                    onClick={() => handleVerDetalle(r.id)}
+                                    style={{ cursor: "pointer" }}
+                                >
                                     <div className="kanban-card-title">
                                         {r.assetIdEquipo || r.equipoId}
                                     </div>
@@ -116,7 +126,12 @@ function Usuario() {
                         <div className="kanban-column-title resuelto">Resueltos</div>
                         {resueltos.length > 0 ? (
                             resueltos.map(r => (
-                                <div className="kanban-card" key={r.id}>
+                                <div
+                                    className="kanban-card"
+                                    key={r.id}
+                                    onClick={() => handleVerDetalle(r.id)}
+                                    style={{ cursor: "pointer" }}
+                                >
                                     <div className="kanban-card-title">
                                         {r.assetIdEquipo || r.equipoId}
                                     </div>

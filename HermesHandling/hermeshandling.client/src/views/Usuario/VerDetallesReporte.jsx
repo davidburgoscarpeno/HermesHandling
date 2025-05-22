@@ -5,7 +5,7 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import "../../../../assets/css/AdminApp/VerDetallesReporte.css";
+import "../../assets/css/AdminApp/VerDetallesReporte.css"
 
 function VerDetallesReporte() {
     const { id } = useParams();
@@ -13,8 +13,6 @@ function VerDetallesReporte() {
     const [reporte, setReporte] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [obsResuelto, setObsResuelto] = useState("");
-    const [resolviendo, setResolviendo] = useState(false);
     const [showExportMenu, setShowExportMenu] = useState(false);
 
     useEffect(() => {
@@ -22,7 +20,6 @@ function VerDetallesReporte() {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/AdminCommon/get-reporte/${id}`);
                 setReporte(response.data);
-                setObsResuelto(response.data.observacionesResuelto || "");
             } catch (err) {
                 setError("No se encontro informacion del reporte.");
             } finally {
@@ -49,20 +46,6 @@ function VerDetallesReporte() {
         return value.toString();
     };
 
-    const handleResolver = async () => {
-        setResolviendo(true);
-        try {
-            await axios.put(`${import.meta.env.VITE_API_URL}/api/AdminCommon/resolver-reporte/${id}`, {
-                observacionesResuelto: obsResuelto
-            });
-            setReporte(prev => ({ ...prev, observacionesResuelto: obsResuelto, activo: false }));
-        } catch (err) {
-            alert("Error al resolver el reporte.");
-        } finally {
-            setResolviendo(false);
-        }
-    };
-
     // Exportar a Excel
     const exportDetalleToExcel = () => {
         if (!reporte) return;
@@ -79,8 +62,8 @@ function VerDetallesReporte() {
             data.push({ Propiedad: "Identificador Equipo", Valor: reporte.assetIdEquipo });
         }
 
-        if (reporte.activo === false || reporte.activo === "false") {
-            data.push({ Propiedad: "Observaciones Resuelto", Valor: reporte.observacionesResuelto || "" });
+        if (reporte.observacionesResuelto) {
+            data.push({ Propiedad: "Observaciones Resuelto", Valor: reporte.observacionesResuelto });
         }
 
         if (reporte.defectosReportados && reporte.defectosReportados.length > 0) {
@@ -135,8 +118,8 @@ function VerDetallesReporte() {
             body.push(["Identificador Equipo", reporte.assetIdEquipo]);
         }
 
-        if (reporte.activo === false || reporte.activo === "false") {
-            body.push(["Observaciones Resuelto", reporte.observacionesResuelto || ""]);
+        if (reporte.observacionesResuelto) {
+            body.push(["Observaciones Resuelto", reporte.observacionesResuelto]);
         }
 
         if (reporte.defectosReportados && reporte.defectosReportados.length > 0) {
@@ -254,32 +237,28 @@ function VerDetallesReporte() {
                         <th>ID</th>
                         <td>{reporte.id}</td>
                     </tr>
-                    {Object.entries(reporte).map(([key, value]) =>
-                        key !== "id" &&
-                        key !== "defectosReportados" &&
-                        key !== "documentos" &&
-                        key !== "equipo" &&
-                        key !== "reportesDocumentos" &&
-                        key !== "assetIdEquipo" && (
+                    {Object.entries(reporte).map(([key, value]) => {
+                        if (
+                            key === "id" ||
+                            key === "defectosReportados" ||
+                            key === "documentos" ||
+                            key === "equipo" ||
+                            key === "reportesDocumentos" ||
+                            key === "assetIdEquipo"
+                        ) {
+                            return null;
+                        }
+                        // Oculta la fila si es observacionesResuelto y no hay valor
+                        if (key === "observacionesResuelto" && (!value || value === "")) {
+                            return null;
+                        }
+                        return (
                             <tr key={key}>
                                 <th>{formatKey(key)}</th>
-                                <td>
-                                    {key === "observacionesResuelto" && (!value || value === "") ? (
-                                        <input
-                                            type="text"
-                                            value={obsResuelto}
-                                            onChange={e => setObsResuelto(e.target.value)}
-                                            className="input"
-                                            placeholder="Introducir observaciones resuelto"
-                                            disabled={resolviendo}
-                                        />
-                                    ) : (
-                                        formatValue(key, value)
-                                    )}
-                                </td>
+                                <td>{formatValue(key, value)}</td>
                             </tr>
-                        )
-                    )}
+                        );
+                    })}
 
                     {reporte.assetIdEquipo && (
                         <tr>
@@ -329,7 +308,6 @@ function VerDetallesReporte() {
                     </tr>
                 </tbody>
             </table>
-       
             <button className="btn" onClick={() => navigate(-1)} style={{ marginLeft: 8 }}>Volver</button>
         </div>
     );

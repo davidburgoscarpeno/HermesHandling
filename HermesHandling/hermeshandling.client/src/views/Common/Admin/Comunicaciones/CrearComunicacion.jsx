@@ -22,7 +22,7 @@ function CrearComunicacion() {
                 idUsuarioAlta: user.idUsuario 
 
             });
-            setMensajeExito("Comunicación creada correctamente.");
+            setMensajeExito("Comunicacion creada correctamente.");
             setTitulo("");
             setFecha("");
             setContenido("");

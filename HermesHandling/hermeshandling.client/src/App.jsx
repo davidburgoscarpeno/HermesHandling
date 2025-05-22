@@ -38,6 +38,7 @@ import RoleRoute from './components/RoleRoute';
 import RegisterView from './views/RegisterView';
 import VerComunicados from './views/Usuario/VerComunicados';
 import VerDocumentacionInterna from './views/Usuario/VerDocumentacionInterna';
+import VerDetallesReporteUsuario from './views/Usuario/VerDetallesReporte';
 
 const PrivateRoute = ({ children }) => {
     const isAuthenticated = !!localStorage.getItem('token');
@@ -123,9 +124,9 @@ const App = () => {
                         <Route path="ver-comunicaciones" element={<VerComunicados />} />
                         <Route path="ver-documentacion-interna" element={<VerDocumentacionInterna />} />
                         <Route path="crear-reporte" element={<CrearReporteUsuario />} />
-                        <Route path="ver-reporte/:id" element={<VerDetallesReporte />} />
+                        <Route path="ver-reporte/:id" element={<VerDetallesReporteUsuario />} />
                     </Route>
-
+                    
                     <Route path="/admin-company" element={
                         <PrivateRoute>
                             <RoleRoute allowedRoles={["adminCompany"]}>

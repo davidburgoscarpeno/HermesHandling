@@ -8,7 +8,9 @@ const EditarDocumentacion = () => {
     const [archivoDocumento, setArchivoDocumento] = useState(null);
     const [mensaje, setMensaje] = useState('');
     const navigate = useNavigate();
-    const { id } = useParams(); // Obtener el ID del documento desde la URL
+    const { id } = useParams();
+    const user = JSON.parse(localStorage.getItem('usuario'));
+
 
     // Cargar los datos del documento existente
     useEffect(() => {
@@ -53,18 +55,15 @@ const EditarDocumentacion = () => {
         formData.append('Nombre', nombre);
         if (archivoDocumento) {
             formData.append('Documento', archivoDocumento);
+            formData.append('IdMod', user.idUsuario);
+
         }
 
         try {
-            const response = await axios.put(
-                `${import.meta.env.VITE_API_URL}/api/AdminCommon/editar-documentacion-interna/${id}`,
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }
-            );
+            await axios.put(`${import.meta.env.VITE_API_URL}/api/AdminCommon/editar-documentacion/${id}`, formData, {
+                headers: { "Content-Type": "multipart/form-data" }
+            });
+
 
             setMensaje('Documento actualizado correctamente');
             setTimeout(() => {

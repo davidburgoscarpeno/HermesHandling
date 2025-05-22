@@ -7,7 +7,6 @@
     border-radius: 12px;
     box-shadow: 0 2px 15px rgba(0,0,0,0.10);
     height: auto;
-    min-height: 70vh;
 }
 
 .kanban-header {
@@ -66,7 +65,7 @@
     gap: 40px;
     justify-content: center;
     align-items: flex-start;
-    min-height: 350px;
+    min-height: 80vh;
     width: 100%;
     max-height: 600px; /* Limita la altura máxima del tablero */
     overflow-y: auto; /* Scroll vertical si hay muchas tarjetas */
