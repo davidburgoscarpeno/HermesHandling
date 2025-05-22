@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../../assets/css/AdminApp/CrearReporte.css"
@@ -7,7 +7,8 @@ function CrearReporte() {
     const [equipos, setEquipos] = useState([]);
     const [tiposDefecto, setTiposDefecto] = useState([]);
     const [mensajeExito, setMensajeExito] = useState("");
-    const navigate = useNavigate();
+    const [busquedaEquipo, setBusquedaEquipo] = useState("");
+    const [showSugerencias, setShowSugerencias] = useState(false);
     const [form, setForm] = useState({
         equipoId: "",
         usuarioId: "",
@@ -17,39 +18,77 @@ function CrearReporte() {
         tipoDefectoId: "",
         documentos: []
     });
+    const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem("usuario"));
+    const sugerenciasRef = useRef(null);
 
+    // Buscar equipos en el backend cada vez que cambia la búsqueda
     useEffect(() => {
-        axios.get(`${import.meta.env.VITE_API_URL}/api/UserCommon/equipos`)
+        if (busquedaEquipo.trim() === "") {
+            setEquipos([]);
+            return;
+        }
+        const delayDebounce = setTimeout(() => {
+            axios.get(`${import.meta.env.VITE_API_URL}/api/UserCommon/equipos`, {
+                params: { search: busquedaEquipo }
+            })
             .then((res) => setEquipos(Array.isArray(res.data) ? res.data : []))
             .catch(() => setEquipos([]));
+        }, 300);
+
+        return () => clearTimeout(delayDebounce);
+    }, [busquedaEquipo]);
+
+    // Cargar tipos de defecto una sola vez
+    useEffect(() => {
         axios.get(`${import.meta.env.VITE_API_URL}/api/UserCommon/tipos-defectos`)
             .then((res) => setTiposDefecto(Array.isArray(res.data) ? res.data : []))
             .catch(() => setTiposDefecto([]));
+    }, []);
+
+    // Cerrar sugerencias al hacer click fuera
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (sugerenciasRef.current && !sugerenciasRef.current.contains(event.target)) {
+                setShowSugerencias(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
         if (name === "documentos") {
             setForm({ ...form, documentos: files });
+        } else if (name === "busquedaEquipo") {
+            setBusquedaEquipo(value);
+            setShowSugerencias(true);
+            setForm({ ...form, equipoId: "" }); // Limpiar selección previa
         } else {
             setForm({ ...form, [name]: value });
         }
+    };
+
+    const handleSugerenciaClick = (equipo) => {
+        setBusquedaEquipo(equipo.assetId || equipo.asset_id || `Equipo ${equipo.id}`);
+        setForm({ ...form, equipoId: equipo.id });
+        setShowSugerencias(false);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMensajeExito("");
         try {
-         const formData = new FormData();
-formData.append("EquipoId", form.equipoId);
-formData.append("UsuarioId", user.idUsuario);
-formData.append("Ubicacion", form.ubicacion);
-formData.append("Observaciones", form.observaciones);
-formData.append("TipoDefectoId", form.tipoDefectoId ? form.tipoDefectoId : 0);
-for (let i = 0; i < form.documentos.length; i++) {
-    formData.append("Documentos", form.documentos[i]);
-}
+            const formData = new FormData();
+            formData.append("EquipoId", form.equipoId);
+            formData.append("UsuarioId", user.idUsuario);
+            formData.append("Ubicacion", form.ubicacion);
+            formData.append("Observaciones", form.observaciones);
+            formData.append("TipoDefectoId", form.tipoDefectoId ? form.tipoDefectoId : 0);
+            for (let i = 0; i < form.documentos.length; i++) {
+                formData.append("Documentos", form.documentos[i]);
+            }
 
             await axios.post(
                 `${import.meta.env.VITE_API_URL}/api/UserCommon/crear-reporte`,
@@ -66,6 +105,7 @@ for (let i = 0; i < form.documentos.length; i++) {
                 tipoDefectoId: "",
                 documentos: []
             });
+            setBusquedaEquipo("");
             setTimeout(() => {
                 setMensajeExito("");
                 navigate("/Admin-App/reportes/listar-reportes");
@@ -81,21 +121,53 @@ for (let i = 0; i < form.documentos.length; i++) {
             {mensajeExito && (
                 <div className="mensaje-exito">{mensajeExito}</div>
             )}
-            <div>
+            <div style={{ position: "relative" }}>
                 <label>Equipo</label>
-                <select
-                    name="equipoId"
-                    value={form.equipoId}
+                <input
+                    type="text"
+                    name="busquedaEquipo"
+                    placeholder="Buscar equipo..."
+                    value={busquedaEquipo}
                     onChange={handleChange}
-                    required
-                >
-                    <option value="">Selecciona un equipo</option>
-                    {equipos.map((equipo) => (
-                        <option key={equipo.id} value={equipo.id}>
-                            {equipo.assetId || equipo.asset_id || `Equipo ${equipo.id}`}
-                        </option>
-                    ))}
-                </select>
+                    autoComplete="off"
+                    onFocus={() => setShowSugerencias(true)}
+                    style={{ marginBottom: "8px", width: "100%" }}
+                />
+                {showSugerencias && equipos.length > 0 && (
+                    <ul
+                        ref={sugerenciasRef}
+                        style={{
+                            position: "absolute",
+                            top: "100%", // <-- Esto asegura que salga debajo del input
+                            left: 0,
+                            zIndex: 10,
+                            background: "#fff",
+                            border: "1px solid #ccc",
+                            width: "100%",
+                            maxHeight: "180px",
+                            overflowY: "auto",
+                            listStyle: "none",
+                            margin: 0,
+                            padding: 0
+                        }}
+                    >
+                        {equipos.map((equipo) => (
+                            <li
+                                key={equipo.id}
+                                style={{
+                                    padding: "8px",
+                                    cursor: "pointer",
+                                    borderBottom: "1px solid #eee"
+                                }}
+                                onClick={() => handleSugerenciaClick(equipo)}
+                            >
+                                {equipo.assetId || equipo.asset_id || `Equipo ${equipo.id}`}
+                            </li>
+                        ))}
+                    </ul>
+                )}
+                {/* Campo oculto para enviar el id del equipo */}
+                <input type="hidden" name="equipoId" value={form.equipoId} />
             </div>
             <div>
                 <label>Usuario ID</label>
@@ -157,7 +229,7 @@ for (let i = 0; i < form.documentos.length; i++) {
                     onChange={handleChange}
                 />
             </div>
-            <button type="submit">Crear</button>
+            <button type="submit" disabled={!form.equipoId}>Crear</button>
         </form>
     );
 }

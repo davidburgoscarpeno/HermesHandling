@@ -16,6 +16,25 @@ public class EquipoRepository : IEquipoRepository
         return await _context.Equipos.FirstOrDefaultAsync(e => e.Id == id);
     }
 
+    public async Task<IEnumerable<Equipo>> GetEquiposAsync(string? search)
+    {
+        var query = _context.Equipos.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            var searchNorm = search.ToLower().Normalize(System.Text.NormalizationForm.FormD);
+            query = query.Where(e =>
+                e.AssetId != null &&
+                EF.Functions.Like(
+                    EF.Functions.Collate(e.AssetId, "Latin1_General_CI_AI"), // Sin tildes ni mayúsculas
+                    $"%{search}%"
+                )
+            );
+        }
+
+        return await query.ToListAsync();
+    }
+
     public async Task<(bool Success, string Message)> UpdateAsync(Equipo equipo)
     {
         var existing = await _context.Equipos.FindAsync(equipo.Id);

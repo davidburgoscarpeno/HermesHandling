@@ -40,9 +40,9 @@ namespace HermesHandling.Server.Controllers
         }
 
         [HttpGet("equipos")]
-        public async Task<IActionResult> GetEquipos()
+        public async Task<IActionResult> GetEquipos([FromQuery] string? search)
         {
-            var equipos = await _equipoRepository.GetAllAsync();
+            var equipos = await _equipoRepository.GetEquiposAsync(search);
             return Ok(equipos);
         }
 

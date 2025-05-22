@@ -6,6 +6,8 @@ public interface IEquipoRepository
     Task<Equipo?> GetByIdAsync(int id);
     Task<(bool Success, string Message)> UpdateAsync(Equipo equipo);
     Task AddAsync(Equipo equipo);
+    Task<IEnumerable<Equipo>> GetEquiposAsync(string? search);
+
 
 
 }

@@ -40,11 +40,10 @@ function CrearEquipo() {
                     descripcion: form.descripcion,
                     tipoEquipoId: form.tipoEquipoId ? parseInt(form.tipoEquipoId) : null,
                     estado: form.estado,
-                    fechaCreacion: form.fechaCreacion,
                     fechaUltimaRevision: form.fechaUltimaRevision || null
                 }
             );
-            setMensajeExito("Equipo creado con éxito.");
+            setMensajeExito("Equipo creado con exito.");
             setTimeout(() => {
                 navigate("/admin-app/equipos/listar-equipos");
             }, 1200);
@@ -112,17 +111,6 @@ function CrearEquipo() {
                     <option value="En mantenimiento">En mantenimiento</option>
                     <option value="En revisión">En revisi&oacute;n</option>
                 </select>
-            </div>
-
-            <div>
-                <label>Fecha de Creaci&oacute;n</label>
-                <input
-                    type="datetime-local"
-                    name="fechaCreacion"
-                    value={form.fechaCreacion}
-                    onChange={handleChange}
-                    required
-                />
             </div>
             <div>
                 <label>Fecha &Uacute;ltima Revisi&oacute;n</label>
