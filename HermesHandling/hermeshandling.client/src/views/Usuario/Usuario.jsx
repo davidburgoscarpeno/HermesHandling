@@ -49,6 +49,14 @@ function Usuario() {
         navigate("/login");
     };
 
+    const handleComunicados = () => {
+        navigate("/usuario/ver-comunicaciones");
+    };
+
+    const handleDocumentacion = () => {
+        navigate("/usuario/ver-documentacion-interna");
+    };
+
     // Agrupa los reportes por estado
     const abiertos = reportes.filter(r => r.activo);
     const resueltos = reportes.filter(r => !r.activo);
@@ -69,6 +77,12 @@ function Usuario() {
                         <div className="logo-dropdown-menu" ref={menuRef}>
                             <button onClick={handleLogout} className="dropdown-item">
                                 <i className="bi bi-box-arrow-right"></i> Cerrar sesi&oacute;n
+                            </button>
+                            <button onClick={handleDocumentacion} className="dropdown-item">
+                                <i className="bi bi-journal-text"></i> Documentaci&oacute;n Interna
+                            </button>
+                            <button onClick={handleComunicados} className="dropdown-item">
+                                <i className="bi bi-megaphone"></i> Comunicados
                             </button>
                         </div>
                     )}

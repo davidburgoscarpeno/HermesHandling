@@ -1,0 +1,64 @@
+.comunicados-root {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.comunicados-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 28px;
+    color: #22223b;
+    font-weight: 700;
+}
+
+.comunicados-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.comunicado-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    padding: 24px 20px 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comunicado-asunto {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #4361ee;
+}
+
+.comunicado-mensaje {
+    color: #22223b;
+    font-size: 1.05rem;
+}
+
+.comunicado-fecha {
+    color: #888;
+    font-size: 0.95rem;
+    text-align: right;
+}
+
+.comunicados-error {
+    background: #ffe0e0;
+    color: #b00020;
+    border: 1px solid #ffb3b3;
+    padding: 12px 18px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.comunicados-empty {
+    text-align: center;
+    color: #888;
+    font-size: 1.1rem;
+    margin-top: 30px;
+}

@@ -21,6 +21,11 @@ public class ComunicacionesRepository : IComunicacionesRepository
         return await _context.Comunicaciones.OrderByDescending(c => c.FechaPublicacion).ToListAsync();
     }
 
+    public async Task<IEnumerable<Comunicacione>> GetAllAsyncUser()
+    {
+        return await _context.Comunicaciones.OrderByDescending(c => c.FechaPublicacion).ToListAsync();
+    }
+
     public async Task<Comunicacione?> GetByIdAsync(int id)
     {
         return await _context.Comunicaciones.FindAsync(id);

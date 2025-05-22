@@ -76,3 +76,39 @@
         font-size: 15px;
     }
 }
+
+/* Modo nocturno */
+body.dark-mode .detalles-container {
+    background: #232a36;
+    color: #e0e6ed;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.32);
+}
+
+    body.dark-mode .detalles-container h2 {
+        color: #e0e6ed;
+    }
+
+body.dark-mode .tabla-detalles {
+    background: #232a36;
+}
+
+    body.dark-mode .tabla-detalles th {
+        background: #2d3542;
+        color: #b0b8c1;
+        border-bottom: 1px solid #38405a;
+    }
+
+    body.dark-mode .tabla-detalles td {
+        background: #232a36;
+        color: #e0e6ed;
+        border-bottom: 1px solid #2d3542;
+    }
+
+body.dark-mode .btn {
+    background: #2980b9;
+    color: #fff;
+}
+
+    body.dark-mode .btn:hover {
+        background: #14507b;
+    }

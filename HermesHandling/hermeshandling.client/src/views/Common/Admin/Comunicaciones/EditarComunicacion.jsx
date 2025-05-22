@@ -8,19 +8,22 @@ function EditarComunicacion() {
     const [titulo, setTitulo] = useState("");
     const [fecha, setFecha] = useState("");
     const [contenido, setContenido] = useState("");
+    const [success, setSuccess] = useState(""); // Nuevo estado para el mensaje de éxito
+    const [error, setError] = useState("");
     const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem('usuario'));
 
     useEffect(() => {
         const cargarDatos = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/AdminCommon/obtener-comunicacion/${id}`);
                 const comunicacion = response.data;
-                setTitulo(comunicacion.titulo || "");
-                setFecha(comunicacion.fecha ? comunicacion.fecha.split("T")[0] : "");
-                setContenido(comunicacion.contenido || "");
+                setTitulo(comunicacion.asunto || "");
+                setFecha(comunicacion.fechaPublicacion ? comunicacion.fechaPublicacion.split("T")[0] : "");
+                setContenido(comunicacion.mensaje || "");
             } catch (error) {
                 console.error("Error al cargar los datos:", error);
-                alert("No se pudo cargar la comunicación.");
+                setError("No se pudo cargar la comunicación.");
             }
         };
         cargarDatos();
@@ -28,26 +31,34 @@ function EditarComunicacion() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError("");
+        setSuccess("");
         try {
             await axios.put(`${import.meta.env.VITE_API_URL}/api/AdminCommon/editar-comunicacion/${id}`, {
-                titulo,
-                fecha,
-                contenido
+                asunto: titulo,
+                mensaje: contenido,
+                fechaPublicacion: fecha,
+                idUsuarioModificacion: user.idUsuario
             });
-            alert("Comunicación actualizada correctamente.");
-            navigate("/admin-app/comunicaciones");
+            setSuccess("Comunicacion actualizada correctamente.");
+            setTimeout(() => {
+                navigate("/admin-app/comunicaciones");
+            }, 1500); // Redirige después de 1.5 segundos
         } catch (error) {
             console.error("Error al actualizar la comunicación:", error);
-            alert("Hubo un error al actualizar la comunicación.");
+            setError("Hubo un error al actualizar la comunicación.");
         }
     };
 
+
     return (
         <div className="crear-container">
-            <h2>Editar Comunicación</h2>
+            <h2>Editar Comunicaci&oacute;n</h2>
+            {success && <div className="success-message">{success}</div>}
+            {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>Título</label>
+                    <label>T&iacute;tulo</label>
                     <input
                         type="text"
                         value={titulo}
@@ -62,7 +73,6 @@ function EditarComunicacion() {
                         type="date"
                         value={fecha}
                         onChange={(e) => setFecha(e.target.value)}
-                        required
                         className="input"
                     />
                 </div>

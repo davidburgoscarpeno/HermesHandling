@@ -36,6 +36,8 @@ import EditarEquipo from './views/Common/Admin/Equipos/EditarEquipo';
 // Importa tu componente RoleRoute
 import RoleRoute from './components/RoleRoute';
 import RegisterView from './views/RegisterView';
+import VerComunicados from './views/Usuario/VerComunicados';
+import VerDocumentacionInterna from './views/Usuario/VerDocumentacionInterna';
 
 const PrivateRoute = ({ children }) => {
     const isAuthenticated = !!localStorage.getItem('token');
@@ -118,6 +120,8 @@ const App = () => {
                         </PrivateRoute>
                     }>
                         <Route index element={<Usuario />} />
+                        <Route path="ver-comunicaciones" element={<VerComunicados />} />
+                        <Route path="ver-documentacion-interna" element={<VerDocumentacionInterna />} />
                         <Route path="crear-reporte" element={<CrearReporteUsuario />} />
                         <Route path="ver-reporte/:id" element={<VerDetallesReporte />} />
                     </Route>

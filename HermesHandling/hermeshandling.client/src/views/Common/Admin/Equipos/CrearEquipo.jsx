@@ -82,7 +82,7 @@ function CrearEquipo() {
                 />
             </div>
             <div>
-                <label>Descripción</label>
+                <label>Descripci&oacute;n</label>
                 <textarea
                     name="descripcion"
                     value={form.descripcion}
@@ -114,7 +114,7 @@ function CrearEquipo() {
                 />
             </div>
             <div>
-                <label>Fecha de Creación</label>
+                <label>Fecha de Creaci&oacute;n</label>
                 <input
                     type="datetime-local"
                     name="fechaCreacion"
@@ -124,7 +124,7 @@ function CrearEquipo() {
                 />
             </div>
             <div>
-                <label>Fecha Última Revisión</label>
+                <label>Fecha &Uacute;ltima Revisi&oacute;n</label>
                 <input
                     type="datetime-local"
                     name="fechaUltimaRevision"

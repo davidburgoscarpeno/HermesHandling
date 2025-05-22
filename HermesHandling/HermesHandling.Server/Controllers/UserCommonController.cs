@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using HermesHandling.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HermesHandling.Server.Controllers
 {
@@ -12,14 +13,19 @@ namespace HermesHandling.Server.Controllers
         private readonly IDefectosReportadoRepository _defectoRepo;
         private readonly IReportesDocumentoRepository _documentoRepo;
         private readonly ITiposDefectoRepository _tiposDefectoRepo;
-
+        private readonly HermesDbContext _db;
+        private readonly IWebHostEnvironment _env;
+        private readonly IComunicacionesRepository _comRepo;
 
         public UserCommonController(
             IEquipoRepository equipoRepository,
             IReporte reporteRepository,
             IDefectosReportadoRepository defectoRepo,
             IReportesDocumentoRepository documentoRepo,
-            ITiposDefectoRepository tiposDefectoRepo
+            ITiposDefectoRepository tiposDefectoRepo,
+            HermesDbContext db,
+            IWebHostEnvironment env,
+            IComunicacionesRepository comRepo
             )
         {
             _equipoRepository = equipoRepository;
@@ -27,6 +33,10 @@ namespace HermesHandling.Server.Controllers
             _defectoRepo = defectoRepo;
             _documentoRepo = documentoRepo;
             _tiposDefectoRepo = tiposDefectoRepo;
+            _db = db;
+            _env = env;
+            _comRepo = comRepo;
+
         }
 
         [HttpGet("equipos")]
@@ -130,6 +140,48 @@ namespace HermesHandling.Server.Controllers
             return Ok(reportesUsuario);
         }
 
+        #region Documentacion Interna
+        [HttpGet("descargar-documento-interno")]
+        public async Task<IActionResult> DescargarDocumentoInterno(int id)
+        {
+            var doc = await _db.DocumentacionInternas.FirstOrDefaultAsync(d => d.Id == id);
+            if (doc == null)
+                return NotFound("No existe el documento en la base de datos.");
+            if (string.IsNullOrEmpty(doc.PathDocumento))
+                return NotFound("El campo PathDocumento está vacío.");
+
+            var fileName = Path.GetFileName(doc.PathDocumento);
+            var parentPath = Directory.GetParent(_env.ContentRootPath).FullName;
+            var filePath = Path.Combine(parentPath, "FicherosOcultosWeb", "DocumentacionInterna", fileName);
+
+            if (!System.IO.File.Exists(filePath))
+                return NotFound($"No se encontró el archivo físico en: {filePath}");
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, "application/pdf", fileName);
+        }
+
+
+
+        #endregion
+
+
+        #endregion
+
+
+        #region Comunicados
+
+        [HttpGet("listar-comunicaciones")]
+        public async Task<IActionResult> ListarComunicaciones()
+        {
+            var comunicaciones = await _comRepo.GetAllAsyncUser();
+            return Ok(comunicaciones);
+        }
 
         #endregion
     }

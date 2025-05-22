@@ -9,6 +9,8 @@ function CrearComunicacion() {
     const [contenido, setContenido] = useState("");
     const [mensajeExito, setMensajeExito] = useState("");
     const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem('usuario'));
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,7 +18,9 @@ function CrearComunicacion() {
             await axios.post(`${import.meta.env.VITE_API_URL}/api/AdminCommon/crear-comunicacion`, {
                 asunto: titulo,
                 mensaje: contenido,
-                fechaPublicacion: fecha
+                fechaPublicacion: fecha,
+                idUsuarioAlta: user.idUsuario 
+
             });
             setMensajeExito("Comunicación creada correctamente.");
             setTitulo("");
@@ -27,7 +31,7 @@ function CrearComunicacion() {
             }, 1500);
         } catch (error) {
             console.error("Error al crear la comunicación:", error);
-            setMensajeExito(""); // Oculta mensaje de éxito si hay error
+            setMensajeExito(""); 
             alert("Hubo un error al crear la comunicación.");
         }
     };

@@ -50,13 +50,13 @@ namespace HermesHandling.Server.Controllers
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            var filePath = Path.Combine(path, model.Nombre + extension);
+            var safeFileName = model.Nombre.Replace(" ", "_") + extension;
+            var filePath = Path.Combine(path, safeFileName);
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await model.Documento.CopyToAsync(stream);
             }
 
-            // Conversión manual del ViewModel a la entidad
             var documentacion = new DocumentacionInterna
             {
                 Nombre = model.Nombre,
@@ -87,7 +87,6 @@ namespace HermesHandling.Server.Controllers
             if (documentacion == null)
                 return NotFound("No se encontró la documentación interna con el ID proporcionado.");
 
-            // Actualizar las propiedades de la entidad con los valores del modelo
             documentacion.Nombre = model.Nombre;
 
             if (model.Documento != null && model.Documento.Length > 0)
@@ -101,7 +100,8 @@ namespace HermesHandling.Server.Controllers
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
 
-                var filePath = Path.Combine(path, model.Nombre + extension);
+                var safeFileName = model.Nombre.Replace(" ", "_") + extension;
+                var filePath = Path.Combine(path, safeFileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await model.Documento.CopyToAsync(stream);
@@ -177,14 +177,28 @@ namespace HermesHandling.Server.Controllers
         }
 
         [HttpPut("editar-comunicacion/{id}")]
-        public async Task<IActionResult> EditarComunicacion(int id, [FromBody] Comunicacione model)
+        public async Task<IActionResult> EditarComunicacion(int id, [FromBody] EditarComunicacionDto dto)
         {
-            var result = await _comRepo.UpdateAsync(id, model);
+            var comunicacion = await _comRepo.GetByIdAsync(id);
+            if (comunicacion == null)
+                return NotFound("No se encontró la comunicación con el ID proporcionado.");
+
+            comunicacion.Asunto = dto.Asunto;
+            comunicacion.Mensaje = dto.Mensaje;
+            if (dto.FechaPublicacion != null)
+            {
+                comunicacion.FechaPublicacion = dto.FechaPublicacion ?? comunicacion.FechaPublicacion;
+            }
+            comunicacion.IdUsuarioModificacion = dto.IdUsuarioModificacion;
+            comunicacion.FechaModificacion = DateTime.Now;
+
+            var result = await _comRepo.UpdateAsync(id, comunicacion);
             if (!result.Success)
-                return NotFound(result.Message);
+                return BadRequest(result.Message);
 
             return Ok(new { message = "Comunicación actualizada correctamente." });
         }
+
 
         [HttpDelete("eliminar-comunicacion/{id}")]
         public async Task<IActionResult> EliminarComunicacion(int id)
