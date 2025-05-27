@@ -8,7 +8,8 @@ function Usuario() {
     const [reportes, setReportes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [menuOpen, setMenuOpen] = useState(false);
-    const user = JSON.parse(localStorage.getItem("usuario"));
+    // Usar useState para inicializar el usuario solo una vez
+    const [user] = useState(() => JSON.parse(localStorage.getItem("usuario")));
     const navigate = useNavigate();
     const menuRef = useRef(null);
 

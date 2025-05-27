@@ -1,11 +1,9 @@
-﻿/* Reset global para evitar márgenes/paddings inesperados */
-html, body {
+﻿html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* --------- CABECERA Y MENÚ --------- */
 .kanban-header {
     display: flex;
     justify-content: space-between;
@@ -29,7 +27,7 @@ html, body {
     transition: box-shadow 0.2s, transform 0.2s;
     background: #fff;
     object-fit: contain;
-    padding: 4px; /* Asegura que el logo no quede pegado al borde */
+    padding: 4px; 
     display: block;
 }
 
@@ -119,7 +117,6 @@ html, body {
         font-size: 1.2rem;
     }
 
-/* --------- FORMULARIO --------- */
 .crear-reporte-form {
     background: #fff;
     max-width: 900px;
@@ -209,7 +206,6 @@ html, body {
         transform: translateY(-2px) scale(1.01);
     }
 
-/* --------- PORTÁTIL (≤ 1200px) --------- */
 @media (max-width: 1200px) {
     .crear-reporte-form {
         max-width: 98vw;
@@ -252,7 +248,6 @@ html, body {
     }
 }
 
-/* --------- TABLET (≤ 900px) --------- */
 @media (max-width: 900px) {
     .crear-reporte-form {
         max-width: 99vw;
@@ -272,7 +267,6 @@ html, body {
         }
 }
 
-/* --------- MÓVIL (≤ 600px) --------- */
 @media (max-width: 600px) {
     .crear-reporte-form {
         max-width: 100vw;
@@ -297,14 +291,13 @@ html, body {
         }
 }
 
-/* --------- MODO NOCTURNO --------- */
 body.dark-mode .kanban-header-left h2 {
     color: #e0e6ed;
 }
 
 body.dark-mode .kanban-logo {
     box-shadow: 0 2px 8px rgba(67, 97, 238, 0.18);
-    background: #fff; /* Mantén fondo blanco para el logo en modo oscuro */
+    background: #fff;
 }
 
 body.dark-mode .logo-dropdown-menu {
@@ -376,3 +369,42 @@ body.dark-mode .mensaje-exito {
     color: #6be39c;
     border: 1px solid #3bb36a;
 }
+
+.sugerencias-equipos {
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #22223b;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+}
+
+    .sugerencias-equipos li {
+        background: #fff;
+        color: #22223b;
+        border-bottom: 1px solid #eee;
+        transition: background 0.18s, color 0.18s;
+    }
+
+        .sugerencias-equipos li:hover,
+        .sugerencias-equipos li:focus {
+            background: #f6f9ff;
+            color: #4361ee;
+        }
+
+body.dark-mode .sugerencias-equipos {
+    background: #232a36 !important;
+    border-color: #38405a !important;
+    color: #e0e6ed !important;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.22);
+}
+
+    body.dark-mode .sugerencias-equipos li {
+        background: #232a36 !important;
+        color: #e0e6ed !important;
+        border-bottom: 1px solid #38405a !important;
+    }
+
+        body.dark-mode .sugerencias-equipos li:hover,
+        body.dark-mode .sugerencias-equipos li:focus {
+            background: #2c3e50 !important;
+            color: #6cb6ff !important;
+        }

@@ -10,6 +10,9 @@ function CrearReporte() {
     const [mensajeExito, setMensajeExito] = useState("");
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null);
+    const [busquedaEquipo, setBusquedaEquipo] = useState("");
+    const [showSugerencias, setShowSugerencias] = useState(false);
+    const sugerenciasRef = useRef(null);
     const navigate = useNavigate();
     const [form, setForm] = useState({
         equipoId: "",
@@ -22,10 +25,24 @@ function CrearReporte() {
     });
     const user = JSON.parse(localStorage.getItem("usuario"));
 
+    // Buscar equipos en el backend cada vez que cambia la búsqueda
     useEffect(() => {
-        axios.get(`${import.meta.env.VITE_API_URL}/api/UserCommon/equipos`)
-            .then((res) => setEquipos(Array.isArray(res.data) ? res.data : []))
-            .catch(() => setEquipos([]));
+        if (busquedaEquipo.trim() === "") {
+            setEquipos([]);
+            return;
+        }
+        const delayDebounce = setTimeout(() => {
+            axios.get(`${import.meta.env.VITE_API_URL}/api/UserCommon/equipos`, {
+                params: { search: busquedaEquipo }
+            })
+                .then((res) => setEquipos(Array.isArray(res.data) ? res.data : []))
+                .catch(() => setEquipos([]));
+        }, 300);
+
+        return () => clearTimeout(delayDebounce);
+    }, [busquedaEquipo]);
+
+    useEffect(() => {
         axios.get(`${import.meta.env.VITE_API_URL}/api/UserCommon/tipos-defectos`)
             .then((res) => setTiposDefecto(Array.isArray(res.data) ? res.data : []))
             .catch(() => setTiposDefecto([]));
@@ -37,16 +54,15 @@ function CrearReporte() {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
                 setMenuOpen(false);
             }
+            if (sugerenciasRef.current && !sugerenciasRef.current.contains(event.target)) {
+                setShowSugerencias(false);
+            }
         }
-        if (menuOpen) {
-            document.addEventListener("mousedown", handleClickOutside);
-        } else {
-            document.removeEventListener("mousedown", handleClickOutside);
-        }
+        document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [menuOpen]);
+    }, []);
 
     const handleLogoClick = () => setMenuOpen((open) => !open);
 
@@ -72,9 +88,19 @@ function CrearReporte() {
         const { name, value, files } = e.target;
         if (name === "documentos") {
             setForm({ ...form, documentos: files });
+        } else if (name === "busquedaEquipo") {
+            setBusquedaEquipo(value);
+            setShowSugerencias(true);
+            setForm({ ...form, equipoId: "" }); // Limpiar selección previa
         } else {
             setForm({ ...form, [name]: value });
         }
+    };
+
+    const handleSugerenciaClick = (equipo) => {
+        setBusquedaEquipo(equipo.assetId || equipo.asset_id || `Equipo ${equipo.id}`);
+        setForm({ ...form, equipoId: equipo.id });
+        setShowSugerencias(false);
     };
 
     const handleSubmit = async (e) => {
@@ -106,6 +132,7 @@ function CrearReporte() {
                 tipoDefectoId: "",
                 documentos: []
             });
+            setBusquedaEquipo("");
             setTimeout(() => {
                 setMensajeExito("");
                 navigate("/usuario");
@@ -144,25 +171,55 @@ function CrearReporte() {
                 </div>
             </div>
 
-            {/* Título y formulario */}
             {mensajeExito && (
                 <div className="mensaje-exito">{mensajeExito}</div>
             )}
-            <div>
+            <div style={{ position: "relative" }}>
                 <label>Equipo</label>
-                <select
-                    name="equipoId"
-                    value={form.equipoId}
+                <input
+                    type="text"
+                    name="busquedaEquipo"
+                    placeholder="Buscar equipo..."
+                    value={busquedaEquipo}
                     onChange={handleChange}
-                    required
-                >
-                    <option value="">Selecciona un equipo</option>
-                    {equipos.map((equipo) => (
-                        <option key={equipo.id} value={equipo.id}>
-                            {equipo.assetId || equipo.asset_id || `Equipo ${equipo.id}`}
-                        </option>
-                    ))}
-                </select>
+                    autoComplete="off"
+                    onFocus={() => setShowSugerencias(true)}
+                    style={{ marginBottom: "8px", width: "100%" }}
+                />
+                {showSugerencias && equipos.length > 0 && (
+                    <ul
+                        ref={sugerenciasRef}
+                        className="sugerencias-equipos"
+                        style={{
+                            position: "absolute",
+                            top: "100%",
+                            left: 0,
+                            zIndex: 10,
+                            width: "100%",
+                            maxHeight: "180px",
+                            overflowY: "auto",
+                            listStyle: "none",
+                            margin: 0,
+                            padding: 0
+                        }}
+                    >
+                        {equipos.map((equipo) => (
+                            <li
+                                key={equipo.id}
+                                style={{
+                                    padding: "8px",
+                                    cursor: "pointer",
+                                    borderBottom: "1px solid #eee"
+                                }}
+                                onClick={() => handleSugerenciaClick(equipo)}
+                            >
+                                {equipo.assetId || equipo.asset_id || `Equipo ${equipo.id}`}
+                            </li>
+                        ))}
+                    </ul>
+                )}
+                {/* Campo oculto para enviar el id del equipo */}
+                <input type="hidden" name="equipoId" value={form.equipoId} />
             </div>
             <div>
                 <label>Usuario ID</label>
@@ -215,7 +272,7 @@ function CrearReporte() {
                     onChange={handleChange}
                 />
             </div>
-            <button type="submit">Crear</button>
+            <button type="submit" disabled={!form.equipoId}>Crear</button>
         </form>
     );
 }

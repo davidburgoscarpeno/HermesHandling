@@ -47,16 +47,20 @@ const LoginView = () => {
             localStorage.setItem('token', data.token);
             localStorage.setItem('usuario', JSON.stringify(data.usuario));
 
+            // Navega primero y luego recarga la página para que la ruta sea la correcta
             if (data.usuario.tipoUsuario === 0) {
                 navigate("/admin-app/dashboard");
             } else {
                 navigate("/usuario");
             }
+            setTimeout(() => window.location.reload(), 100); // Pequeño retardo para asegurar la navegación
+
         } catch (error) {
             setError(error.response?.data?.message || "Credenciales incorrectas o error en el servidor");
             setLoading(false);
         }
     };
+
 
     return (
         <div className="login-root">

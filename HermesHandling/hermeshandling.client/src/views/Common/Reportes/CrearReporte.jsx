@@ -39,14 +39,12 @@ function CrearReporte() {
         return () => clearTimeout(delayDebounce);
     }, [busquedaEquipo]);
 
-    // Cargar tipos de defecto una sola vez
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API_URL}/api/UserCommon/tipos-defectos`)
             .then((res) => setTiposDefecto(Array.isArray(res.data) ? res.data : []))
             .catch(() => setTiposDefecto([]));
     }, []);
 
-    // Cerrar sugerencias al hacer click fuera
     useEffect(() => {
         function handleClickOutside(event) {
             if (sugerenciasRef.current && !sugerenciasRef.current.contains(event.target)) {
@@ -136,13 +134,12 @@ function CrearReporte() {
                 {showSugerencias && equipos.length > 0 && (
                     <ul
                         ref={sugerenciasRef}
+                        className="sugerencias-equipos"
                         style={{
                             position: "absolute",
-                            top: "100%", // <-- Esto asegura que salga debajo del input
+                            top: "100%",
                             left: 0,
                             zIndex: 10,
-                            background: "#fff",
-                            border: "1px solid #ccc",
                             width: "100%",
                             maxHeight: "180px",
                             overflowY: "auto",
@@ -166,6 +163,7 @@ function CrearReporte() {
                         ))}
                     </ul>
                 )}
+
                 {/* Campo oculto para enviar el id del equipo */}
                 <input type="hidden" name="equipoId" value={form.equipoId} />
             </div>

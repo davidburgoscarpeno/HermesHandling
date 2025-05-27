@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
         policy => policy
-            .WithOrigins("https://localhost:5173")  // Aquí el frontend
+            .WithOrigins("https://localhost:5173")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials()
@@ -62,6 +62,7 @@ builder.Services.AddScoped<IDefectosReportadoRepository, DefectosReportadoReposi
 builder.Services.AddScoped<IReportesDocumentoRepository, ReportesDocumentoRepository>();
 builder.Services.AddScoped<ITiposDefectoRepository, TiposDefectoRepository>();
 builder.Services.AddScoped<ITiposEquipoRepository, TiposEquipoRepository>();
+builder.Services.AddSignalR(); //Añado el paquete para el livechat
 
 
 
@@ -89,7 +90,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapHub<ChatHub>("/chathub");
 app.MapFallbackToFile("/index.html");
 
 app.Run();
