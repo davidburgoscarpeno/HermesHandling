@@ -17,7 +17,7 @@ public class ChatHub : Hub
 
         _history.Enqueue(chatMessage);
 
-        // Limita el historial a los últimos 100 mensajes (opcional)
+        // Limita el historial a los últimos 100 mensajes
         while (_history.Count > 100)
             _history.TryDequeue(out _);
 

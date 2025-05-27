@@ -13,6 +13,8 @@ function ListarReportes() {
     const [filtroUsuario, setFiltroUsuario] = useState("");
     const [filtroUbicacion, setFiltroUbicacion] = useState("");
     const [filtroActivo, setFiltroActivo] = useState("");
+    const [filtroFechaDesde, setFiltroFechaDesde] = useState("");
+    const [filtroFechaHasta, setFiltroFechaHasta] = useState("");
     const [showExportMenu, setShowExportMenu] = useState(false);
     const navigate = useNavigate();
 
@@ -39,7 +41,7 @@ function ListarReportes() {
         navigate(`/admin-app/reportes/crear`);
     };
 
-    // Filtrado por usuario, ubicación y activo
+    // Filtrado por usuario, ubicación, activo y fecha de creación
     const reportesFiltrados = reportes.filter((reporte) => {
         const coincideUsuario =
             filtroUsuario === "" ||
@@ -51,7 +53,18 @@ function ListarReportes() {
             filtroActivo === "" ||
             (filtroActivo === "true" && reporte.activo === true) ||
             (filtroActivo === "false" && reporte.activo === false);
-        return coincideUsuario && coincideUbicacion && coincideActivo;
+
+        // Filtro por fecha de creación
+        const fechaCreacion = new Date(reporte.fechaCreacion);
+        const desde = filtroFechaDesde ? new Date(filtroFechaDesde) : null;
+        const hasta = filtroFechaHasta ? new Date(filtroFechaHasta) : null;
+        // Ajuste para incluir todo el día en la fecha hasta
+        if (hasta) hasta.setHours(23, 59, 59, 999);
+        const coincideFecha =
+            (!desde || fechaCreacion >= desde) &&
+            (!hasta || fechaCreacion <= hasta);
+
+        return coincideUsuario && coincideUbicacion && coincideActivo && coincideFecha;
     });
 
     // Exportar a Excel
@@ -178,7 +191,24 @@ function ListarReportes() {
                                             className="input"
                                         />
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        <input
+                                            type="date"
+                                            value={filtroFechaDesde}
+                                            onChange={(e) => setFiltroFechaDesde(e.target.value)}
+                                            className="input"
+                                            style={{ width: "48%", marginRight: "2%" }}
+                                            placeholder="Desde"
+                                        />
+                                        <input
+                                            type="date"
+                                            value={filtroFechaHasta}
+                                            onChange={(e) => setFiltroFechaHasta(e.target.value)}
+                                            className="input"
+                                            style={{ width: "48%" }}
+                                            placeholder="Hasta"
+                                        />
+                                    </td>
                                     <td>
                                         <select
                                             value={filtroActivo}

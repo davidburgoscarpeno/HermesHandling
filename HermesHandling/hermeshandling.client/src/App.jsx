@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Outlet, useLocation } from 'react-router-dom';
 import AdminCompany from './views/AdminCompany/AdminCompany';
 import Usuario from './views/Usuario/Usuario';
 //Login
@@ -40,16 +40,21 @@ import VerComunicados from './views/Usuario/VerComunicados';
 import VerDocumentacionInterna from './views/Usuario/VerDocumentacionInterna';
 import VerDetallesReporteUsuario from './views/Usuario/VerDetallesReporte';
 
+// Importa el LiveChat
+import LiveChat from './components/LiveChat';
+
 const PrivateRoute = ({ children }) => {
     const isAuthenticated = !!localStorage.getItem('token');
     return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
-const App = () => {
+function AppContent() {
     const [isDarkMode, setIsDarkMode] = useState(() => {
         const savedMode = localStorage.getItem('darkMode') === 'true';
         return savedMode;
     });
+    const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem('token'));
+    const location = useLocation();
 
     useEffect(() => {
         if (isDarkMode) {
@@ -59,6 +64,14 @@ const App = () => {
         }
     }, [isDarkMode]);
 
+    useEffect(() => {
+        const onStorage = () => {
+            setIsAuthenticated(!!localStorage.getItem('token'));
+        };
+        window.addEventListener('storage', onStorage);
+        return () => window.removeEventListener('storage', onStorage);
+    }, []);
+
     const toggleDarkMode = () => {
         setIsDarkMode((prevMode) => {
             const newMode = !prevMode;
@@ -67,77 +80,86 @@ const App = () => {
         });
     };
 
+    // Oculta el chat en /login y /register
+    const hideChatRoutes = ["/login", "/register"];
+    const showChat = isAuthenticated && !hideChatRoutes.includes(location.pathname);
+
     return (
-        <Router>
-            <div className="app-container">
-                <button onClick={toggleDarkMode} className="dark-mode-toggle-btn">
-                    <i className={`bi ${isDarkMode ? 'bi-sun' : 'bi-moon-stars'}`}></i>
-                </button>
+        <div className="app-container">
+            <button onClick={toggleDarkMode} className="dark-mode-toggle-btn">
+                <i className={`bi ${isDarkMode ? 'bi-sun' : 'bi-moon-stars'}`}></i>
+            </button>
 
-                <Routes>
-                    <Route path="/" element={<Navigate to="/login" />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<RegisterView />} />
+            <Routes>
+                <Route path="/" element={<Navigate to="/login" />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<RegisterView />} />
 
+                <Route path="/admin-app" element={
+                    <PrivateRoute>
+                        <RoleRoute allowedRoles={["admin", "superadmin"]}>
+                            <Layout />
+                        </RoleRoute>
+                    </PrivateRoute>
+                }>
+                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="usuarios/listar" element={<ListarUsuarios />} />
+                    <Route path="usuarios/crear" element={<CrearUsuario />} />
+                    <Route path="usuarios/editar" element={<EditarUsuario />} />
 
-                    <Route path="/admin-app" element={
-                        <PrivateRoute>
-                            <RoleRoute allowedRoles={["admin", "superadmin"]}>
-                                <Layout />
-                            </RoleRoute>
-                        </PrivateRoute>
-                    }>
-                        <Route path="dashboard" element={<Dashboard />} />
-                        <Route path="usuarios/listar" element={<ListarUsuarios />} />
-                        <Route path="usuarios/crear" element={<CrearUsuario />} />
-                        <Route path="usuarios/editar" element={<EditarUsuario />} />
+                    <Route path="comunicaciones" element={<ListarComunicaciones />} />
+                    <Route path="comunicaciones/crear" element={<CrearComunicacion />} />
+                    <Route path="comunicaciones/editar/:id" element={<EditarComunicacion />} />
 
-                        <Route path="comunicaciones" element={<ListarComunicaciones />} />
-                        <Route path="comunicaciones/crear" element={<CrearComunicacion />} />
-                        <Route path="comunicaciones/editar/:id" element={<EditarComunicacion />} />
+                    <Route path="documentacion-interna" element={<DocumentacionInterna />} />
+                    <Route path="documentacion-interna/crear" element={<CrearDocumentacionInterna />} />
+                    <Route path="documentacion-interna/editar" element={<EditarDocumentacionInterna />} />
+                    <Route path="documentacion-interna/editar/:id" element={<EditarDocumentacionInterna />} />
 
-                        <Route path="documentacion-interna" element={<DocumentacionInterna />} />
-                        <Route path="documentacion-interna/crear" element={<CrearDocumentacionInterna />} />
-                        <Route path="documentacion-interna/editar" element={<EditarDocumentacionInterna />} />
-                        <Route path="documentacion-interna/editar/:id" element={<EditarDocumentacionInterna />} />
+                    <Route path="equipos/listar-equipos" element={<ListarEquipos />} />
+                    <Route path="equipos/crear" element={<CrearEquipo />} />
+                    <Route path="equipos/editar/:id" element={<EditarEquipo />} />
 
-                        <Route path="equipos/listar-equipos" element={<ListarEquipos />} />
-                        <Route path="equipos/crear" element={<CrearEquipo />} />
-                        <Route path="equipos/editar/:id" element={<EditarEquipo />} />
+                    <Route path="reportes/listar-reportes" element={<ListarReportes />} />
+                    <Route path="reportes/crear" element={<CrearReporte />} />
+                    <Route path="reportes/editar" element={<CrearReporte />} />
+                    <Route path="reportes/detalles/:id" element={<VerDetallesReporte />} />
 
-                        <Route path="reportes/listar-reportes" element={<ListarReportes />} />
-                        <Route path="reportes/crear" element={<CrearReporte />} />
-                        <Route path="reportes/editar" element={<CrearReporte />} />
-                        <Route path="reportes/detalles/:id" element={<VerDetallesReporte />} />
+                    <Route path="ver-perfil" element={<VerUsuario />} />
+                </Route>
 
-                        <Route path="ver-perfil" element={<VerUsuario />} />
-                    </Route>
+                <Route path="/usuario" element={
+                    <PrivateRoute>
+                        <RoleRoute allowedRoles={["usuario"]}>
+                            <Outlet />
+                        </RoleRoute>
+                    </PrivateRoute>
+                }>
+                    <Route index element={<Usuario />} />
+                    <Route path="ver-comunicaciones" element={<VerComunicados />} />
+                    <Route path="ver-documentacion-interna" element={<VerDocumentacionInterna />} />
+                    <Route path="crear-reporte" element={<CrearReporteUsuario />} />
+                    <Route path="ver-reporte/:id" element={<VerDetallesReporteUsuario />} />
+                </Route>
 
-                    <Route path="/usuario" element={
-                        <PrivateRoute>
-                            <RoleRoute allowedRoles={["usuario"]}>
-                                <Outlet />
-                            </RoleRoute>
-                        </PrivateRoute>
-                    }>
-                        <Route index element={<Usuario />} />
-                        <Route path="ver-comunicaciones" element={<VerComunicados />} />
-                        <Route path="ver-documentacion-interna" element={<VerDocumentacionInterna />} />
-                        <Route path="crear-reporte" element={<CrearReporteUsuario />} />
-                        <Route path="ver-reporte/:id" element={<VerDetallesReporteUsuario />} />
-                    </Route>
-                    
-                    <Route path="/admin-company" element={
-                        <PrivateRoute>
-                            <RoleRoute allowedRoles={["adminCompany"]}>
-                                <AdminCompany />
-                            </RoleRoute>
-                        </PrivateRoute>
-                    } />
-                </Routes>
-            </div>
-        </Router>
+                <Route path="/admin-company" element={
+                    <PrivateRoute>
+                        <RoleRoute allowedRoles={["adminCompany"]}>
+                            <AdminCompany />
+                        </RoleRoute>
+                    </PrivateRoute>
+                } />
+            </Routes>
+
+            {showChat && <LiveChat />}
+        </div>
     );
-};
+}
+
+const App = () => (
+    <Router>
+        <AppContent />
+    </Router>
+);
 
 export default App;
