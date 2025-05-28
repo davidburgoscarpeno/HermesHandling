@@ -1,5 +1,5 @@
 ﻿import { HubConnectionBuilder } from "@microsoft/signalr";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function getRolName(tipo) {
     switch (tipo) {
@@ -19,6 +19,53 @@ function LiveChat() {
         const stored = localStorage.getItem("usuario");
         return stored ? JSON.parse(stored) : null;
     });
+
+    // Obtiene el modo dark desde localStorage o sistema
+    const getDarkMode = () => {
+        const stored = localStorage.getItem("darkMode");
+        if (stored !== null) return stored === "true";
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    };
+
+    const [darkMode, setDarkMode] = useState(getDarkMode);
+    const darkModeRef = useRef(darkMode);
+
+    // Sincroniza darkMode con localStorage y sistema, incluso en la misma pestaña
+    useEffect(() => {
+        const checkDarkMode = () => {
+            const newMode = getDarkMode();
+            if (darkModeRef.current !== newMode) {
+                darkModeRef.current = newMode;
+                setDarkMode(newMode);
+            }
+        };
+
+        // Escucha cambios en otras pestañas
+        const handleStorage = (e) => {
+            if (e.key === "darkMode") {
+                checkDarkMode();
+            }
+        };
+        window.addEventListener("storage", handleStorage);
+
+        // Escucha cambios en el sistema
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        const handler = e => {
+            if (localStorage.getItem("darkMode") === null) {
+                checkDarkMode();
+            }
+        };
+        mq.addEventListener('change', handler);
+
+        // Chequea periódicamente en la misma pestaña
+        const interval = setInterval(checkDarkMode, 500);
+
+        return () => {
+            window.removeEventListener("storage", handleStorage);
+            mq.removeEventListener('change', handler);
+            clearInterval(interval);
+        };
+    }, []);
 
     useEffect(() => {
         if (!open) return;
@@ -80,6 +127,35 @@ function LiveChat() {
         }
     };
 
+    // Estilos según modo
+    const styles = darkMode
+        ? {
+            chatBg: "#18191A",
+            chatBorder: "#333",
+            chatText: "#f1f1f1",
+            buttonBg: "#222",
+            buttonText: "#fff",
+            inputBg: "#242526",
+            inputText: "#f1f1f1",
+            inputBorder: "#333",
+            sendBg: "#4FC3F7",
+            sendText: "#18191A",
+            nameColor: "#4FC3F7"
+        }
+        : {
+            chatBg: "#fff",
+            chatBorder: "#ccc",
+            chatText: "#222",
+            buttonBg: "#0078d4",
+            buttonText: "#fff",
+            inputBg: "#fff",
+            inputText: "#222",
+            inputBorder: "#ccc",
+            sendBg: "#0078d4",
+            sendText: "#fff",
+            nameColor: "#0078d4"
+        };
+
     return (
         <div style={{ position: "fixed", bottom: 24, right: 24, zIndex: 1000 }}>
             <button
@@ -88,11 +164,11 @@ function LiveChat() {
                     width: 56,
                     height: 56,
                     borderRadius: "50%",
-                    background: "#0078d4",
-                    color: "#fff",
+                    background: styles.buttonBg,
+                    color: styles.buttonText,
                     fontSize: 28,
                     border: "none",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
                     cursor: "pointer"
                 }}
                 aria-label="Abrir chat"
@@ -108,13 +184,14 @@ function LiveChat() {
                         width: 500,
                         minHeight: 400,
                         maxHeight: 500,
-                        background: "#fff",
-                        border: "1px solid #ccc",
+                        background: styles.chatBg,
+                        border: `1px solid ${styles.chatBorder}`,
                         borderRadius: 8,
-                        boxShadow: "0 2px 16px rgba(0,0,0,0.2)",
+                        boxShadow: "0 2px 16px rgba(0,0,0,0.6)",
                         display: "flex",
                         flexDirection: "column",
-                        padding: 16
+                        padding: 16,
+                        color: styles.chatText
                     }}
                 >
                     <div style={{ flex: 1, overflowY: "auto", marginBottom: 8 }}>
@@ -127,11 +204,11 @@ function LiveChat() {
                                 : undefined;
                             return (
                                 <div key={idx}>
-                                    <b>
+                                    <b style={{ color: styles.nameColor }}>
                                         {nombre || "Desconocido"}
                                         {tipoUsuario !== undefined ? ` (${getRolName(tipoUsuario)})` : ""}
                                         :
-                                    </b> {msg.message}
+                                    </b> <span style={{ color: styles.chatText }}>{msg.message}</span>
                                 </div>
                             );
                         })}
@@ -141,7 +218,14 @@ function LiveChat() {
                             value={input}
                             onChange={e => setInput(e.target.value)}
                             placeholder="Escribe un mensaje..."
-                            style={{ flex: 1, padding: 8, borderRadius: 4, border: "1px solid #ccc" }}
+                            style={{
+                                flex: 1,
+                                padding: 8,
+                                borderRadius: 4,
+                                border: `1px solid ${styles.inputBorder}`,
+                                background: styles.inputBg,
+                                color: styles.inputText
+                            }}
                             onKeyDown={e => { if (e.key === "Enter") sendMessage(); }}
                         />
                         <button
@@ -150,8 +234,8 @@ function LiveChat() {
                                 padding: "8px 16px",
                                 borderRadius: 4,
                                 border: "none",
-                                background: "#0078d4",
-                                color: "#fff",
+                                background: styles.sendBg,
+                                color: styles.sendText,
                                 cursor: "pointer"
                             }}
                         >

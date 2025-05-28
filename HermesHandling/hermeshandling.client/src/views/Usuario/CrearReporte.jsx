@@ -80,6 +80,10 @@ function CrearReporte() {
         navigate("/login");
     };
 
+    const handleIncio = () => {
+        navigate("/usuario")
+    }
+
     const handleCrearReporte = () => {
         navigate("/usuario/crear-reporte");
     };
@@ -157,6 +161,9 @@ function CrearReporte() {
                     <h2>Crear Reporte</h2>
                     {menuOpen && (
                         <div className="logo-dropdown-menu" ref={menuRef}>
+                            <button onClick={handleIncio} className="dropdown-item">
+                                <i className="bi bi-journal-text"></i> Incio
+                            </button>
                             <button onClick={handleDocumentacion} className="dropdown-item">
                                 <i className="bi bi-journal-text"></i> Documentaci&oacute;n Interna
                             </button>

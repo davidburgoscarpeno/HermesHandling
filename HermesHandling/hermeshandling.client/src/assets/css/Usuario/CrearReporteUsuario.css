@@ -6,9 +6,7 @@
 
 .kanban-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 32px;
     padding: 0 8px;
 }
 
@@ -120,6 +118,7 @@
 .crear-reporte-form {
     background: #fff;
     max-width: 900px;
+    min-height: 2000px,
     width: 100%;
     margin: 32px auto 0 auto;
     padding: 24px 48px;

@@ -195,7 +195,7 @@ function VerDetallesReporte() {
             <h2>Detalles del Reporte</h2>
             <div style={{ position: "relative", display: "inline-block", marginBottom: "16px" }}>
                 <button
-                    className="btn info"
+                    className="btn primary"
                     onClick={() => setShowExportMenu((v) => !v)}
                 >
                     Exportar ▼
