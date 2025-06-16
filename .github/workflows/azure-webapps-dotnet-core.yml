@@ -2,7 +2,7 @@ name: Build and deploy ASP.Net Core app to an Azure Web App
 
 env:
   AZURE_WEBAPP_NAME: HermesHandlingServer20250616204332
-  AZURE_WEBAPP_PACKAGE_PATH: './HermesHandling'
+  AZURE_WEBAPP_PACKAGE_PATH: './HermesHandling/published'
   DOTNET_VERSION: '8.0.x'
 
 on:
@@ -27,12 +27,12 @@ jobs:
       - name: Build with dotnet
         run: dotnet build ./HermesHandling --configuration Release
       - name: Publish app
-        run: dotnet publish ./HermesHandling -c Release -o published
+        run: dotnet publish ./HermesHandling -c Release -o ./HermesHandling/published
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: dotnet-app
-          path: published
+          path: ./HermesHandling/published
 
   deploy:
     runs-on: windows-latest
@@ -55,4 +55,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: published
+          package: ./HermesHandling/published
