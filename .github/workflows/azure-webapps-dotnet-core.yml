@@ -1,10 +1,9 @@
 name: Build and deploy ASP.Net Core app to an Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: your-app-name    # Replace with the actual Azure Web App name
-  AZURE_WEBAPP_PACKAGE_PATH: './your-project-folder' # Update this to point to your project folder
-  DOTNET_VERSION: '5'                 # Adjust if using another version
-
+  AZURE_WEBAPP_NAME: hermeshandlingapp          # Replace with the actual Azure Web App name
+  AZURE_WEBAPP_PACKAGE_PATH: './HermesHandling'
+  DOTNET_VERSION: '8.0.x'
 on:
   push:
     branches: [ "main" ]
