@@ -1,9 +1,9 @@
 name: Build and deploy ASP.Net Core app to an Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: your-app-name    # Cambia esto por el nombre real de tu Azure Web App
-  DOTNET_VERSION: '5'                 # Versión .NET (ajusta si usas otra)
-  SOLUTION_PATH: './HermesHandling/HermesHandling.sln'  # Ruta a tu solución .sln
+  AZURE_WEBAPP_NAME: your-app-name    # Replace with the actual Azure Web App name
+  AZURE_WEBAPP_PACKAGE_PATH: './your-project-folder' # Update this to point to your project folder
+  DOTNET_VERSION: '5'                 # Adjust if using another version
 
 on:
   push:
@@ -25,14 +25,17 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Change directory to project
+        run: cd ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
       - name: Restore dependencies
-        run: dotnet restore ${{ env.SOLUTION_PATH }}
+        run: dotnet restore
 
       - name: Build with dotnet
-        run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Release
+        run: dotnet build --configuration Release
 
       - name: Publish app
-        run: dotnet publish ${{ env.SOLUTION_PATH }} -c Release -o published
+        run: dotnet publish -c Release -o published
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
