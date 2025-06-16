@@ -18,16 +18,24 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore HermesHandling/HermesHandling.sln
+
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build HermesHandling/HermesHandling.sln --configuration Release
+
       - name: Publish app
-        run: dotnet publish -c Release -o ./published
+        run: dotnet publish HermesHandling/HermesHandling.sln -c Release -o ./published
+
+      - name: Mostrar archivos publicados (debug)
+        run: dir ./published
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -45,10 +53,12 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: dotnet-app
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
