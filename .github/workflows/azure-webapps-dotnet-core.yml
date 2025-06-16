@@ -25,13 +25,13 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Restore dependencies
-        run: dotnet restore HermesHandling/HermesHandling.sln
+        run: dotnet restore HermesHandling/HermesHandling/HermesHandling.Server/HermesHandling.Server.csproj
 
       - name: Build with dotnet
-        run: dotnet build HermesHandling/HermesHandling.sln --configuration Release
+        run: dotnet build HermesHandling/HermesHandling/HermesHandling.Server/HermesHandling.Server.csproj --configuration Release
 
       - name: Publish app
-        run: dotnet publish HermesHandling/HermesHandling.sln -c Release -o ./published
+        run: dotnet publish HermesHandling/HermesHandling/HermesHandling.Server/HermesHandling.Server.csproj -c Release -o ./published
 
       - name: Mostrar archivos publicados (debug)
         run: dir ./published
