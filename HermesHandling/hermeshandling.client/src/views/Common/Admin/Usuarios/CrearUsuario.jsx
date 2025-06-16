@@ -3,12 +3,15 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../../../../assets/css/AdminApp/CrearUsuario.css"
 function CrearUsuario() {
+    const user = JSON.parse(localStorage.getItem('usuario'));
+
     const [formData, setFormData] = useState({
         nombre: "",
         apellido: "",
         email: "",
         password: "",
         tipoUsuario: 0,
+        IdAlta: user.idUsuario
     });
 
     const [error, setError] = useState("");
@@ -44,6 +47,8 @@ function CrearUsuario() {
     return (
         <div className="crear-usuario-form-container">
             <div className="crear-usuario-form-card">
+                {success && <div className="crear-usuario-alert-message crear-usuario-alert-success">{success}</div>}
+                {error && <div className="crear-usuario-alert-message crear-usuario-alert-error">{error}</div>}
                 <h3>Crear Nuevo Usuario</h3>
                 <form onSubmit={handleSubmit}>
                     <div>
@@ -103,7 +108,7 @@ function CrearUsuario() {
                             onChange={handleChange}
                         >
                             <option value={0}>Administrador App</option>
-                            <option value={1}>Administrador Compa&ntilde;ia</option>
+                            <option value={1}>Coordinador</option>
                             <option value={2}>Usuario</option>
                         </select>
                     </div>
@@ -113,8 +118,7 @@ function CrearUsuario() {
                     </button>
                 </form>
 
-                {success && <div className="crear-usuario-alert-message crear-usuario-alert-success">{success}</div>}
-                {error && <div className="crear-usuario-alert-message crear-usuario-alert-error">{error}</div>}
+                
             </div>
         </div>
     );

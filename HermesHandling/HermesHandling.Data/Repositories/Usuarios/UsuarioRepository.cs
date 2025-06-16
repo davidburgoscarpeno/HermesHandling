@@ -79,6 +79,7 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
                 Console.WriteLine($"Error al eliminar usuario: {ex.Message}");
                 return false;
             }
+        
         }
 
         // Crear un nuevo usuario
@@ -105,6 +106,7 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
                     TipoUsuario = model.TipoUsuario,
                     Activo = model.Activo.HasValue && model.Activo.Value == 1,
                     FechaCreacion = DateTime.Now
+                    
                 };
 
                 _hermesDbContext.Usuarios.Add(usuario);
@@ -139,7 +141,7 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
                     user.Password = passwordEncrypted;
                 }
 
-                // Actualizar otros campos
+                // Actualizar otros campo
                 user.Nombre = model.Nombre;
                 user.Apellido = model.Apellido;
                 user.TipoUsuario = model.TipoUsuario;
@@ -153,6 +155,32 @@ namespace HermesHandling.Server.Repositories.UsuariosRepositories
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al editar usuario: {ex.Message}");
+                return false;
+            }
+        }
+
+        //Metodo para actualizar la contraseña del usuario por si mismo
+        public bool UpdatePassword(int userId, string newPassword)
+        {
+            var usuario = _hermesDbContext.Usuarios.FirstOrDefault(u => u.Id == userId);
+            if (usuario == null)
+                return false;
+
+            try
+            {
+                string salt = Cifrado.GenerateSalt();
+                string passwordEncrypted = Cifrado.HashPassword(newPassword, salt);
+                usuario.Salt = salt;
+                usuario.Password = passwordEncrypted;
+                usuario.FechaModificacion = DateTime.Now;
+
+                _hermesDbContext.Usuarios.Update(usuario);
+                _hermesDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al actualizar contraseña: {ex.Message}");
                 return false;
             }
         }

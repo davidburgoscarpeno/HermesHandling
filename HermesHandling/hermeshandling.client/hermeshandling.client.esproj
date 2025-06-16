@@ -10,6 +10,5 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\assets\css\AdminCompany\" />
-    <Folder Include="src\assets\css\Usuario\" />
   </ItemGroup>
 </Project>

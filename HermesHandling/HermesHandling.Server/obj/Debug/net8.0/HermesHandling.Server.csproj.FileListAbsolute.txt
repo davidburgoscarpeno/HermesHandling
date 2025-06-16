@@ -169,7 +169,12 @@ C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\D
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\Debug\net8.0\HermesHandling.Data.dll
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\Debug\net8.0\HermesHandling.Data.pdb
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\Debug\net8.0\HermesHandling.Server.staticwebassets.endpoints.json
-C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets\msbuild.HermesHandling.Server.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets\msbuild.HermesHandling.Server.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets\msbuild.build.HermesHandling.Server.props
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.HermesHandling.Server.props
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.HermesHandling.Server.props
+C:\Users\David\Desktop\HermesHandling\HermesHandling\HermesHandling.Server\obj\Debug\net8.0\staticwebassets.pack.json

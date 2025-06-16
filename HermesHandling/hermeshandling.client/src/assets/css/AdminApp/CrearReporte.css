@@ -1,0 +1,411 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.kanban-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding: 0 8px;
+}
+
+.kanban-header-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+}
+
+.kanban-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(67, 97, 238, 0.10);
+    transition: box-shadow 0.2s, transform 0.2s;
+    background: #fff;
+    object-fit: contain;
+    padding: 4px; 
+    display: block;
+}
+
+    .kanban-logo:hover {
+        box-shadow: 0 4px 16px rgba(67, 97, 238, 0.18);
+        transform: scale(1.05);
+    }
+
+.kanban-header-left h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #22223b;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.btn-create {
+    background: linear-gradient(90deg, #4f8cff 0%, #4361ee 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 28px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(67, 97, 238, 0.10);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+
+    .btn-create:hover {
+        background: linear-gradient(90deg, #4361ee 0%, #4f8cff 100%);
+        box-shadow: 0 4px 16px rgba(67, 97, 238, 0.18);
+        transform: translateY(-2px) scale(1.03);
+    }
+
+.logo-dropdown-menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    min-width: 220px;
+    background: #fff;
+    border: 1px solid #e0e6ed;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(67, 97, 238, 0.13), 0 3px 12px rgba(0,0,0,0.10);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    animation: fadeInMenu 0.18s;
+}
+
+@keyframes fadeInMenu {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    background: none;
+    border: none;
+    color: #22223b;
+    font-size: 1rem;
+    padding: 12px 24px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.18s, color 0.18s;
+}
+
+    .dropdown-item:hover {
+        background: #f6f9ff;
+        color: #4361ee;
+    }
+
+    .dropdown-item i {
+        font-size: 1.2rem;
+    }
+
+.crear-reporte-form {
+    background: #fff;
+    max-width: 900px;
+    width: 100%;
+    margin: 32px auto 0 auto;
+    padding: 24px 48px;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+    .crear-reporte-form:last-child {
+        margin-bottom: 0 !important;
+    }
+
+    .crear-reporte-form h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #22223b;
+        text-align: center;
+        margin-bottom: 8px;
+        letter-spacing: 0.5px;
+    }
+
+    .crear-reporte-form label {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #4a4e69;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+.mensaje-exito {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #b2dfb2;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.crear-reporte-form input,
+.crear-reporte-form select,
+.crear-reporte-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #c9c9c9;
+    font-size: 1rem;
+    color: #22223b;
+    background: #f8f8fa;
+    margin-bottom: 2px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: vertical;
+}
+
+    .crear-reporte-form input:focus,
+    .crear-reporte-form select:focus,
+    .crear-reporte-form textarea:focus {
+        border-color: #4f8cff;
+        background: #fff;
+        outline: none;
+        box-shadow: 0 0 0 2px #4f8cff22;
+    }
+
+.crear-reporte-form button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(90deg, #4f8cff 0%, #4361ee 100%);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 8px;
+}
+
+    .crear-reporte-form button[type="submit"]:hover {
+        background: linear-gradient(90deg, #4361ee 0%, #4f8cff 100%);
+        transform: translateY(-2px) scale(1.01);
+    }
+
+@media (max-width: 1200px) {
+    .crear-reporte-form {
+        max-width: 98vw;
+        padding: 20px 24px;
+        gap: 10px;
+    }
+
+    .kanban-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 0 2vw;
+    }
+
+    .kanban-header-left h2 {
+        font-size: 1.1rem;
+    }
+
+    .kanban-logo {
+        width: 36px;
+        height: 36px;
+        padding: 2px;
+    }
+
+    .btn-create {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 0;
+        font-size: 1rem;
+    }
+
+    .logo-dropdown-menu {
+        min-width: 160px;
+        left: 0;
+        top: 44px;
+    }
+
+    .crear-reporte-form h3 {
+        font-size: 1.7rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .crear-reporte-form {
+        max-width: 99vw;
+        padding: 14px 8vw;
+        gap: 8px;
+    }
+
+        .crear-reporte-form h3 {
+            font-size: 1.4rem;
+        }
+
+        .crear-reporte-form input,
+        .crear-reporte-form select,
+        .crear-reporte-form textarea {
+            font-size: 0.98rem;
+            padding: 10px;
+        }
+}
+
+@media (max-width: 600px) {
+    .crear-reporte-form {
+        max-width: 100vw;
+        padding: 8px 2vw;
+        gap: 6px;
+    }
+
+        .crear-reporte-form h3 {
+            font-size: 1.1rem;
+        }
+
+        .crear-reporte-form input,
+        .crear-reporte-form select,
+        .crear-reporte-form textarea {
+            font-size: 0.93rem;
+            padding: 8px;
+        }
+
+        .crear-reporte-form button[type="submit"] {
+            font-size: 1rem;
+            padding: 8px;
+        }
+}
+
+/* --------- MODO NOCTURNO --------- */
+body.dark-mode .kanban-header-left h2 {
+    color: #e0e6ed;
+}
+
+body.dark-mode .kanban-logo {
+    box-shadow: 0 2px 8px rgba(67, 97, 238, 0.18);
+    background: #fff; 
+}
+
+body.dark-mode .logo-dropdown-menu {
+    background: #232a36;
+    border: 1px solid #38405a;
+    box-shadow: 0 8px 32px rgba(67, 97, 238, 0.18), 0 3px 12px rgba(0,0,0,0.22);
+}
+
+body.dark-mode .dropdown-item {
+    color: #e0e6ed;
+}
+
+    body.dark-mode .dropdown-item:hover {
+        background: #20243a;
+        color: #6cb6ff;
+    }
+
+body.dark-mode .btn-create {
+    background: linear-gradient(90deg, #3bb36a 0%, #2980b9 100%);
+    color: #fff;
+}
+
+    body.dark-mode .btn-create:hover {
+        background: linear-gradient(90deg, #2980b9 0%, #3bb36a 100%);
+    }
+
+body.dark-mode .crear-reporte-form {
+    background: #232a36;
+    color: #e0e6ed;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.30);
+}
+
+    body.dark-mode .crear-reporte-form h3 {
+        color: #e0e6ed;
+    }
+
+    body.dark-mode .crear-reporte-form label {
+        color: #b0b8c1;
+    }
+
+    body.dark-mode .crear-reporte-form input,
+    body.dark-mode .crear-reporte-form select,
+    body.dark-mode .crear-reporte-form textarea {
+        background: #1e232b;
+        color: #e0e6ed;
+        border: 1px solid #38405a;
+    }
+
+        body.dark-mode .crear-reporte-form input:focus,
+        body.dark-mode .crear-reporte-form select:focus,
+        body.dark-mode .crear-reporte-form textarea:focus {
+            background: #232a36;
+            border-color: #6cb6ff;
+            box-shadow: 0 0 0 2px #6cb6ff33;
+            color: #fff;
+        }
+
+    body.dark-mode .crear-reporte-form button[type="submit"] {
+        background: linear-gradient(90deg, #3bb36a 0%, #2980b9 100%);
+        color: #fff;
+    }
+
+        body.dark-mode .crear-reporte-form button[type="submit"]:hover {
+            background: linear-gradient(90deg, #2980b9 0%, #3bb36a 100%);
+        }
+
+body.dark-mode .mensaje-exito {
+    background-color: #223d2c;
+    color: #6be39c;
+    border: 1px solid #3bb36a;
+}
+
+.sugerencias-equipos {
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #22223b;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+}
+
+    .sugerencias-equipos li {
+        background: #fff;
+        color: #22223b;
+        border-bottom: 1px solid #eee;
+        transition: background 0.18s, color 0.18s;
+    }
+
+        .sugerencias-equipos li:hover,
+        .sugerencias-equipos li:focus {
+            background: #f6f9ff;
+            color: #4361ee;
+        }
+
+body.dark-mode .sugerencias-equipos {
+    background: #232a36 !important;
+    border-color: #38405a !important;
+    color: #e0e6ed !important;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.22);
+}
+
+    body.dark-mode .sugerencias-equipos li {
+        background: #232a36 !important;
+        color: #e0e6ed !important;
+        border-bottom: 1px solid #38405a !important;
+    }
+
+        body.dark-mode .sugerencias-equipos li:hover,
+        body.dark-mode .sugerencias-equipos li:focus {
+            background: #2c3e50 !important;
+            color: #6cb6ff !important;
+        }

@@ -27,9 +27,6 @@ public partial class HermesDbContext : DbContext
 
     public virtual DbSet<Equipo> Equipos { get; set; }
 
-    public virtual DbSet<HistorialIncidencia> HistorialIncidencias { get; set; }
-
-    public virtual DbSet<Incidencia> Incidencias { get; set; }
 
     public virtual DbSet<Mantenimiento> Mantenimientos { get; set; }
 
@@ -41,7 +38,12 @@ public partial class HermesDbContext : DbContext
 
     public virtual DbSet<TiposEquipo> TiposEquipos { get; set; }
 
+    public virtual DbSet <RegistroLogin> RegistroLogin { get; set; }
+
     public virtual DbSet<Usuario> Usuarios { get; set; }
+
+    public virtual DbSet<EquipoReporteHistorial> EquiposReportesHistorial { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -72,6 +74,33 @@ public partial class HermesDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("nombre");
         });
+
+        modelBuilder.Entity<EquipoReporteHistorial>(entity =>
+        {
+            entity.ToTable("equipos_reportes_historial");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Descripcion).HasMaxLength(500);
+            entity.Property(e => e.TipoIncidente).HasMaxLength(100);
+            entity.Property(e => e.FechaIncidente).IsRequired();
+
+            entity.HasOne(e => e.Equipo)
+                .WithMany()
+                .HasForeignKey(e => e.EquipoId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(e => e.Reporte)
+                .WithMany()
+                .HasForeignKey(e => e.ReporteId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(e => e.Usuario)
+                .WithMany()
+                .HasForeignKey(e => e.UsuarioId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
 
         modelBuilder.Entity<Comunicacione>(entity =>
         {
@@ -152,6 +181,12 @@ public partial class HermesDbContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ReporteId).HasColumnName("reporte_id");
             entity.Property(e => e.TipoDefectoId).HasColumnName("tipo_defecto_id");
+            entity.Property(e => e.FechaAlta)
+                .HasColumnType("datetime")
+                .HasColumnName("fecha_alta");
+            entity.Property(e => e.FechaResolucion)
+                .HasColumnType("datetime")
+                .HasColumnName("fecha_resolucion");
 
             entity.HasOne(d => d.Reporte).WithMany(p => p.DefectosReportados)
                 .HasForeignKey(d => d.ReporteId)
@@ -161,6 +196,7 @@ public partial class HermesDbContext : DbContext
                 .HasForeignKey(d => d.TipoDefectoId)
                 .HasConstraintName("FK__defectos___tipo___1CBC4616");
         });
+
 
         modelBuilder.Entity<DocumentacionInterna>(entity =>
         {
@@ -236,79 +272,9 @@ public partial class HermesDbContext : DbContext
                 .HasConstraintName("FK__equipos__tipo_eq__1332DBDC");
         });
 
-        modelBuilder.Entity<HistorialIncidencia>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__historia__3213E83F27D8813B");
 
-            entity.ToTable("historial_incidencias");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Accion)
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("accion");
-            entity.Property(e => e.Comentario)
-                .HasColumnType("text")
-                .HasColumnName("comentario");
-            entity.Property(e => e.FechaAccion)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime")
-                .HasColumnName("fecha_accion");
-            entity.Property(e => e.IncidenciaId).HasColumnName("incidencia_id");
-            entity.Property(e => e.UsuarioId).HasColumnName("usuario_id");
-
-            entity.HasOne(d => d.Incidencia).WithMany(p => p.HistorialIncidencia)
-                .HasForeignKey(d => d.IncidenciaId)
-                .HasConstraintName("FK__historial__incid__17F790F9");
-
-            entity.HasOne(d => d.Usuario).WithMany(p => p.HistorialIncidencia)
-                .HasForeignKey(d => d.UsuarioId)
-                .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK__historial__usuar__18EBB532");
-        });
-
-        modelBuilder.Entity<Incidencia>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__incidenc__3213E83F0F5CD9F0");
-
-            entity.ToTable("incidencias");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.AltaId).HasColumnName("alta_id");
-            entity.Property(e => e.Descripcion)
-                .HasColumnType("text")
-                .HasColumnName("descripcion");
-            entity.Property(e => e.Estado)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasDefaultValue("abierta")
-                .HasColumnName("estado");
-            entity.Property(e => e.FechaCreacion)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime")
-                .HasColumnName("fecha_creacion");
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasColumnName("fecha_modificacion");
-            entity.Property(e => e.ModificacionId).HasColumnName("modificacion_id");
-            entity.Property(e => e.Prioridad)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasDefaultValue("media")
-                .HasColumnName("prioridad");
-            entity.Property(e => e.Titulo)
-                .HasMaxLength(200)
-                .IsUnicode(false)
-                .HasColumnName("titulo");
-
-            entity.HasOne(d => d.Alta).WithMany(p => p.IncidenciaAlta)
-                .HasForeignKey(d => d.AltaId)
-                .HasConstraintName("FK__incidenci__alta___160F4887");
-
-            entity.HasOne(d => d.Modificacion).WithMany(p => p.IncidenciaModificacions)
-                .HasForeignKey(d => d.ModificacionId)
-                .HasConstraintName("FK__incidenci__modif__17036CC0");
-        });
+     
 
         modelBuilder.Entity<Mantenimiento>(entity =>
         {
@@ -356,6 +322,12 @@ public partial class HermesDbContext : DbContext
             entity.Property(e => e.Observaciones)
                 .HasColumnType("text")
                 .HasColumnName("observaciones");
+            entity.Property(e => e.ObservacionesResuelto) // <-- NUEVO
+                .HasColumnType("text")
+                .HasColumnName("observaciones_resuelto");
+            entity.Property(e => e.Activo) // <-- NUEVO
+                .HasColumnName("activo")
+                .HasDefaultValue(true);
             entity.Property(e => e.Ubicacion)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -371,6 +343,7 @@ public partial class HermesDbContext : DbContext
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK__reportes__usuari__1AD3FDA4");
         });
+
 
         modelBuilder.Entity<ReportesDocumento>(entity =>
         {
@@ -495,6 +468,21 @@ public partial class HermesDbContext : DbContext
             entity.Property(e => e.UltimaSesion)
                 .HasColumnType("datetime")
                 .HasColumnName("ultima_sesion");
+        });
+
+        modelBuilder.Entity<RegistroLogin>(entity =>
+        {
+            entity.ToTable("registro_login");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.UserId)
+                  .HasColumnName("user_id") // Usa el nombre real de la columna en la base de datos
+                  .IsRequired();
+
+            entity.Property(e => e.Fecha)
+                  .HasColumnType("datetime");
+
         });
 
         OnModelCreatingPartial(modelBuilder);

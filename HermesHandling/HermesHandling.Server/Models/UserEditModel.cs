@@ -1,0 +1,4 @@
+﻿namespace HermesHandling.Server.Models
+{
+   
+}

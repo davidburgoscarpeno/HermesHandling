@@ -1,0 +1,131 @@
+.ver-usuario-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10);
+    max-width: 480px;
+    margin: 2.5rem auto;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    border: 1px solid #e3e6f0;
+}
+
+.ver-usuario-container h2 {
+    color: #232946;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.ver-usuario-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2.2rem;
+}
+
+.ver-usuario-list li {
+    margin-bottom: 1.1rem;
+    font-size: 1.08rem;
+    color: #232946;
+    display: flex;
+    align-items: center;
+}
+
+.ver-usuario-list strong {
+    width: 120px;
+    display: inline-block;
+    color: #3d3d3d;
+    font-weight: 600;
+}
+
+.ver-usuario-password {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+}
+
+.ver-usuario-password label {
+    font-weight: 600;
+    color: #232946;
+}
+
+.ver-usuario-password input[type="password"] {
+    padding: 0.45rem 0.8rem;
+    border: 1px solid #b8c1ec;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #f7f7fa;
+    transition: border 0.2s;
+    min-width: 160px;
+}
+
+.ver-usuario-password input[type="password"]:focus {
+    border: 1.5px solid #eebbc3;
+    outline: none;
+    background: #fff;
+}
+
+.ver-usuario-password button {
+    background: #eebbc3;
+    color: #232946;
+    border: none;
+    border-radius: 5px;
+    padding: 0.45rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.ver-usuario-password button:hover:not(:disabled) {
+    background: #232946;
+    color: #eebbc3;
+}
+
+.ver-usuario-password span {
+    letter-spacing: 0.2em;
+    font-size: 1.1rem;
+    color: #b8c1ec;
+}
+
+.ver-usuario-mensaje {
+    margin-top: 1.2rem;
+    color: #e63946;
+    font-weight: 500;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.input-password-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-password-wrapper input[type="password"],
+.input-password-wrapper input[type="text"] {
+    width: 100%;
+    padding-right: 2.5rem; /* Espacio para el ojito */
+    box-sizing: border-box;
+    height: 2.8rem; /* Ajusta según tu diseño */
+    font-size: 1.1rem;
+}
+
+.input-password-eye {
+    position: absolute;
+    right: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    height: 2rem;
+    width: 2rem;
+    justify-content: center;
+}

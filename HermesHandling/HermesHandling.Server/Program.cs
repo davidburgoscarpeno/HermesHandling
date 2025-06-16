@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Agregar CORS para permitir solicitudes desde el frontend
@@ -13,7 +14,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
         policy => policy
-            .WithOrigins("https://localhost:5173")  // Aquí el frontend
+            .WithOrigins("https://localhost:5173")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials()
@@ -50,7 +51,23 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Inyecto los repositorios
-builder.Services.AddScoped<IUsuario, UsuarioRepository>(); // Asegúrate de que UsuarioRepository implemente IUsuario
+builder.Services.AddScoped<IUsuario, UsuarioRepository>();
+builder.Services.AddScoped<IReporte, ReporteRepository>();
+builder.Services.AddScoped<IDashboard, DashboardRepository>();
+builder.Services.AddScoped<IDocumentacionInternaRepository, DocumentacionInternaRepository>();
+builder.Services.AddScoped<IComunicacionesRepository, ComunicacionesRepository>();
+builder.Services.AddScoped<IEquipoRepository, EquipoRepository>();
+builder.Services.AddScoped<IReporte, ReporteRepository>();
+builder.Services.AddScoped<IDefectosReportadoRepository, DefectosReportadoRepository>();
+builder.Services.AddScoped<IReportesDocumentoRepository, ReportesDocumentoRepository>();
+builder.Services.AddScoped<ITiposDefectoRepository, TiposDefectoRepository>();
+builder.Services.AddScoped<ITiposEquipoRepository, TiposEquipoRepository>();
+builder.Services.AddSignalR(); //Añado el paquete para el livechat
+
+
+
+
+
 
 var app = builder.Build();
 
@@ -73,7 +90,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapHub<ChatHub>("/chathub");
 app.MapFallbackToFile("/index.html");
 
 app.Run();

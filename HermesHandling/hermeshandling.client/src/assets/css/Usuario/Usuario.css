@@ -1,0 +1,330 @@
+.usuario-kanban-container {
+    max-width: 98vw;
+    min-width: 70vw;
+    margin: 24px auto;
+    padding: 16px 10px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.10);
+    height: auto;
+}
+
+.kanban-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.kanban-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.kanban-logo {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    background: #fff;
+}
+
+.kanban-header h2 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.btn-create {
+    background-color: #28a745;
+    color: white;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+    .btn-create:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+    }
+
+.kanban-board {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 80vh;
+    width: 100%;
+    max-height: 600px; /* Limita la altura máxima del tablero */
+    overflow-y: auto; /* Scroll vertical si hay muchas tarjetas */
+    overscroll-behavior: contain; /* Opcional: evita scroll en el body al llegar al tope */
+}
+
+.kanban-column {
+    flex: 1 1 0;
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 18px 12px;
+    min-width: 340px;
+    max-width: 600px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.kanban-column-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e1e7ed;
+    letter-spacing: 1px;
+}
+
+    .kanban-column-title.abierto {
+        color: #2980b9;
+        border-color: #2980b9;
+    }
+
+    .kanban-column-title.resuelto {
+        color: #28a745;
+        border-color: #28a745;
+    }
+
+.kanban-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(41,128,185,0.10), 0 1.5px 6px rgba(0,0,0,0.07);
+    padding: 32px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border-left: 8px solid #e1e7ed;
+    transition: box-shadow 0.2s, transform 0.2s;
+    min-height: 160px;
+    font-size: 1.22rem;
+}
+
+    .kanban-card:hover {
+        box-shadow: 0 8px 32px rgba(41,128,185,0.16), 0 2px 8px rgba(0,0,0,0.10);
+        transform: scale(1.025);
+    }
+
+.kanban-card-title {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #222;
+    margin-bottom: 6px;
+}
+
+.kanban-card-date {
+    font-size: 1.12rem;
+    color: #888;
+}
+
+.kanban-card-obs {
+    font-size: 1.18rem;
+    color: #444;
+    margin-top: 6px;
+}
+
+.kanban-card.empty {
+    background: none;
+    box-shadow: none;
+    border: none;
+    color: #bbb;
+    text-align: center;
+    font-style: italic;
+    font-size: 1.15rem;
+    min-height: unset;
+    padding: 18px 0;
+}
+
+/* Tablet: columnas apiladas y tarjetas adaptadas */
+@media (max-width: 1024px) {
+    .usuario-kanban-container {
+        padding: 10px 2px;
+    }
+
+    .kanban-board {
+        flex-direction: column;
+        gap: 18px;
+        max-height: 70vh; /* Ajusta la altura máxima en tablet */
+    }
+
+    .kanban-column {
+        min-width: unset;
+        width: 100%;
+        max-width: unset;
+    }
+
+    .btn-create {
+        font-size: 16px;
+        padding: 10px 18px;
+    }
+
+    .kanban-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .kanban-logo {
+        height: 76px;
+    }
+
+    .kanban-header-left {
+        gap: 8px;
+    }
+
+    .kanban-card {
+        padding: 22px 12px;
+        font-size: 1.08rem;
+        min-height: 110px;
+    }
+
+    .kanban-card-title {
+        font-size: 1.18rem;
+    }
+
+    .kanban-card-obs {
+        font-size: 1.05rem;
+    }
+}
+
+/* Móvil: tarjetas grandes pero adaptadas */
+@media (max-width: 600px) {
+    .usuario-kanban-container {
+        padding: 4px 0;
+        min-height: 50vh;
+    }
+
+    .kanban-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .btn-create {
+        width: 100%;
+        justify-content: center;
+        font-size: 15px;
+        padding: 10px 0;
+    }
+
+    .kanban-board {
+        gap: 10px;
+        max-height: 60vh; /* Ajusta la altura máxima en móvil */
+    }
+
+    .kanban-column {
+        padding: 10px 4px;
+        gap: 14px;
+    }
+
+    .kanban-card {
+        padding: 14px 6px;
+        font-size: 1rem;
+        min-height: 80px;
+    }
+
+    .kanban-card-title {
+        font-size: 1rem;
+    }
+
+    .kanban-card-obs {
+        font-size: 0.95rem;
+    }
+
+    .kanban-logo {
+        height: 28px;
+    }
+}
+
+/* Extra pequeño: máxima legibilidad */
+@media (max-width: 400px) {
+    .usuario-kanban-container {
+        padding: 2px 0;
+    }
+
+    .kanban-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .kanban-card {
+        font-size: 0.92rem;
+    }
+}
+
+/* Modo nocturno */
+body.dark-mode .usuario-kanban-container {
+    background: #1e232b;
+    color: #e0e6ed;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.40);
+}
+
+body.dark-mode .kanban-header h2 {
+    color: #e0e6ed;
+}
+
+body.dark-mode .kanban-board {
+    background: transparent;
+}
+
+body.dark-mode .kanban-column {
+    background: #232a36;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.18);
+}
+
+body.dark-mode .kanban-column-title.abierto {
+    color: #6cb6ff;
+    border-color: #6cb6ff;
+}
+
+body.dark-mode .kanban-column-title.resuelto {
+    color: #6be39c;
+    border-color: #6be39c;
+}
+
+body.dark-mode .kanban-card {
+    background: #232a36;
+    color: #e0e6ed;
+    border-left: 8px solid #38405a;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25), 0 1.5px 6px rgba(0,0,0,0.18);
+}
+
+body.dark-mode .kanban-card-title {
+    color: #fff;
+}
+
+body.dark-mode .kanban-card-date {
+    color: #b0b8c1;
+}
+
+body.dark-mode .kanban-card-obs {
+    color: #c7d0e0;
+}
+
+body.dark-mode .kanban-card.empty {
+    color: #888;
+}
+
+body.dark-mode .btn-create {
+    background-color: #3bb36a;
+    color: #fff;
+}
+
+    body.dark-mode .btn-create:hover {
+        background-color: #2e8c54;
+    }

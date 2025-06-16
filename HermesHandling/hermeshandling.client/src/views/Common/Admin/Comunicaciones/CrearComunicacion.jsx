@@ -9,6 +9,8 @@ function CrearComunicacion() {
     const [contenido, setContenido] = useState("");
     const [mensajeExito, setMensajeExito] = useState("");
     const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem('usuario'));
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,9 +18,11 @@ function CrearComunicacion() {
             await axios.post(`${import.meta.env.VITE_API_URL}/api/AdminCommon/crear-comunicacion`, {
                 asunto: titulo,
                 mensaje: contenido,
-                fechaPublicacion: fecha
+                fechaPublicacion: fecha,
+                idUsuarioAlta: user.idUsuario 
+
             });
-            setMensajeExito("Comunicación creada correctamente.");
+            setMensajeExito("Comunicacion creada correctamente.");
             setTitulo("");
             setFecha("");
             setContenido("");
@@ -27,14 +31,14 @@ function CrearComunicacion() {
             }, 1500);
         } catch (error) {
             console.error("Error al crear la comunicación:", error);
-            setMensajeExito(""); // Oculta mensaje de éxito si hay error
+            setMensajeExito(""); 
             alert("Hubo un error al crear la comunicación.");
         }
     };
 
     return (
         <div className="crear-container">
-            <h2>Nueva Comunicación</h2>
+            <h2>Nueva Comunicaci&oacute;n</h2>
             {mensajeExito && (
                 <div className="alert-success">
                     {mensajeExito}
@@ -42,7 +46,7 @@ function CrearComunicacion() {
             )}
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>Título</label>
+                    <label>T&iacute;tulo</label>
                     <input
                         type="text"
                         value={titulo}

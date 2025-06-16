@@ -47,20 +47,43 @@ function ListarComunicaciones() {
     };
 
     const comunicacionesFiltradas = comunicaciones.filter((comunicacion) => {
-        const coincideTitulo = comunicacion.asunto
-            ? comunicacion.asunto.toLowerCase().includes(filtroTitulo.toLowerCase())
-                : false;
-        const coincideFecha = !filtroFecha || (comunicacion.fecha &&
-            new Date(comunicacion.fecha).toISOString().split("T")[0] === filtroFecha);
+        // Filtrado por título (si el filtro está vacío, siempre es true)
+        const coincideTitulo = !filtroTitulo
+            || (comunicacion.asunto && comunicacion.asunto.toLowerCase().includes(filtroTitulo.toLowerCase()));
+
+        // Filtrado por fecha (si el filtro está vacío, siempre es true)
+        let coincideFecha = true;
+        if (filtroFecha) {
+            if (comunicacion.fechaPublicacion) {
+                const fecha = new Date(comunicacion.fechaPublicacion);
+                if (!isNaN(fecha.getTime())) {
+                    // Formatea la fecha a YYYY-MM-DD en local
+                    const yyyy = fecha.getFullYear();
+                    const mm = String(fecha.getMonth() + 1).padStart(2, '0');
+                    const dd = String(fecha.getDate()).padStart(2, '0');
+                    const fechaLocal = `${yyyy}-${mm}-${dd}`;
+                    coincideFecha = fechaLocal === filtroFecha;
+                } else {
+                    coincideFecha = false;
+                }
+            } else {
+                coincideFecha = false;
+            }
+        }
+
         return coincideTitulo && coincideFecha;
     });
+
+
+
+
 
     return (
         <div className="listar-container">
             <div className="contenido">
                 <div className="header">
                     <h2>Comunicaciones</h2>
-                    <button className="btn success" onClick={handleCrear}>Nueva Comunicación</button>
+                    <button className="btn success" onClick={handleCrear}>Nueva Comunicaci&oacute;n</button>
                 </div>
                 {loading ? (
                     <p>Cargando comunicaciones...</p>
@@ -69,17 +92,15 @@ function ListarComunicaciones() {
                         <table className="tabla">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Asunto</th>
-                                    <th>Fecha de Publicación</th>
+                                        <th>Fecha de Publicaci&oacute;n</th>
                                     <th>Acciones</th>
                                 </tr>
                                 <tr>
-                                    <td></td>
                                     <td>
                                         <input
                                             type="text"
-                                            placeholder="Filtrar por título"
+                                            placeholder="Filtrar por titulo"
                                             value={filtroTitulo}
                                             onChange={(e) => setFiltroTitulo(e.target.value)}
                                             className="input"
@@ -100,7 +121,6 @@ function ListarComunicaciones() {
                                 {comunicacionesFiltradas.length > 0 ? (
                                     comunicacionesFiltradas.map((comunicacion) => (
                                         <tr key={comunicacion.id}>
-                                            <td>{comunicacion.id}</td>
                                             <td>{comunicacion.asunto}</td>
                                             <td>{comunicacion.fechaPublicacion ? new Date(comunicacion.fechaPublicacion).toLocaleDateString("es-ES") : "Sin fecha"}</td>
                                             <td>

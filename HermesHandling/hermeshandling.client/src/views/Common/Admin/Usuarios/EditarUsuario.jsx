@@ -7,6 +7,8 @@ function EditarUsuario() {
     const location = useLocation();
     const navigate = useNavigate();
     const usuario = location.state?.usuario;
+    const user = JSON.parse(localStorage.getItem('usuario'));
+
 
     const [formData, setFormData] = useState({
         nombre: usuario?.nombre || "",
@@ -14,7 +16,9 @@ function EditarUsuario() {
         email: usuario?.email || "",
         password: usuario?.password || "",
         tipoUsuario: usuario?.tipoUsuario || 0,
-        activo: usuario?.activo ? 1 : 0  // Si activo es 'true' lo mandamos como 1, si es 'false' como 0
+        activo: usuario?.activo ? 1 : 0,// Si activo es 'true' lo mandamos como 1, si es 'false' como 0
+        IdMod: user.idUsuario   
+
     });
 
     const [error, setError] = useState("");
@@ -139,7 +143,7 @@ function EditarUsuario() {
                             onChange={handleChange}
                         >
                             <option value={0}>Administrador App</option>
-                            <option value={1}>Administrador Compa&ntilde;ia</option>
+                            <option value={1}>Coordinador</option>
                             <option value={2}>Usuario</option>
                         </select>
                     </div>

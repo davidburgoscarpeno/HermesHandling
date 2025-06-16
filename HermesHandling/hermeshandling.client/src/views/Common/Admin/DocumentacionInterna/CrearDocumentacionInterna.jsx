@@ -8,6 +8,8 @@ const CrearDocumentacion = () => {
     const [archivoDocumento, setArchivoDocumento] = useState(null);
     const [mensaje, setMensaje] = useState(''); 
     const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem('usuario'));
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,6 +29,7 @@ const CrearDocumentacion = () => {
         const formData = new FormData();
         formData.append('Nombre', nombre); 
         formData.append('Documento', archivoDocumento); 
+        formData.append('IdAlta', user.idUsuario);
 
         try {
             const response = await axios.post(

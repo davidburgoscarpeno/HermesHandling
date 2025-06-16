@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Outlet, useLocation } from 'react-router-dom';
 import AdminCompany from './views/AdminCompany/AdminCompany';
 import Usuario from './views/Usuario/Usuario';
 //Login
@@ -15,7 +15,6 @@ import CrearDocumentacionInterna from './views/Common/Admin/DocumentacionInterna
 import EditarDocumentacionInterna from './views/Common/Admin/DocumentacionInterna/EditarDocumentacionInterna'
 
 //Comunicaciones
-import Comunicaciones from './views/Common/Admin/Comunicaciones/ListarComunicaciones';
 import ListarComunicaciones from './views/Common/Admin/Comunicaciones/ListarComunicaciones';
 import CrearComunicacion from './views/Common/Admin/Comunicaciones/CrearComunicacion';
 import EditarComunicacion from './views/Common/Admin/Comunicaciones/EditarComunicacion';
@@ -25,12 +24,37 @@ import ListarReportes from './views/Common/Reportes/ListarReportes';
 import CrearReporte from './views/Common/Reportes/CrearReporte';
 import Layout from './components/Layout'; // Importar el Layout
 import './App.css';
+import VerUsuario from './views/Usuario/VerUsuario';
+import VerDetallesReporte from './views/Common/Admin/Reportes/VerDetallesReporte';
+import CrearReporteUsuario from './views/Usuario/CrearReporte';
 
-const App = () => {
+//Equipos
+import ListarEquipos from './views/Common/Admin/Equipos/ListarEquipos';
+import CrearEquipo from './views/Common/Admin/Equipos/CrearEquipo';
+import EditarEquipo from './views/Common/Admin/Equipos/EditarEquipo';
+
+// Importa tu componente RoleRoute
+import RoleRoute from './components/RoleRoute';
+import RegisterView from './views/RegisterView';
+import VerComunicados from './views/Usuario/VerComunicados';
+import VerDocumentacionInterna from './views/Usuario/VerDocumentacionInterna';
+import VerDetallesReporteUsuario from './views/Usuario/VerDetallesReporte';
+
+// Importa el LiveChat
+import LiveChat from './components/LiveChat';
+
+const PrivateRoute = ({ children }) => {
+    const isAuthenticated = !!localStorage.getItem('token');
+    return isAuthenticated ? children : <Navigate to="/login" replace />;
+};
+
+function AppContent() {
     const [isDarkMode, setIsDarkMode] = useState(() => {
         const savedMode = localStorage.getItem('darkMode') === 'true';
         return savedMode;
     });
+    const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem('token'));
+    const location = useLocation();
 
     useEffect(() => {
         if (isDarkMode) {
@@ -40,6 +64,14 @@ const App = () => {
         }
     }, [isDarkMode]);
 
+    useEffect(() => {
+        const onStorage = () => {
+            setIsAuthenticated(!!localStorage.getItem('token'));
+        };
+        window.addEventListener('storage', onStorage);
+        return () => window.removeEventListener('storage', onStorage);
+    }, []);
+
     const toggleDarkMode = () => {
         setIsDarkMode((prevMode) => {
             const newMode = !prevMode;
@@ -48,48 +80,86 @@ const App = () => {
         });
     };
 
+    // Oculta el chat en /login y /register
+    const hideChatRoutes = ["/login", "/register"];
+    const showChat = isAuthenticated && !hideChatRoutes.includes(location.pathname);
+
     return (
-        <Router>
-            <div className="app-container">
-                <button onClick={toggleDarkMode} className="dark-mode-toggle-btn">
-                    <i className={`bi ${isDarkMode ? 'bi-sun' : 'bi-moon-stars'}`}></i>
-                </button>
+        <div className="app-container">
+            <button onClick={toggleDarkMode} className="dark-mode-toggle-btn">
+                <i className={`bi ${isDarkMode ? 'bi-sun' : 'bi-moon-stars'}`}></i>
+            </button>
 
-                <Routes>
-                    <Route path="/" element={<Navigate to="/login" />} />
-                    <Route path="/login" element={<Login />} />
+            <Routes>
+                <Route path="/" element={<Navigate to="/login" />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<RegisterView />} />
 
-                    <Route path="/admin-app" element={<Layout />}>
-                        <Route path="dashboard" element={<Dashboard />} />
-                        <Route path="usuarios/listar" element={<ListarUsuarios />} />
-                        <Route path="usuarios/crear" element={<CrearUsuario />} />
-                        <Route path="usuarios/editar" element={<EditarUsuario />} />
+                <Route path="/admin-app" element={
+                    <PrivateRoute>
+                        <RoleRoute allowedRoles={["admin", "superadmin"]}>
+                            <Layout />
+                        </RoleRoute>
+                    </PrivateRoute>
+                }>
+                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="usuarios/listar" element={<ListarUsuarios />} />
+                    <Route path="usuarios/crear" element={<CrearUsuario />} />
+                    <Route path="usuarios/editar" element={<EditarUsuario />} />
 
-                        <Route path="comunicaciones" element={<ListarComunicaciones />} />
-                        <Route path="comunicaciones/crear" element={<CrearComunicacion />} />
-                        <Route path="comunicaciones/editar/:id" element={<EditarComunicacion />} />
+                    <Route path="comunicaciones" element={<ListarComunicaciones />} />
+                    <Route path="comunicaciones/crear" element={<CrearComunicacion />} />
+                    <Route path="comunicaciones/editar/:id" element={<EditarComunicacion />} />
 
-                        <Route path="documentacion-interna" element={<DocumentacionInterna />} />
-                        <Route path="documentacion-interna/crear" element={<CrearDocumentacionInterna />} />
-                        <Route path="documentacion-interna/editar" element={<EditarDocumentacionInterna />} />
-                        <Route path="documentacion-interna/editar/:id" element={<EditarDocumentacionInterna />} />
+                    <Route path="documentacion-interna" element={<DocumentacionInterna />} />
+                    <Route path="documentacion-interna/crear" element={<CrearDocumentacionInterna />} />
+                    <Route path="documentacion-interna/editar" element={<EditarDocumentacionInterna />} />
+                    <Route path="documentacion-interna/editar/:id" element={<EditarDocumentacionInterna />} />
 
-                        
-                        <Route path="reportes/listar-reportes" element={<ListarReportes />} />
-                        <Route path="reportes/crear" element={<CrearReporte />} />
-                        <Route path="reportes/editar" element={<CrearReporte />} />
+                    <Route path="equipos/listar-equipos" element={<ListarEquipos />} />
+                    <Route path="equipos/crear" element={<CrearEquipo />} />
+                    <Route path="equipos/editar/:id" element={<EditarEquipo />} />
 
+                    <Route path="reportes/listar-reportes" element={<ListarReportes />} />
+                    <Route path="reportes/crear" element={<CrearReporte />} />
+                    <Route path="reportes/editar" element={<CrearReporte />} />
+                    <Route path="reportes/detalles/:id" element={<VerDetallesReporte />} />
 
+                    <Route path="ver-perfil" element={<VerUsuario />} />
+                </Route>
 
+                <Route path="/usuario" element={
+                    <PrivateRoute>
+                        <RoleRoute allowedRoles={["usuario"]}>
+                            <Outlet />
+                        </RoleRoute>
+                    </PrivateRoute>
+                }>
+                    <Route index element={<Usuario />} />
+                    <Route path="ver-comunicaciones" element={<VerComunicados />} />
+                    <Route path="ver-documentacion-interna" element={<VerDocumentacionInterna />} />
+                    <Route path="crear-reporte" element={<CrearReporteUsuario />} />
+                    <Route path="ver-reporte/:id" element={<VerDetallesReporteUsuario />} />
+                </Route>
 
-                    </Route>
+                <Route path="/admin-company" element={
+                    <PrivateRoute>
+                        <RoleRoute allowedRoles={["adminCompany"]}>
+                            <AdminCompany />
+                        </RoleRoute>
+                    </PrivateRoute>
+                } />
+            </Routes>
 
-                    <Route path="/admin-company" element={<AdminCompany />} />
-                    <Route path="/usuario" element={<Usuario />} />
-                </Routes>
-            </div>
-        </Router>
+            {showChat && <LiveChat />}
+        </div>
     );
-};
+}
+
+const App = () => (
+    <Router>
+        <AppContent />
+    </Router>
+);
 
 export default App;

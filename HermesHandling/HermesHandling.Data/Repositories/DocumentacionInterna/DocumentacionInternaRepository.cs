@@ -1,40 +1,55 @@
-ï»¿using EjemploCifrado.Helper;
+// En HermesHandling.Server/Repositories/DocumentacionInterna/DocumentacionInternaRepository.cs
 using HermesHandling.Data.Models;
-using HermesHandling.Server.Models.Usuarios;
+using Microsoft.EntityFrameworkCore;
 
-namespace HermesHandling.Server.Repositories.DocumentacionInterna
+public class DocumentacionInternaRepository : IDocumentacionInternaRepository
 {
-
-   
-    public class DocumentacionInternaRepository
+    private readonly HermesDbContext _context;
+    public DocumentacionInternaRepository(HermesDbContext context)
     {
-        private readonly HermesDbContext _hermesDbContext;
+        _context = context;
+    }
 
-        public DocumentacionInternaRepository(HermesDbContext hermesDbContext)
-        {
-            _hermesDbContext = hermesDbContext;
-        }
+    public async Task AddAsync(DocumentacionInterna documentacion)
+    {
+        _context.DocumentacionInternas.Add(documentacion);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<DocumentacionInterna>> GetAllAsync()
+    {
+        return await _context.DocumentacionInternas.ToListAsync();
+    }
+
+    public async Task<DocumentacionInterna?> GetByIdAsync(int id)
+    {
+        return await _context.DocumentacionInternas.FindAsync(id);
+    }
+
+    public async Task<(bool Success, string Message)> UpdateAsync(DocumentacionInterna documentacion)
+    {
+        var doc = await _context.DocumentacionInternas.FindAsync(documentacion.Id);
+        if (doc == null)
+            return (false, "No se encontró la documentación interna.");
+
+        doc.Nombre = documentacion.Nombre;
+        doc.FechaModificacion = DateTime.Now;
+        // Aquí puedes actualizar otros campos si es necesario
+
+        _context.DocumentacionInternas.Update(doc);
+        await _context.SaveChangesAsync();
+        return (true, "");
+    }
 
 
-        public bool DeleteDocumentacion(int id)
-        {
-            var documentacion = _hermesDbContext.DocumentacionInternas.FirstOrDefault(u => u.Id == id);
-            if (documentacion == null)
-                return false;
+    public async Task<(bool Success, string Message)> DeleteAsync(int id)
+    {
+        var doc = await _context.DocumentacionInternas.FindAsync(id);
+        if (doc == null)
+            return (false, "No se encontró la documentación interna.");
 
-            try
-            {
-                _hermesDbContext.DocumentacionInternas.Remove(documentacion);
-                _hermesDbContext.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al eliminar documentacion: {ex.Message}");
-                return false;
-            }
-        }
-
-        
+        _context.DocumentacionInternas.Remove(doc);
+        await _context.SaveChangesAsync();
+        return (true, "");
     }
 }

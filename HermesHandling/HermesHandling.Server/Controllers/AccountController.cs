@@ -24,6 +24,8 @@ namespace HermesHandling.Server.Controllers
             _config = config;
         }
 
+        #region Metodos Publicos
+
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginModel model)
         {
@@ -53,6 +55,19 @@ namespace HermesHandling.Server.Controllers
                 signingCredentials: creds
             );
 
+            using(HermesDbContext context = new HermesDbContext())
+            {
+                RegistroLogin registro = new RegistroLogin()
+                {
+                    Fecha = DateTime.Now,
+                    UserId = usuario.Id,
+                };
+                context.RegistroLogin.Add(registro);
+                context.SaveChanges();
+            }
+
+
+
             // Devuelve el token y los datos del usuario
             return Ok(new
             {
@@ -62,9 +77,57 @@ namespace HermesHandling.Server.Controllers
                     idUsuario = usuario.Id,
                     nombreUsuario = usuario.Nombre,
                     email = usuario.Email,
-                    tipoUsuario = usuario.TipoUsuario
+                    tipoUsuario = usuario.TipoUsuario, // numérico
+                    tipoUsuarioNombre = GetTipoUsuarioNombre(usuario.TipoUsuario) // texto
                 }
             });
+
         }
+
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] RegisterModel model)
+        {
+            if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password) || string.IsNullOrWhiteSpace(model.Nombre))
+                return BadRequest(new { message = "Nombre, email y contraseña son obligatorios." });
+
+            if (_usuarioRepo.UserExist(model.Email, model.Nombre))
+                return Conflict(new { message = "El usuario ya existe con ese email o nombre." });
+
+            var createUserModel = new CreateUserModel
+            {
+                Nombre = model.Nombre,
+                Apellido = model.Apellido,
+                Email = model.Email,
+                Password = model.Password,
+                TipoUsuario = model.TipoUsuario,
+                Activo = 1
+            };
+
+            var result = _usuarioRepo.CreateUser(createUserModel);
+
+            if (!result)
+                return StatusCode(500, new { message = "No se pudo crear el usuario. Inténtalo de nuevo." });
+
+            // Solo responde con éxito, sin token ni login automático
+            return Ok(new { message = "Usuario registrado correctamente." });
+        }
+
+        #endregion
+
+        #region Metodos Privados
+
+
+        private string GetTipoUsuarioNombre(int tipoUsuario)
+        {
+            return tipoUsuario switch
+            {
+                0 => "admin",
+                1 => "coordinador",
+                2 => "usuario",
+                _ => "desconocido"
+            };
+        }
+        #endregion
+
     }
 }
