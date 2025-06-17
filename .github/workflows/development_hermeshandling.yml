@@ -1,7 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy ASP.Net Core app to Azure Web App - HermesHandling
+name: Build and deploy ASP.Net Core + React app to Azure Web App - HermesHandling
 
 on:
   push:
@@ -13,7 +10,7 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -23,10 +20,31 @@ jobs:
         with:
           dotnet-version: '8.x'
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies and build React app
+        working-directory: ./HermesHandling/HermesHandling.client
+        run: |
+          npm ci
+          npm run build
+
+      - name: Clean wwwroot
+        run: |
+          if exist HermesHandling\HermesHandling.server\wwwroot rmdir /s /q HermesHandling\HermesHandling.server\wwwroot
+
+      - name: Copy React build output to server wwwroot
+        run: |
+          xcopy /E /I /Y HermesHandling\HermesHandling.client\build HermesHandling\HermesHandling.server\wwwroot
+
       - name: Build with dotnet
+        working-directory: ./HermesHandling/HermesHandling.server
         run: dotnet build --configuration Release
 
       - name: dotnet publish
+        working-directory: ./HermesHandling/HermesHandling.server
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
@@ -38,17 +56,16 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs: build
-    
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -57,10 +74,8 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9FF8D257393645A683AC7268BE39F72B }}
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'HermesHandling'
           slot-name: 'Production'
           package: .
-          
