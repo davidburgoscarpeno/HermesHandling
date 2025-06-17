@@ -1,81 +1,70 @@
-name: Build and deploy ASP.Net Core + React app to Azure Web App - HermesHandling
+import { fileURLToPath, URL } from 'node:url';
+import { defineConfig } from 'vite';
+import plugin from '@vitejs/plugin-react';
+import fs from 'fs';
+import path from 'path';
+import child_process from 'child_process';
+import { env } from 'process';
+import os from 'os';
 
-on:
-  push:
-    branches:
-      - Development
-  workflow_dispatch:
+// Determinar carpeta base para certificados (Windows y Linux compatible)
+const baseFolder =
+    env.APPDATA && env.APPDATA !== ''
+        ? path.join(env.APPDATA, 'ASP.NET', 'https')
+        : env.HOME && env.HOME !== ''
+            ? path.join(env.HOME, '.aspnet', 'https')
+            : path.join(os.homedir(), '.aspnet', 'https'); // Fallback
 
-jobs:
-  build:
-    runs-on: windows-latest
-    permissions:
-      contents: read
+const certificateName = "hermeshandling.client";
+const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
+const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
-    steps:
-      - uses: actions/checkout@v4
+// Debug log
+console.log('Cert baseFolder:', baseFolder);
 
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.x'
+// Crear la carpeta si no existe
+if (!fs.existsSync(baseFolder)) {
+    fs.mkdirSync(baseFolder, { recursive: true });
+    console.log('Directorio creado para certificados:', baseFolder);
+}
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
+// Crear certificado si no existe
+if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
+    console.log('Certificado o clave no existen, intentando crear...');
+    const result = child_process.spawnSync('dotnet', [
+        'dev-certs',
+        'https',
+        '--export-path', certFilePath,
+        '--format', 'Pem',
+        '--no-password',
+    ], { stdio: 'inherit' });
 
-      - name: Install dependencies and build React app
-        working-directory: ./HermesHandling/HermesHandling.client
-        run: |
-          npm ci
-          npm run build
+    if (result.status !== 0) {
+        throw new Error("Could not create certificate.");
+    }
+}
 
-      - name: Clean wwwroot
-        run: |
-          if exist HermesHandling\HermesHandling.server\wwwroot rmdir /s /q HermesHandling\HermesHandling.server\wwwroot
+const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
+    env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7019';
 
-      - name: Copy React build output to server wwwroot
-        run: |
-          xcopy /E /I /Y HermesHandling\HermesHandling.client\build HermesHandling\HermesHandling.server\wwwroot
-
-      - name: Build with dotnet
-        working-directory: ./HermesHandling/HermesHandling.server
-        run: dotnet build --configuration Release
-
-      - name: dotnet publish
-        working-directory: ./HermesHandling/HermesHandling.server
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
-
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    permissions:
-      id-token: write
-      contents: read
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: .net-app
-
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_27643B163F03483D9EE601DBE1EAC056 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9740DE80413A42119A770A7FEDAA140A }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9FF8D257393645A683AC7268BE39F72B }}
-
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: 'HermesHandling'
-          slot-name: 'Production'
-          package: .
+export default defineConfig({
+    plugins: [plugin()],
+    resolve: {
+        alias: {
+            '@': fileURLToPath(new URL('./src', import.meta.url))
+        }
+    },
+    server: {
+        proxy: {
+            '^/weatherforecast': {
+                target,
+                secure: false
+            }
+        },
+        port: 5173,
+        https: {
+            key: fs.readFileSync(keyFilePath),
+            cert: fs.readFileSync(certFilePath),
+        }
+    }
+});
