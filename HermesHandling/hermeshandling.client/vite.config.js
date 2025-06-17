@@ -1,5 +1,4 @@
 import { fileURLToPath, URL } from 'node:url';
-
 import { defineConfig } from 'vite';
 import plugin from '@vitejs/plugin-react';
 import fs from 'fs';
@@ -16,6 +15,11 @@ const certificateName = "hermeshandling.client";
 const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
 const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
+// Ensure directory exists
+if (!fs.existsSync(baseFolder)) {
+    fs.mkdirSync(baseFolder, { recursive: true });
+}
+
 if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
     if (0 !== child_process.spawnSync('dotnet', [
         'dev-certs',
@@ -25,7 +29,7 @@ if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
         '--format',
         'Pem',
         '--no-password',
-    ], { stdio: 'inherit', }).status) {
+    ], { stdio: 'inherit' }).status) {
         throw new Error("Could not create certificate.");
     }
 }
@@ -33,7 +37,6 @@ if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
 const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
     env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7019';
 
-// https://vitejs.dev/config/
 export default defineConfig({
     plugins: [plugin()],
     resolve: {
@@ -54,4 +57,4 @@ export default defineConfig({
             cert: fs.readFileSync(certFilePath),
         }
     }
-})
+});
