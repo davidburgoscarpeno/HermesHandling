@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "apis1": {
+      "restored": true,
+      "restoreTime": "2025-06-16T18:49:48.6197455Z"
+    },
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2025-06-16T19:04:14.3245535Z"
+    }
+  },
+  "parameters": {
+    "apis1.resourceGroupName": {
+      "Name": "apis1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "HermesHandlingServer20250616204332ResourceGroup"
+    },
+    "apis1.subscriptionId": {
+      "Name": "apis1.subscriptionId",
+      "Type": "subscription",
+      "Value": "73a4e19f-a140-4b72-ad55-c9dadf9e0508"
+    }
+  }
+}

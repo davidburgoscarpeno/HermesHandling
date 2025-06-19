@@ -118,7 +118,7 @@ function ListarReportes() {
                     <h2 className="me-auto">Reportes</h2>
                     <div style={{ position: "relative", display: "inline-block" }}>
                         <button
-                            className="btn info"
+                            className="btn primary"
                             onClick={() => setShowExportMenu((v) => !v)}
                         >
                             Exportar ▼
@@ -235,7 +235,7 @@ function ListarReportes() {
                                                 {reporte.activo ? <span>Si</span> : <span>No</span>}
                                             </td>
                                             <td>
-                                                <button className="btn info" onClick={() => handleVerDetalles(reporte)}>
+                                                <button className="btn primary" onClick={() => handleVerDetalles(reporte)}>
                                                     Ver Detalles
                                                 </button>
                                             </td>

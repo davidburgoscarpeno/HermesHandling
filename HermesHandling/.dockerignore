@@ -1,0 +1,8 @@
+.vs/
+hermeshandling.client/
+node_modules/
+FicherosOcultosWeb/
+bin/
+obj/
+*.user
+*.suo
